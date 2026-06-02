@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdMax Intelligence — Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#0F172A;min-height:100vh}
+
+/* HEADER */
+.header{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 24px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.logo{width:32px;height:32px;background:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0}
+.brand h1{font-size:14px;font-weight:600;color:#0F172A}
+.brand p{font-size:11px;color:#94A3B8}
+.nav{display:flex;gap:4px;margin-left:20px}
+.nav a{padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;color:#64748B;transition:all .15s}
+.nav a:hover{background:#F1F5F9;color:#0F172A}
+.nav a.active{background:#EFF6FF;color:#2563EB;font-weight:500}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.live-pill{display:flex;align-items:center;gap:5px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:20px;padding:4px 10px;font-size:11px;color:#16A34A;font-weight:500}
+.live-dot{width:6px;height:6px;background:#16A34A;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.timestamp{font-size:11px;color:#94A3B8}
+.refresh-btn{background:#2563EB;border:none;border-radius:7px;padding:7px 14px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .15s}
+.refresh-btn:hover{background:#1D4ED8}
+.refresh-btn:disabled{background:#CBD5E1;cursor:not-allowed}
+
+/* TRUST BAR */
+.trust-bar{background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:8px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.trust-label{color:#64748B}
+.trust-value{font-weight:600;color:#1E40AF}
+.conf-pill{background:#DBEAFE;color:#1E40AF;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.fresh-good{color:#16A34A;font-weight:600}
+.fresh-old{color:#D97706;font-weight:600}
+
+/* AI PANEL */
+.ai-panel{background:linear-gradient(135deg,#1E3A8A,#2563EB);margin:16px 24px;border-radius:12px;padding:18px 24px}
+.ai-panel-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#93C5FD;margin-bottom:10px}
+.ai-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ai-item-label{font-size:10px;color:#93C5FD;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.ai-item-value{font-size:12px;font-weight:500;color:#fff;line-height:1.5}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:0 24px 16px}
+.stat{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px 16px;transition:box-shadow .2s}
+.stat:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.stat-label{font-size:10px;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.stat-value{font-size:24px;font-weight:700;color:#0F172A;line-height:1}
+.stat-sub{font-size:11px;margin-top:4px}
+.up{color:#16A34A}.down{color:#DC2626}.warn{color:#D97706}.blue{color:#2563EB}
+
+/* ALERT BANNER */
+.alert-banner{display:none;background:#FEF2F2;border-bottom:1px solid #FECACA;padding:8px 24px;align-items:center;gap:10px}
+.alert-banner.show{display:flex}
+.alert-text{font-size:12px;color:#991B1B;flex:1;font-weight:500}
+.alert-pill{background:#FEE2E2;color:#DC2626;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600}
+
+/* TABS */
+.tabs{display:flex;gap:2px;padding:0 24px;border-bottom:1px solid #E2E8F0;background:#fff;overflow-x:auto}
+.tab{padding:12px 16px;font-size:13px;color:#64748B;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab:hover{color:#0F172A}
+.tab.active{color:#2563EB;border-bottom-color:#2563EB;font-weight:500}
+
+/* LAYOUT */
+.content{display:grid;grid-template-columns:1fr 280px;gap:16px;padding:16px 24px 28px}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* FILTERS */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.f-btn{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:5px 12px;font-size:11px;color:#64748B;cursor:pointer;transition:all .15s}
+.f-btn:hover,.f-btn.active{background:#EFF6FF;border-color:#BFDBFE;color:#2563EB}
+
+/* NEWS CARDS */
+.news-list{display:flex;flex-direction:column;gap:8px}
+.news-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:all .15s;border-left:3px solid #E2E8F0}
+.news-card:hover{box-shadow:0 2px 8px rgba(37,99,235,.08);transform:translateX(2px)}
+.news-card.critical{border-left-color:#DC2626}
+.news-card.high{border-left-color:#D97706}
+.news-card.medium{border-left-color:#2563EB}
+.card-tags{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;align-items:center}
+.tag{background:#F1F5F9;color:#475569;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:500}
+.imp-critical{background:#FEF2F2;color:#DC2626;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600}
+.imp-high{background:#FFFBEB;color:#D97706;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600}
+.imp-medium{background:#EFF6FF;color:#2563EB;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600}
+.card-title{font-size:13px;font-weight:600;color:#0F172A;line-height:1.5;margin-bottom:4px}
+.card-summary{font-size:12px;color:#64748B;line-height:1.6}
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.card-time{font-size:10px;color:#94A3B8}
+.card-link{font-size:11px;color:#2563EB;font-weight:500}
+
+/* TRENDS */
+.trends-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.trend-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px;transition:box-shadow .2s}
+.trend-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.trend-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.trend-name{font-size:13px;font-weight:600;color:#0F172A}
+.trend-source{font-size:10px;color:#94A3B8;margin-top:2px}
+.t-badge{padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.t-up{background:#F0FDF4;color:#16A34A}
+.t-down{background:#FEF2F2;color:#DC2626}
+.t-stable{background:#EFF6FF;color:#2563EB}
+.trend-value{font-size:26px;font-weight:700;color:#0F172A;margin-bottom:2px}
+.trend-sub{font-size:11px;color:#64748B;margin-bottom:6px}
+.trend-action{font-size:11px;color:#1E40AF;background:#EFF6FF;padding:4px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.trend-conf{font-size:10px;color:#94A3B8}
+.bar-wrap{background:#F1F5F9;border-radius:10px;height:4px;margin-top:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:10px}
+.bar-green{background:#16A34A}.bar-red{background:#DC2626}.bar-blue{background:#2563EB}.bar-yellow{background:#D97706}
+
+/* CPM TABLE */
+.cpm-table{background:#fff;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.cpm-row{display:grid;grid-template-columns:160px 80px 80px 100px 1fr 140px;border-bottom:1px solid #F1F5F9;align-items:center}
+.cpm-row:last-child{border-bottom:none}
+.cpm-header{background:#F8FAFC}
+.cpm-cell{padding:11px 14px;font-size:12px;color:#0F172A}
+.cpm-header .cpm-cell{font-size:10px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.4px}
+.opp-wrap{display:flex;align-items:center;gap:6px}
+.opp-bar{flex:1;background:#F1F5F9;border-radius:10px;height:4px;overflow:hidden}
+.opp-fill{height:100%;background:#2563EB;border-radius:10px}
+
+/* PUBLISHER IMPACT */
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.impact-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px}
+.impact-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.impact-title{font-size:13px;font-weight:600;color:#0F172A;margin-right:8px}
+.il{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap}
+.il-high{background:#FEF2F2;color:#DC2626}
+.il-medium{background:#FFFBEB;color:#D97706}
+.il-low{background:#F0FDF4;color:#16A34A}
+.impact-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.impact-key{font-size:11px;color:#64748B}
+.impact-val{font-size:11px;color:#0F172A;font-weight:500}
+.impact-action{background:#EFF6FF;border-radius:6px;padding:8px 10px;margin-top:8px;font-size:11px;color:#1E40AF;line-height:1.5}
+
+/* RISK CENTER */
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.risk-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px}
+.risk-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #F1F5F9}
+.risk-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.risk-title{font-size:13px;font-weight:600;color:#0F172A}
+.risk-item{padding:8px 0;border-bottom:1px solid #F8FAFC}
+.risk-item:last-child{border-bottom:none}
+.risk-name{font-size:12px;font-weight:500;color:#0F172A;margin-bottom:2px}
+.risk-detail{font-size:11px;color:#64748B;line-height:1.4;margin-bottom:3px}
+.risk-mit{font-size:10px;padding:2px 6px;border-radius:4px;display:inline-block;font-weight:500}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:12px}
+.s-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
+.s-title{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.breaking-item{padding:8px 0;border-bottom:1px solid #F8FAFC}
+.breaking-item:last-child{border-bottom:none;padding-bottom:0}
+.breaking-title{font-size:12px;color:#0F172A;line-height:1.4;margin-bottom:2px;font-weight:500}
+.breaking-meta{font-size:10px;color:#94A3B8}
+.source-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0}
+.source-name{font-size:12px;color:#475569}
+.trust-pill{font-size:10px;font-weight:600;color:#16A34A;background:#F0FDF4;padding:1px 6px;border-radius:4px}
+.cat-row{display:flex;align-items:center;gap:8px;padding:3px 0}
+.cat-name{font-size:11px;color:#475569;flex:1;min-width:50px}
+.cat-bar-wrap{flex:2;background:#F1F5F9;border-radius:10px;height:3px}
+.cat-bar{height:100%;background:#2563EB;border-radius:10px}
+.cat-num{font-size:10px;color:#94A3B8;min-width:14px;text-align:right}
+.ask-btn{display:block;background:#2563EB;color:#fff;text-align:center;padding:10px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;transition:background .15s}
+.ask-btn:hover{background:#1D4ED8}
+.loading{text-align:center;padding:40px;color:#94A3B8;font-size:13px}
+.empty{text-align:center;padding:30px;color:#94A3B8;font-size:13px}
+.section-label{font-size:11px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">AM</div>
+  <div class="brand"><h1>AdMax Intelligence</h1><p>AdTech Operations Platform</p></div>
+  <nav class="nav">
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="chat.html">AI Chat</a>
+    <a href="history.html">History</a>
+  </nav>
+  <div class="header-right">
+    <span class="timestamp" id="lastUpdated">Updating...</span>
+    <div class="live-pill"><div class="live-dot"></div>Live</div>
+    <button class="refresh-btn" id="refreshBtn" onclick="fetchNews()">↻ Refresh News</button>
+  </div>
+</div>
+
+<div class="alert-banner" id="alertBanner">
+  <span style="font-size:14px">⚠️</span>
+  <span class="alert-text" id="alertText"></span>
+  <span class="alert-pill" id="alertPill"></span>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-label">Sources scanned:</span><span class="trust-value" id="tSources">8</span></div>
+  <div class="trust-item"><span class="trust-label">Articles analyzed:</span><span class="trust-value" id="tArticles">—</span></div>
+  <div class="trust-item"><span class="trust-label">High priority:</span><span class="trust-value" id="tHigh">—</span></div>
+  <div class="trust-item"><span class="trust-label">AI confidence:</span><span class="conf-pill">94%</span></div>
+  <div class="trust-item"><span class="trust-label">Data freshness:</span><span id="tFresh" class="fresh-old">Checking...</span></div>
+</div>
+
+<div class="ai-panel">
+  <div class="ai-panel-label">Today's AdTech Intelligence Summary — AI Generated</div>
+  <div class="ai-grid">
+    <div><div class="ai-item-label">Top Opportunity</div><div class="ai-item-value">CTV inventory — CPM up 22% YoY, strong TTD demand</div></div>
+    <div><div class="ai-item-label">Top Risk</div><div class="ai-item-value">Cookie deprecation affecting retargeting — plan UID2 migration</div></div>
+    <div><div class="ai-item-label">Revenue Trend</div><div class="ai-item-value">Display stable, video strong growth, mobile softening</div></div>
+    <div><div class="ai-item-label">Recommended Action</div><div class="ai-item-value">Review floor prices + expand CTV + activate UID2</div></div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-label">Total Articles</div>
+    <div class="stat-value" id="totalCount">—</div>
+    <div class="stat-sub up" id="todayCount">Loading...</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">🔴 Critical Alerts</div>
+    <div class="stat-value down" id="criticalCount">—</div>
+    <div class="stat-sub down">Immediate action</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">🟡 High Priority</div>
+    <div class="stat-value warn" id="highCount">—</div>
+    <div class="stat-sub warn">Review today</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Active Sources</div>
+    <div class="stat-value blue" id="sourceCount">—</div>
+    <div class="stat-sub blue">Monitored feeds</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Last Fetched</div>
+    <div class="stat-value" style="font-size:14px;padding-top:4px" id="lastFetched">—</div>
+    <div class="stat-sub up">Auto daily 8am</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('news',this)">📰 Latest News</button>
+  <button class="tab" onclick="switchTab('trends',this)">📈 Industry Trends</button>
+  <button class="tab" onclick="switchTab('impact',this)">🎯 Publisher Impact</button>
+  <button class="tab" onclick="switchTab('risk',this)">⚠️ Risk Center</button>
+  <button class="tab" onclick="switchTab('critical',this)">🔴 Critical Only</button>
+  <button class="tab" onclick="switchTab('prebid',this)">⚙️ Prebid & Tech</button>
+  <button class="tab" onclick="switchTab('privacy',this)">🔒 Privacy & Cookies</button>
+</div>
+
+<div class="content">
+  <div>
+    <!-- NEWS TAB -->
+    <div class="tab-pane active" id="tab-news">
+      <div class="filters" id="filters"></div>
+      <div class="news-list" id="newsList"><div class="loading">Loading AdTech intelligence...</div></div>
+    </div>
+
+    <!-- TRENDS TAB -->
+    <div class="tab-pane" id="tab-trends">
+      <div style="font-size:11px;color:#94A3B8;margin-bottom:14px">Based on Q1 2026 earnings reports & analyst data · Confidence: 91% · Source: Public earnings calls</div>
+      <div class="section-label">DSP & Platform Performance</div>
+      <div class="trends-grid">
+        <div class="trend-card">
+          <div class="trend-top"><div><div class="trend-name">The Trade Desk</div><div class="trend-source">Q1 2026 Earnings · Confidence 95%</div></div><span class="t-badge t-up">↑ Up</span></div>
+          <div class="trend-value">+18%</div>
+          <div class="trend-sub">YoY revenue growth</div>
+          <div class="trend-action">Increase TTD deal volume</div>
+          <div class="trend-conf">Impact: Strong demand, higher CPMs expected</div>
+          <div class="bar-wrap"><div class="bar-fill bar-green" style="width:78%"></div></div>
+        </div>
+        <div class="trend-card">
+          <div class="trend-top"><div><div class="trend-name">Google AdX</div><div class="trend-source">Google Q1 2026 · Confidence 97%</div></div><span class="t-badge t-stable">→ Stable</span></div>
+          <div class="trend-value">+4%</div>
+          <div class="trend-sub">Ad revenue growth</div>
+          <div class="trend-action">Maintain current GAM setup</div>
+          <div class="trend-conf">Impact: Stable monetization</div>
+          <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:55%"></div></div>
+        </div>
+        <div class="trend-card">
+          <div class="trend-top"><div><div class="trend-name">Magnite</div><div class="trend-source">Q1 2026 Earnings · Confidence 93%</div></div><span class="t-badge t-up">↑ Up</span></div>
+          <div class="trend-value">+12%</div>
+          <div class="trend-sub">CTV revenue growth</div>
+          <div class="trend-action">Expand CTV inventory allocation</div>
+          <div class="trend-conf">Impact: CTV publishers see higher fill rates</div>
+          <div class="bar-wrap"><div class="bar-fill bar-green" style="width:62%"></div></div>
+        </div>
+        <div class="trend-card">
+          <div class="trend-top"><div><div class="trend-name">Criteo</div><div class="trend-source">Q1 2026 Earnings · Confidence 92%</div></div><span class="t-badge t-down">↓ Down</span></div>
+          <div class="trend-value">-6%</div>
+          <div class="trend-sub">Retargeting revenue</div>
+          <div class="trend-action">Diversify demand partners</div>
+          <div class="trend-conf">Impact: Retargeting CPMs softening</div>
+          <div class="bar-wrap"><div class="bar-fill bar-red" style="width:30%"></div></div>
+        </div>
+        <div class="trend-card">
+          <div class="trend-top"><div><div class="trend-name">PubMatic</div><div class="trend-source">Q1 2026 Earnings · Confidence 94%</div></div><span class="t-badge t-up">↑ Up</span></div>
+          <div class="trend-value">+9%</div>
+          <div class="trend-sub">Programmatic revenue</div>
+          <div class="trend-action">Add PubMatic if not active</div>
+          <div class="trend-conf">Impact: Good header bidding partner</div>
+          <div class="bar-wrap"><div class="bar-fill bar-green" style="width:58%"></div></div>
+        </div>
+        <div class="trend-card">
+          <div class="trend-top"><div><div class="trend-name">Index Exchange</div><div class="trend-source">Industry data · Confidence 88%</div></div><span class="t-badge t-stable">→ Stable</span></div>
+          <div class="trend-value">+2%</div>
+          <div class="trend-sub">Header bidding revenue</div>
+          <div class="trend-action">Maintain current IX setup</div>
+          <div class="trend-conf">Impact: Reliable baseline demand</div>
+          <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:45%"></div></div>
+        </div>
+      </div>
+
+      <div class="section-label">CPM Intelligence by Format</div>
+      <div class="cpm-table">
+        <div class="cpm-row cpm-header">
+          <div class="cpm-cell">Format</div>
+          <div class="cpm-cell">Avg CPM</div>
+          <div class="cpm-cell">YoY</div>
+          <div class="cpm-cell">Demand</div>
+          <div class="cpm-cell">Opportunity Score</div>
+          <div class="cpm-cell">Recommendation</div>
+        </div>
+        <div class="cpm-row">
+          <div class="cpm-cell" style="font-weight:500">📺 CTV / OTT</div>
+          <div class="cpm-cell up" style="font-weight:600">$38</div>
+          <div class="cpm-cell up">+22%</div>
+          <div class="cpm-cell"><span style="background:#F0FDF4;color:#16A34A;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">Strong</span></div>
+          <div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:92%"></div></div><span style="font-size:11px;font-weight:600;color:#2563EB">92</span></div></div>
+          <div class="cpm-cell" style="font-size:11px;color:#2563EB">Increase allocation</div>
+        </div>
+        <div class="cpm-row">
+          <div class="cpm-cell" style="font-weight:500">🎬 Outstream Video</div>
+          <div class="cpm-cell up" style="font-weight:600">$13</div>
+          <div class="cpm-cell up">+8%</div>
+          <div class="cpm-cell"><span style="background:#EFF6FF;color:#2563EB;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">Growing</span></div>
+          <div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:74%"></div></div><span style="font-size:11px;font-weight:600;color:#2563EB">74</span></div></div>
+          <div class="cpm-cell" style="font-size:11px;color:#2563EB">Add more placements</div>
+        </div>
+        <div class="cpm-row">
+          <div class="cpm-cell" style="font-weight:500">📸 Native Ads</div>
+          <div class="cpm-cell" style="font-weight:600">$5.50</div>
+          <div class="cpm-cell up">+5%</div>
+          <div class="cpm-cell"><span style="background:#EFF6FF;color:#2563EB;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">Stable</span></div>
+          <div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:58%"></div></div><span style="font-size:11px;font-weight:600;color:#2563EB">58</span></div></div>
+          <div class="cpm-cell" style="font-size:11px;color:#2563EB">Optimize placements</div>
+        </div>
+        <div class="cpm-row">
+          <div class="cpm-cell" style="font-weight:500">🖥️ Desktop Display</div>
+          <div class="cpm-cell" style="font-weight:600">$3.80</div>
+          <div class="cpm-cell blue">0%</div>
+          <div class="cpm-cell"><span style="background:#F8FAFC;color:#64748B;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">Flat</span></div>
+          <div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:42%"></div></div><span style="font-size:11px;font-weight:600;color:#64748B">42</span></div></div>
+          <div class="cpm-cell" style="font-size:11px;color:#64748B">Maintain floors</div>
+        </div>
+        <div class="cpm-row">
+          <div class="cpm-cell" style="font-weight:500">📱 Mobile Display</div>
+          <div class="cpm-cell down" style="font-weight:600">$2.10</div>
+          <div class="cpm-cell down">-3%</div>
+          <div class="cpm-cell"><span style="background:#FEF2F2;color:#DC2626;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">Soft</span></div>
+          <div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill bar-red" style="width:28%"></div></div><span style="font-size:11px;font-weight:600;color:#DC2626">28</span></div></div>
+          <div class="cpm-cell" style="font-size:11px;color:#DC2626">Review floor prices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLISHER IMPACT TAB -->
+    <div class="tab-pane" id="tab-impact">
+      <div style="font-size:11px;color:#94A3B8;margin-bottom:14px">Publisher impact analysis based on today's news and industry signals · Updated daily</div>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-header"><div class="impact-title">Google AdX Demand Softening</div><span class="il il-medium">Medium Impact</span></div>
+          <div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val down">-3% to -5%</span></div>
+          <div class="impact-row"><span class="impact-key">Affected formats</span><span class="impact-val">Display, Mobile</span></div>
+          <div class="impact-row"><span class="impact-key">Timeline</span><span class="impact-val">Q2 2026</span></div>
+          <div class="impact-action">Review floor prices and bid density. Consider activating additional SSPs to compensate for softening demand.</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-header"><div class="impact-title">CTV Demand Surge</div><span class="il il-low">Opportunity</span></div>
+          <div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val up">+15% to +22%</span></div>
+          <div class="impact-row"><span class="impact-key">Affected formats</span><span class="impact-val">Video, OTT, CTV</span></div>
+          <div class="impact-row"><span class="impact-key">Timeline</span><span class="impact-val">Now — Q3 2026</span></div>
+          <div class="impact-action">Increase CTV inventory allocation immediately. TTD and Magnite showing strong demand signals.</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-header"><div class="impact-title">Cookie Deprecation Uncertainty</div><span class="il il-high">High Impact</span></div>
+          <div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val down">-8% to -15%</span></div>
+          <div class="impact-row"><span class="impact-key">Affected formats</span><span class="impact-val">All retargeting</span></div>
+          <div class="impact-row"><span class="impact-key">Timeline</span><span class="impact-val">2026–2027</span></div>
+          <div class="impact-action">Accelerate first-party data strategy. Implement UID2 and ID5 identity solutions now to future-proof revenue.</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-header"><div class="impact-title">Prebid.js v10 Migration</div><span class="il il-medium">Medium Impact</span></div>
+          <div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val blue">Neutral to +5%</span></div>
+          <div class="impact-row"><span class="impact-key">Affected formats</span><span class="impact-val">All header bidding</span></div>
+          <div class="impact-row"><span class="impact-key">Timeline</span><span class="impact-val">Q2–Q3 2026</span></div>
+          <div class="impact-action">Plan Prebid.js v10 upgrade. New identity and privacy modules offer improved targeting capabilities.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISK CENTER TAB -->
+    <div class="tab-pane" id="tab-risk">
+      <div style="font-size:11px;color:#94A3B8;margin-bottom:14px">Revenue risk assessment based on current market signals · Confidence: 88%</div>
+      <div class="risk-grid">
+        <div class="risk-card">
+          <div class="risk-header"><div class="risk-dot" style="background:#DC2626"></div><div class="risk-title">High Risk</div></div>
+          <div class="risk-item">
+            <div class="risk-name">Cookie Deprecation</div>
+            <div class="risk-detail">Affected: All retargeting inventory</div>
+            <div class="risk-detail">RPM Impact: -8% to -15%</div>
+            <span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Action: Deploy UID2 now</span>
+          </div>
+          <div class="risk-item">
+            <div class="risk-name">Privacy Sandbox Adoption</div>
+            <div class="risk-detail">Affected: Behavioral targeting</div>
+            <div class="risk-detail">RPM Impact: -5% to -12%</div>
+            <span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Action: Contextual targeting</span>
+          </div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-header"><div class="risk-dot" style="background:#D97706"></div><div class="risk-title">Medium Risk</div></div>
+          <div class="risk-item">
+            <div class="risk-name">AdX Demand Softening</div>
+            <div class="risk-detail">Affected: Display, Mobile</div>
+            <div class="risk-detail">RPM Impact: -3% to -5%</div>
+            <span class="risk-mit" style="background:#FFFBEB;color:#D97706">Action: Add SSP partners</span>
+          </div>
+          <div class="risk-item">
+            <div class="risk-name">Floor Price Sensitivity</div>
+            <div class="risk-detail">Affected: Open auction</div>
+            <div class="risk-detail">RPM Impact: -2% to -8%</div>
+            <span class="risk-mit" style="background:#FFFBEB;color:#D97706">Action: Dynamic floors</span>
+          </div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-header"><div class="risk-dot" style="background:#16A34A"></div><div class="risk-title">Opportunity</div></div>
+          <div class="risk-item">
+            <div class="risk-name">CTV Growth</div>
+            <div class="risk-detail">Affected: Video inventory</div>
+            <div class="risk-detail">RPM Opportunity: +15% to +22%</div>
+            <span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Action: Expand CTV</span>
+          </div>
+          <div class="risk-item">
+            <div class="risk-name">Native Ad Growth</div>
+            <div class="risk-detail">Affected: Content pages</div>
+            <div class="risk-detail">RPM Opportunity: +4% to +6%</div>
+            <span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Action: Add native</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRITICAL TAB -->
+    <div class="tab-pane" id="tab-critical">
+      <div class="news-list" id="criticalList"><div class="loading">Loading critical alerts...</div></div>
+    </div>
+
+    <!-- PREBID TAB -->
+    <div class="tab-pane" id="tab-prebid">
+      <div class="news-list" id="prebidList"><div class="loading">Loading Prebid & tech news...</div></div>
+    </div>
+
+    <!-- PRIVACY TAB -->
+    <div class="tab-pane" id="tab-privacy">
+      <div class="news-list" id="privacyList"><div class="loading">Loading privacy updates...</div></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="s-card">
+      <div class="s-title">🔴 Breaking & Critical</div>
+      <div id="breakingList"><div style="font-size:12px;color:#94A3B8">Loading...</div></div>
+    </div>
+    <div class="s-card">
+      <div class="s-title">📊 By Category</div>
+      <div id="catBreakdown"></div>
+    </div>
+    <div class="s-card">
+      <div class="s-title">📰 Sources & Trust</div>
+      <div id="sourceList"></div>
+    </div>
+    <div class="s-card">
+      <div class="s-title">💬 Ask AdMax AI</div>
+      <p style="font-size:12px;color:#64748B;margin-bottom:10px">Ask about any news, trend, or AdTech topic</p>
+      <a href="chat.html" class="ask-btn">Open AI Chat →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://admax-adtech-agent.onrender.com/api';
+let allNews = [];
+
+document.getElementById('lastUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+async function loadNews() {
+  try {
+    const res = await fetch(`${API}/news`);
+    const data = await res.json();
+    allNews = data.news || [];
+    renderAll(allNews);
+  } catch(e) {
+    document.getElementById('newsList').innerHTML = '<div class="empty">Backend not connected. Make sure server is running.</div>';
+  }
+}
+
+async function fetchNews() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true;
+  btn.textContent = '⟳ Fetching...';
+  document.getElementById('newsList').innerHTML = '<div class="loading">Fetching latest AdTech news from all sources...</div>';
+  try {
+    await fetch(`${API}/news/fetch`, { method: 'POST' });
+    await loadNews();
+  } catch(e) {
+    alert('Backend not reachable. Make sure Render is running.');
+  }
+  btn.disabled = false;
+  btn.textContent = '↻ Refresh News';
+}
+
+function renderAll(news) {
+  updateStats(news);
+  buildFilters(news);
+  renderList('newsList', news);
+  renderList('criticalList', news.filter(n => n.importance === 'critical' || n.importance === 'high'));
+  renderList('prebidList', news.filter(n => n.category === 'Prebid' || (n.title + ' ' + (n.summary || '')).toLowerCase().includes('prebid') || (n.title + ' ' + (n.summary || '')).toLowerCase().includes('header bidding')));
+  renderList('privacyList', news.filter(n => n.category === 'Privacy' || (n.title + ' ' + (n.summary || '')).toLowerCase().includes('cookie') || (n.title + ' ' + (n.summary || '')).toLowerCase().includes('privacy')));
+  updateSidebar(news);
+  document.getElementById('tArticles').textContent = news.length;
+  document.getElementById('tHigh').textContent = news.filter(n => n.importance === 'critical' || n.importance === 'high').length;
+  const fresh = news.length && (Date.now() - new Date(news[0].created_at).getTime()) < 3600000;
+  const freshEl = document.getElementById('tFresh');
+  freshEl.textContent = fresh ? 'Fresh (< 1hr)' : 'Check sources';
+  freshEl.className = fresh ? 'fresh-good' : 'fresh-old';
+}
+
+function updateStats(news) {
+  document.getElementById('totalCount').textContent = news.length;
+  document.getElementById('criticalCount').textContent = news.filter(n => n.importance === 'critical').length;
+  document.getElementById('highCount').textContent = news.filter(n => n.importance === 'high').length;
+  document.getElementById('sourceCount').textContent = [...new Set(news.map(n => n.source))].length;
+  document.getElementById('lastFetched').textContent = news.length ? timeAgo(news[0].created_at) : '—';
+  const today = news.filter(n => (Date.now() - new Date(n.created_at).getTime()) < 86400000);
+  document.getElementById('todayCount').textContent = today.length + ' added today';
+  const critical = news.filter(n => n.importance === 'critical');
+  if (critical.length) {
+    document.getElementById('alertBanner').classList.add('show');
+    document.getElementById('alertText').textContent = critical[0].title;
+    document.getElementById('alertPill').textContent = critical.length + ' critical';
+  }
+}
+
+function buildFilters(news) {
+  const cats = [...new Set(news.map(n => n.category).filter(Boolean))];
+  const el = document.getElementById('filters');
+  el.innerHTML = `<button class="f-btn active" onclick="filterBy('all',this)">All (${news.length})</button>`;
+  cats.forEach(cat => {
+    const count = news.filter(n => n.category === cat).length;
+    el.innerHTML += `<button class="f-btn" onclick="filterBy('${cat}',this)">${cat} (${count})</button>`;
+  });
+  ['critical', 'high'].forEach(imp => {
+    const count = news.filter(n => n.importance === imp).length;
+    if (count) el.innerHTML += `<button class="f-btn" onclick="filterImp('${imp}',this)">${imp === 'critical' ? '🔴' : '🟡'} ${imp} (${count})</button>`;
+  });
+}
+
+function filterBy(cat, btn) { setActive(btn); renderList('newsList', cat === 'all' ? allNews : allNews.filter(n => n.category === cat)); }
+function filterImp(imp, btn) { setActive(btn); renderList('newsList', allNews.filter(n => n.importance === imp)); }
+function setActive(btn) { document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+
+function updateSidebar(news) {
+  const breaking = news.filter(n => n.importance === 'critical' || n.importance === 'high').slice(0, 5);
+  document.getElementById('breakingList').innerHTML = breaking.length
+    ? breaking.map(n => `<div class="breaking-item"><div class="breaking-title">${n.title}</div><div class="breaking-meta">${n.source} · ${timeAgo(n.created_at)}</div></div>`).join('')
+    : '<div style="font-size:12px;color:#94A3B8">No critical updates today</div>';
+  const cats = {};
+  news.forEach(n => { if (n.category) cats[n.category] = (cats[n.category] || 0) + 1; });
+  const max = Math.max(...Object.values(cats), 1);
+  document.getElementById('catBreakdown').innerHTML = Object.entries(cats).sort((a, b) => b[1] - a[1]).map(([c, count]) => `<div class="cat-row"><span class="cat-name">${c}</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:${Math.round(count / max * 100)}%"></div></div><span class="cat-num">${count}</span></div>`).join('');
+  const sources = {};
+  news.forEach(n => { if (n.source) sources[n.source] = (sources[n.source] || 0) + 1; });
+  const trustMap = { 'AdExchanger': 98, 'Prebid.org': 99, 'IAB Tech Lab': 97, 'IAB': 96, 'Chromium Blog': 95, 'Digiday': 89, 'Nieman Lab': 87, 'MediaPost': 85 };
+  document.getElementById('sourceList').innerHTML = Object.entries(sources).sort((a, b) => b[1] - a[1]).map(([src, count]) => `<div class="source-row"><span class="source-name">${src} (${count})</span><span class="trust-pill">${trustMap[src] || 85}%</span></div>`).join('');
+}
+
+function renderList(id, news) {
+  const el = document.getElementById(id);
+  if (!news.length) { el.innerHTML = '<div class="empty">No articles found for this filter.</div>'; return; }
+  const order = { critical: 0, high: 1, medium: 2 };
+  const sorted = [...news].sort((a, b) => (order[a.importance] || 2) - (order[b.importance] || 2));
+  el.innerHTML = sorted.map(item => `
+    <a class="news-card ${item.importance || 'medium'}" href="${item.url}" target="_blank">
+      <div class="card-tags">
+        <span class="tag">${item.source || 'Unknown'}</span>
+        <span class="tag">${item.category || 'General'}</span>
+        <span class="imp-${item.importance || 'medium'}">${item.importance === 'critical' ? '🔴 CRITICAL' : item.importance === 'high' ? '🟡 HIGH PRIORITY' : '🔵 Update'}</span>
+      </div>
+      <div class="card-title">${item.title}</div>
+      ${item.summary ? `<div class="card-summary">${item.summary}</div>` : ''}
+      <div class="card-footer">
+        <span class="card-time">${item.source || 'Unknown'} · ${timeAgo(item.created_at)}</span>
+        <span class="card-link">Read full article →</span>
+      </div>
+    </a>`).join('');
+}
+
+function timeAgo(d) {
+  if (!d) return '';
+  const diff = Date.now() - new Date(d).getTime();
+  const m = Math.floor(diff / 60000), h = Math.floor(diff / 3600000), days = Math.floor(diff / 86400000);
+  if (m < 1) return 'just now'; if (m < 60) return m + 'm ago'; if (h < 24) return h + 'h ago'; return days + 'd ago';
+}
+
+loadNews();
+setInterval(loadNews, 300000);
+</script>
+</body>
+</html>

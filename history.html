@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdMax — Chat History</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#0F172A;height:100vh;display:flex;flex-direction:column}
+.header{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 24px;height:56px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.logo{width:32px;height:32px;background:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0}
+.brand h1{font-size:14px;font-weight:600;color:#0F172A}
+.brand p{font-size:11px;color:#94A3B8}
+.nav{display:flex;gap:4px;margin-left:20px}
+.nav a{padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;color:#64748B;transition:all .15s}
+.nav a:hover{background:#F1F5F9;color:#0F172A}
+.nav a.active{background:#EFF6FF;color:#2563EB;font-weight:500}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:300px;border-right:1px solid #E2E8F0;display:flex;flex-direction:column;background:#fff}
+.sidebar-header{padding:16px;border-bottom:1px solid #E2E8F0}
+.sidebar-header h2{font-size:14px;font-weight:600;color:#0F172A;margin-bottom:2px}
+.sidebar-header p{font-size:12px;color:#94A3B8}
+.session-list{flex:1;overflow-y:auto;padding:8px}
+.session-item{padding:12px;border-radius:8px;cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all .15s}
+.session-item:hover{background:#F8FAFC;border-color:#E2E8F0}
+.session-item.active{background:#EFF6FF;border-color:#BFDBFE}
+.session-preview{font-size:13px;color:#0F172A;margin-bottom:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.session-meta{display:flex;justify-content:space-between}
+.session-time{font-size:11px;color:#94A3B8}
+.session-count{font-size:11px;background:#EFF6FF;color:#2563EB;padding:1px 7px;border-radius:10px}
+.chat-view{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.chat-view-header{padding:14px 24px;border-bottom:1px solid #E2E8F0;display:flex;align-items:center;justify-content:space-between;background:#fff}
+.chat-view-header h3{font-size:13px;color:#64748B}
+.new-chat-btn{background:#2563EB;border:none;border-radius:7px;padding:7px 14px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
+.messages{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px;background:#F8FAFC}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#94A3B8;text-align:center;gap:10px}
+.empty-state h3{font-size:15px;color:#64748B}
+.empty-icon{font-size:40px}
+.message{display:flex;gap:12px;max-width:760px;width:100%}
+.message.user{margin-left:auto;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.message.user .avatar{background:#2563EB;color:#fff}
+.message.assistant .avatar{background:#fff;border:1px solid #E2E8F0;color:#2563EB}
+.bubble{padding:12px 16px;border-radius:12px;font-size:14px;line-height:1.6;max-width:calc(100% - 44px)}
+.message.user .bubble{background:#2563EB;color:#fff;border-bottom-right-radius:4px}
+.message.assistant .bubble{background:#fff;border:1px solid #E2E8F0;color:#0F172A;border-bottom-left-radius:4px}
+.msg-time{font-size:10px;color:#CBD5E1;margin-top:6px}
+.loading{text-align:center;padding:40px;color:#94A3B8;font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">AM</div>
+  <div class="brand">
+    <h1>AdMax Intelligence</h1>
+    <p>Chat History</p>
+  </div>
+  <nav class="nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="chat.html">AI Chat</a>
+    <a href="history.html" class="active">History</a>
+  </nav>
+</div>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Past Conversations</h2>
+      <p id="sessionCount">Loading...</p>
+    </div>
+    <div class="session-list" id="sessionList">
+      <div class="loading">Loading sessions...</div>
+    </div>
+  </div>
+
+  <div class="chat-view">
+    <div class="chat-view-header">
+      <h3 id="chatTitle">Select a conversation</h3>
+      <a href="chat.html" class="new-chat-btn">+ New Chat</a>
+    </div>
+    <div class="messages" id="messages">
+      <div class="empty-state">
+        <div class="empty-icon">💬</div>
+        <h3>Select a conversation</h3>
+        <p>Click any session on the left to view the full chat</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://admax-adtech-agent.onrender.com/api';
+
+async function loadSessions() {
+  try {
+    const res = await fetch(`${API}/history/sessions`);
+    const data = await res.json();
+    const sessions = data.sessions || [];
+    document.getElementById('sessionCount').textContent = `${sessions.length} conversation${sessions.length !== 1 ? 's' : ''}`;
+    if (!sessions.length) {
+      document.getElementById('sessionList').innerHTML = '<div style="text-align:center;padding:40px 16px;color:#94A3B8;font-size:13px">No conversations yet.<br><br><a href="chat.html" style="color:#2563EB">Start chatting →</a></div>';
+      return;
+    }
+    document.getElementById('sessionList').innerHTML = sessions.map(s => `
+      <div class="session-item" onclick="loadSession('${s.session_id}', this)">
+        <div class="session-preview">${esc(s.first_message)}</div>
+        <div class="session-meta">
+          <span class="session-time">${timeAgo(s.created_at)}</span>
+          <span class="session-count">${s.message_count} msgs</span>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    document.getElementById('sessionList').innerHTML = '<div style="text-align:center;padding:20px;color:#DC2626;font-size:13px">Failed to load sessions.</div>';
+  }
+}
+
+async function loadSession(sessionId, el) {
+  document.querySelectorAll('.session-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('messages').innerHTML = '<div class="loading">Loading conversation...</div>';
+  try {
+    const res = await fetch(`${API}/history/${sessionId}`);
+    const data = await res.json();
+    const msgs = data.messages || [];
+    document.getElementById('chatTitle').textContent = `${msgs.length} messages · ${timeAgo(msgs[0]?.created_at)}`;
+    if (!msgs.length) {
+      document.getElementById('messages').innerHTML = '<div class="empty-state"><h3>No messages found</h3></div>';
+      return;
+    }
+    document.getElementById('messages').innerHTML = msgs.map(m => `
+      <div class="message ${m.role}">
+        <div class="avatar">${m.role === 'user' ? 'You' : 'AM'}</div>
+        <div class="bubble">
+          ${esc(m.content).replace(/\n/g, '<br>')}
+          <div class="msg-time">${timeAgo(m.created_at)}</div>
+        </div>
+      </div>`).join('');
+    document.getElementById('messages').scrollTop = 99999;
+  } catch(e) {
+    document.getElementById('messages').innerHTML = '<div class="empty-state"><h3>Failed to load</h3></div>';
+  }
+}
+
+function esc(t) { if(!t)return''; return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function timeAgo(d) {
+  if(!d)return'';
+  const diff = Date.now() - new Date(d).getTime();
+  const m = Math.floor(diff/60000), h = Math.floor(diff/3600000), days = Math.floor(diff/86400000);
+  if(m<1)return'just now'; if(m<60)return m+'m ago'; if(h<24)return h+'h ago'; return days+'d ago';
+}
+
+loadSessions();
+</script>
+</body>
+</html>
