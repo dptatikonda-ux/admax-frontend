@@ -76,9 +76,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tab.active{color:#2563EB;border-bottom-color:#2563EB;font-weight:500}
 
 /* LAYOUT */
-.content{display:grid;grid-template-columns:1fr 300px;gap:16px;padding:16px 24px 80px}
+.content{display:grid;grid-template-columns:1fr 360px;gap:0;padding:0;height:calc(100vh - 160px)}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
+
+.sidebar{display:flex;flex-direction:column;gap:0;border-left:1px solid #E2E8F0;background:#fff;height:100%;overflow-y:auto}
 
 /* FILTERS */
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
@@ -312,13 +314,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="trust-item"><span class="trust-label">Freshness:</span><span id="tFresh" class="fresh-old">Checking...</span></div>
 </div>
 
-<div class="ai-panel">
-  <div class="ai-panel-label">Today's AdTech Intelligence Summary — AI Generated</div>
-  <div class="ai-grid">
-    <div><div class="ai-item-label">Top Opportunity</div><div class="ai-item-value">CTV inventory — CPM up 22% YoY, strong TTD demand</div></div>
-    <div><div class="ai-item-label">Top Risk</div><div class="ai-item-value">Cookie deprecation affecting retargeting — activate UID2 now</div></div>
-    <div><div class="ai-item-label">Revenue Trend</div><div class="ai-item-value">Display stable, video strong growth, mobile softening</div></div>
-    <div><div class="ai-item-label">Recommended Action</div><div class="ai-item-value">Review floors + expand CTV + activate UID2 + upgrade Prebid</div></div>
+<!-- COMPACT STATS ROW -->
+<div style="display:flex;align-items:center;gap:12px;padding:10px 24px;background:#fff;border-bottom:1px solid #E2E8F0;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+    <span style="color:#64748B">Articles:</span>
+    <strong id="totalCount" style="color:#0F172A">—</strong>
+    <span id="todayCount" style="font-size:11px;color:#16A34A"></span>
+  </div>
+  <div style="width:1px;height:16px;background:#E2E8F0"></div>
+  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+    <span style="color:#DC2626">🔴</span>
+    <strong id="criticalCount" style="color:#DC2626">—</strong>
+    <span style="color:#64748B;font-size:11px">critical</span>
+  </div>
+  <div style="width:1px;height:16px;background:#E2E8F0"></div>
+  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+    <span style="color:#D97706">🟡</span>
+    <strong id="highCount" style="color:#D97706">—</strong>
+    <span style="color:#64748B;font-size:11px">high priority</span>
+  </div>
+  <div style="width:1px;height:16px;background:#E2E8F0"></div>
+  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+    <span style="color:#64748B">Sources:</span>
+    <strong id="sourceCount" style="color:#2563EB">—</strong>
+  </div>
+  <div style="width:1px;height:16px;background:#E2E8F0"></div>
+  <div style="font-size:11px">
+    <span style="color:#64748B">Confidence:</span>
+    <span class="conf-pill" id="confPill" style="background:#DBEAFE;color:#1E40AF;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600">—%</span>
+  </div>
+  <div style="width:1px;height:16px;background:#E2E8F0"></div>
+  <div style="font-size:11px">
+    <span style="color:#64748B">Freshness:</span>
+    <span id="tFresh" style="color:#D97706;font-weight:500">Checking...</span>
   </div>
 </div>
 
