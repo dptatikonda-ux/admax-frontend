@@ -141,21 +141,35 @@ function renderSessions(sessions) {
     </div>`).join('');
 }
 
-async function loadSession(encodedId, el) {
+async function loadSession(rawId, el) {
   document.querySelectorAll('.session-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('messages').innerHTML = '<div class="loading">Loading conversation...</div>';
 
   try {
-    const res = await fetch(`${API}/history/session?session_id=${encodedId}`);
-    if (!res.ok) throw new Error('Failed');
+    // Double encode to handle special characters
+    const encoded = encodeURIComponent(rawId);
+    const url = `${API}/history/session?session_id=${encoded}`;
+    console.log('Fetching:', url);
+
+    const res = await fetch(url);
+    console.log('Response status:', res.status);
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Error response:', errorText);
+      throw new Error(`Server returned ${res.status}`);
+    }
+
     const data = await res.json();
     const msgs = data.messages || [];
 
-    document.getElementById('chatTitle').textContent = `${msgs.length} messages · ${timeAgo(msgs[0]?.created_at)}`;
+    document.getElementById('chatTitle').textContent =
+      `${msgs.length} messages · ${timeAgo(msgs[0]?.created_at)}`;
 
     if (!msgs.length) {
-      document.getElementById('messages').innerHTML = '<div class="empty-state"><h3>No messages found</h3></div>';
+      document.getElementById('messages').innerHTML =
+        '<div class="empty-state"><h3>No messages found</h3></div>';
       return;
     }
 
@@ -169,8 +183,15 @@ async function loadSession(encodedId, el) {
       </div>`).join('');
 
     document.getElementById('messages').scrollTop = 99999;
+
   } catch(e) {
-    document.getElementById('messages').innerHTML = '<div class="empty-state"><h3>Failed to load conversation</h3><p>Server may be waking up. Try again in 30 seconds.</p></div>';
+    console.error('loadSession error:', e);
+    document.getElementById('messages').innerHTML =
+      `<div class="empty-state">
+        <h3>Failed to load conversation</h3>
+        <p>Error: ${e.message}</p>
+        <p style="margin-top:8px;font-size:12px">Open browser console (F12) for details</p>
+      </div>`;
   }
 }
 
