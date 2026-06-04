@@ -186,60 +186,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .loading{text-align:center;padding:40px;color:#94A3B8;font-size:13px}
 .empty{text-align:center;padding:30px;color:#94A3B8;font-size:13px}
 
-/* ===== KIA CHAT WIDGET ===== */
-.kia-trigger{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.kia-bubble-btn{width:56px;height:56px;background:linear-gradient(135deg,#2563EB,#7C3AED);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,99,235,.4);transition:transform .2s,box-shadow .2s;position:relative}
-.kia-bubble-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(37,99,235,.5)}
-.kia-bubble-btn svg{width:24px;height:24px;fill:white}
-.kia-notif{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#DC2626;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
-.kia-tooltip{background:#0F172A;color:#fff;font-size:12px;padding:6px 12px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateX(8px);transition:all .2s}
-.kia-trigger:hover .kia-tooltip{opacity:1;transform:translateX(0)}
+/* ===== Ria CHAT WIDGET ===== */
+.Ria-trigger{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.Ria-bubble-btn{width:56px;height:56px;background:linear-gradient(135deg,#2563EB,#7C3AED);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,99,235,.4);transition:transform .2s,box-shadow .2s;position:relative}
+.Ria-bubble-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(37,99,235,.5)}
+.Ria-bubble-btn svg{width:24px;height:24px;fill:white}
+.Ria-notif{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#DC2626;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.Ria-tooltip{background:#0F172A;color:#fff;font-size:12px;padding:6px 12px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateX(8px);transition:all .2s}
+.Ria-trigger:hover .Ria-tooltip{opacity:1;transform:translateX(0)}
 
-/* KIA PANEL */
-.kia-panel{position:fixed;bottom:90px;right:24px;width:380px;height:560px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.15);z-index:1000;display:flex;flex-direction:column;transform:scale(.95) translateY(10px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
-.kia-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+/* Ria PANEL */
+.Ria-panel{position:fixed;bottom:90px;right:24px;width:380px;height:560px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.15);z-index:1000;display:flex;flex-direction:column;transform:scale(.95) translateY(10px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+.Ria-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
 
-.kia-header{background:linear-gradient(135deg,#1E3A8A,#2563EB);padding:16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.kia-avatar{width:40px;height:40px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.kia-info h3{font-size:15px;font-weight:600;color:#fff}
-.kia-info p{font-size:11px;color:#93C5FD}
-.kia-status{display:flex;align-items:center;gap:4px;margin-top:2px}
-.kia-status-dot{width:5px;height:5px;background:#10B981;border-radius:50%;animation:pulse 2s infinite}
-.kia-status span{font-size:10px;color:#6EE7B7}
-.kia-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.kia-close:hover{background:rgba(255,255,255,.25)}
+.Ria-header{background:linear-gradient(135deg,#1E3A8A,#2563EB);padding:16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.Ria-avatar{width:40px;height:40px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.Ria-info h3{font-size:15px;font-weight:600;color:#fff}
+.Ria-info p{font-size:11px;color:#93C5FD}
+.Ria-status{display:flex;align-items:center;gap:4px;margin-top:2px}
+.Ria-status-dot{width:5px;height:5px;background:#10B981;border-radius:50%;animation:pulse 2s infinite}
+.Ria-status span{font-size:10px;color:#6EE7B7}
+.Ria-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.Ria-close:hover{background:rgba(255,255,255,.25)}
 
-.kia-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#F8FAFC}
-.kia-msg{display:flex;gap:8px;max-width:100%}
-.kia-msg.user{flex-direction:row-reverse}
-.kia-msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
-.kia-msg.assistant .kia-msg-avatar{background:#EFF6FF;color:#2563EB;font-size:14px}
-.kia-msg.user .kia-msg-avatar{background:#2563EB;color:#fff;font-size:10px}
-.kia-msg-bubble{padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.5;max-width:calc(100% - 40px)}
-.kia-msg.assistant .kia-msg-bubble{background:#fff;border:1px solid #E2E8F0;color:#0F172A;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.kia-msg.user .kia-msg-bubble{background:#2563EB;color:#fff;border-bottom-right-radius:4px}
+.Ria-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#F8FAFC}
+.Ria-msg{display:flex;gap:8px;max-width:100%}
+.Ria-msg.user{flex-direction:row-reverse}
+.Ria-msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.Ria-msg.assistant .Ria-msg-avatar{background:#EFF6FF;color:#2563EB;font-size:14px}
+.Ria-msg.user .Ria-msg-avatar{background:#2563EB;color:#fff;font-size:10px}
+.Ria-msg-bubble{padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.5;max-width:calc(100% - 40px)}
+.Ria-msg.assistant .Ria-msg-bubble{background:#fff;border:1px solid #E2E8F0;color:#0F172A;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.Ria-msg.user .Ria-msg-bubble{background:#2563EB;color:#fff;border-bottom-right-radius:4px}
 
-.kia-typing-bubble{padding:10px 14px;background:#fff;border:1px solid #E2E8F0;border-radius:12px;border-bottom-left-radius:4px;display:flex;gap:4px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.kia-dot{width:5px;height:5px;background:#2563EB;border-radius:50%;animation:bounce 1.2s infinite}
-.kia-dot:nth-child(2){animation-delay:.2s}
-.kia-dot:nth-child(3){animation-delay:.4s}
+.Ria-typing-bubble{padding:10px 14px;background:#fff;border:1px solid #E2E8F0;border-radius:12px;border-bottom-left-radius:4px;display:flex;gap:4px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.Ria-dot{width:5px;height:5px;background:#2563EB;border-radius:50%;animation:bounce 1.2s infinite}
+.Ria-dot:nth-child(2){animation-delay:.2s}
+.Ria-dot:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
 
-.kia-quick-replies{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;background:#fff;border-top:1px solid #F1F5F9;flex-shrink:0}
-.kia-quick{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:20px;padding:5px 10px;font-size:11px;color:#2563EB;cursor:pointer;transition:all .15s;white-space:nowrap}
-.kia-quick:hover{background:#DBEAFE}
+.Ria-quick-replies{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;background:#fff;border-top:1px solid #F1F5F9;flex-shrink:0}
+.Ria-quick{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:20px;padding:5px 10px;font-size:11px;color:#2563EB;cursor:pointer;transition:all .15s;white-space:nowrap}
+.Ria-quick:hover{background:#DBEAFE}
 
-.kia-input-area{padding:12px 16px;background:#fff;border-top:1px solid #E2E8F0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
-.kia-input-area textarea{flex:1;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:9px 12px;font-size:13px;color:#0F172A;font-family:inherit;resize:none;min-height:40px;max-height:100px;outline:none;transition:border-color .15s}
-.kia-input-area textarea:focus{border-color:#2563EB;background:#fff}
-.kia-input-area textarea::placeholder{color:#94A3B8}
-.kia-send{background:#2563EB;border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
-.kia-send:hover{background:#1D4ED8}
-.kia-send:disabled{background:#CBD5E1;cursor:not-allowed}
-.kia-send svg{width:16px;height:16px;fill:white}
+.Ria-input-area{padding:12px 16px;background:#fff;border-top:1px solid #E2E8F0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
+.Ria-input-area textarea{flex:1;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:9px 12px;font-size:13px;color:#0F172A;font-family:inherit;resize:none;min-height:40px;max-height:100px;outline:none;transition:border-color .15s}
+.Ria-input-area textarea:focus{border-color:#2563EB;background:#fff}
+.Ria-input-area textarea::placeholder{color:#94A3B8}
+.Ria-send{background:#2563EB;border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.Ria-send:hover{background:#1D4ED8}
+.Ria-send:disabled{background:#CBD5E1;cursor:not-allowed}
+.Ria-send svg{width:16px;height:16px;fill:white}
 
-.kia-wake-msg{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin:0 16px 8px;display:none}
-.kia-wake-msg.show{display:block}
+.Ria-wake-msg{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin:0 16px 8px;display:none}
+.Ria-wake-msg.show{display:block}
 
 /* MOBILE NAV */
 .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E2E8F0;padding:8px 0;z-index:200;justify-content:space-around}
@@ -268,10 +268,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   .impact-grid{grid-template-columns:1fr}
   .risk-grid{grid-template-columns:1fr}
   .mobile-nav{display:flex}
-  .kia-panel{width:calc(100vw - 32px);right:16px;bottom:70px}
-  .kia-trigger{bottom:70px;right:16px}
+  .Ria-panel{width:calc(100vw - 32px);right:16px;bottom:70px}
+  .Ria-trigger{bottom:70px;right:16px}
 }
 @media(max-width:480px){.ai-grid{grid-template-columns:1fr}}
+.Ria-panel.expanded{width:680px;height:80vh;bottom:24px}
+@media(max-width:768px){.Ria-panel.expanded{width:calc(100vw - 32px);height:85vh}}
 </style>
 </head>
 <body>
@@ -457,9 +459,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div id="sourceList"></div>
     </div>
     <div class="s-card">
-      <div class="s-title">💬 Ask Kia</div>
+      <div class="s-title">💬 Ask Ria</div>
       <p style="font-size:12px;color:#64748B;margin-bottom:10px">Your AI AdTech assistant is ready</p>
-      <button onclick="toggleKia()" style="display:block;width:100%;background:#2563EB;color:#fff;text-align:center;padding:10px;border-radius:8px;border:none;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#1D4ED8'" onmouseout="this.style.background='#2563EB'">Chat with Kia →</button>
+      <button onclick="toggleRia()" style="display:block;width:100%;background:#2563EB;color:#fff;text-align:center;padding:10px;border-radius:8px;border:none;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#1D4ED8'" onmouseout="this.style.background='#2563EB'">Chat with Ria →</button>
     </div>
   </div>
 </div>
@@ -467,48 +469,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- MOBILE NAV -->
 <nav class="mobile-nav">
   <a href="dashboard.html" class="active"><span>🏠</span><span>Dashboard</span></a>
-  <a href="#" onclick="toggleKia();return false"><span>💬</span><span>Ask Kia</span></a>
+  <a href="#" onclick="toggleRia();return false"><span>💬</span><span>Ask Ria</span></a>
   <a href="history.html"><span>📜</span><span>History</span></a>
 </nav>
 
-<!-- ===== KIA CHAT WIDGET ===== -->
-<div class="kia-trigger">
-  <span class="kia-tooltip">Ask Kia anything about AdTech</span>
-  <button class="kia-bubble-btn" onclick="toggleKia()">
+<!-- ===== Ria CHAT WIDGET ===== -->
+<div class="Ria-trigger">
+  <span class="Ria-tooltip">Ask Ria anything about AdTech</span>
+  <button class="Ria-bubble-btn" onclick="toggleRia()">
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-    <div class="kia-notif" id="kiaNotif" style="display:none">1</div>
+    <div class="Ria-notif" id="RiaNotif" style="display:none">1</div>
   </button>
 </div>
 
-<div class="kia-panel" id="kiaPanel">
-  <div class="kia-header">
-    <div class="kia-avatar">🤖</div>
-    <div class="kia-info">
-      <h3>Kia</h3>
-      <p>Senior AdOps AI Assistant</p>
-      <div class="kia-status"><div class="kia-status-dot"></div><span>Online · Powered by AI</span></div>
-    </div>
-    <button class="kia-close" onclick="toggleKia()">✕</button>
+<div class="Ria-panel" id="RiaPanel">
+  <div class="Ria-header">
+  <div class="Ria-avatar">🤖</div>
+  <div class="Ria-info">
+    <h3>Ria</h3>
+    <p>Rowan Intelligence Agent</p>
+    <div class="Ria-status"><div class="Ria-status-dot"></div><span>Online · Powered by AI</span></div>
+  </div>
+  <button class="Ria-close" onclick="toggleRiaSize()" id="RiaExpandBtn" title="Expand">⛶</button>
+  <button class="Ria-close" onclick="toggleRia()" style="margin-left:4px">✕</button>
+</div>
+
+  <div class="Ria-messages" id="RiaMessages"></div>
+
+  <div class="Ria-wake-msg" id="RiaWakeMsg">
+    ⏳ Ria is waking up — first response takes ~50s on free tier. Please wait...
   </div>
 
-  <div class="kia-messages" id="kiaMessages"></div>
-
-  <div class="kia-wake-msg" id="kiaWakeMsg">
-    ⏳ Kia is waking up — first response takes ~50s on free tier. Please wait...
+  <div class="Ria-quick-replies" id="RiaQuickReplies">
+    <button class="Ria-quick" onclick="RiaQuickAsk(this)">Why did my CPM drop?</button>
+    <button class="Ria-quick" onclick="RiaQuickAsk(this)">Debug Prebid.js</button>
+    <button class="Ria-quick" onclick="RiaQuickAsk(this)">ads.txt issues</button>
+    <button class="Ria-quick" onclick="RiaQuickAsk(this)">GAM line items</button>
+    <button class="Ria-quick" onclick="RiaQuickAsk(this)">Latest Prebid version</button>
   </div>
 
-  <div class="kia-quick-replies" id="kiaQuickReplies">
-    <button class="kia-quick" onclick="kiaQuickAsk(this)">Why did my CPM drop?</button>
-    <button class="kia-quick" onclick="kiaQuickAsk(this)">Debug Prebid.js</button>
-    <button class="kia-quick" onclick="kiaQuickAsk(this)">ads.txt issues</button>
-    <button class="kia-quick" onclick="kiaQuickAsk(this)">GAM line items</button>
-    <button class="kia-quick" onclick="kiaQuickAsk(this)">Latest Prebid version</button>
-  </div>
-
-  <div class="kia-input-area">
-    <textarea id="kiaInput" placeholder="Ask Kia anything about AdTech..." rows="1"
-      onkeydown="kiaHandleKey(event)" oninput="kiaAutoResize(this)"></textarea>
-    <button class="kia-send" id="kiaSend" onclick="kiaSendMessage()">
+  <div class="Ria-input-area">
+    <textarea id="RiaInput" placeholder="Ask Ria anything about AdTech..." rows="1"
+      onkeydown="RiaHandleKey(event)" oninput="RiaAutoResize(this)"></textarea>
+    <button class="Ria-send" id="RiaSend" onclick="RiaSendMessage()">
       <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
     </button>
   </div>
@@ -518,72 +521,79 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const API = 'https://admax-adtech-agent.onrender.com/api';
 let allNews = [];
 let bookmarks = JSON.parse(localStorage.getItem('admax_bookmarks') || '[]');
-let kiaOpen = false;
-let kiaHistory = [];
-let kiaSessionId = 'kia-' + Date.now();
-let kiaLoading = false;
-let kiaGreeted = false;
+let RiaOpen = false;
+let RiaHistory = [];
+let RiaSessionId = 'Ria-' + Date.now();
+let RiaLoading = false;
+let RiaGreeted = false;
 
 document.getElementById('lastUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString();
 updateBookmarkCount();
 
-// ===== KIA CHAT =====
-function toggleKia() {
-  kiaOpen = !kiaOpen;
-  document.getElementById('kiaPanel').classList.toggle('open', kiaOpen);
-  document.getElementById('kiaNotif').style.display = 'none';
-  if (kiaOpen && !kiaGreeted) {
-    kiaGreeted = true;
-    setTimeout(() => kiaAddMessage('assistant',
-      "Hi! 👋 I'm **Kia**, your AdTech Operations AI assistant.\n\nI can help you with:\n• GAM troubleshooting\n• Prebid.js debugging\n• CPM drop analysis\n• SSP optimization\n• ads.txt issues\n• Revenue optimization\n\nWhat can I help you with today?"), 400);
+function toggleKiaSize() {
+  const panel = document.getElementById('kiaPanel');
+  const btn = document.getElementById('kiaExpandBtn');
+  panel.classList.toggle('expanded');
+  btn.textContent = panel.classList.contains('expanded') ? '⊡' : '⛶';
+}
+
+// ===== Ria CHAT =====
+function toggleRia() {
+  RiaOpen = !RiaOpen;
+  document.getElementById('RiaPanel').classList.toggle('open', RiaOpen);
+  document.getElementById('RiaNotif').style.display = 'none';
+  if (RiaOpen && !RiaGreeted) {
+    RiaGreeted = true;
+    setTimeout(() => RiaAddMessage('assistant',
+      "Hi! 👋 I'm **Ria**, your AdTech Operations AI assistant.\n\nI can help you with:\n• GAM troubleshooting\n• Prebid.js debugging\n• CPM drop analysis\n• SSP optimization\n• ads.txt issues\n• Revenue optimization\n\nWhat can I help you with today?"), 400);
   }
-  if (kiaOpen) {
-    setTimeout(() => document.getElementById('kiaInput').focus(), 300);
+  if (RiaOpen) {
+    setTimeout(() => document.getElementById('RiaInput').focus(), 300);
   }
 }
 
-function kiaAutoResize(el) {
+function RiaAutoResize(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 100) + 'px';
 }
 
-function kiaHandleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); kiaSendMessage(); }
+function RiaHandleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); RiaSendMessage(); }
 }
 
-function kiaQuickAsk(btn) {
-  document.getElementById('kiaInput').value = btn.textContent;
-  document.getElementById('kiaQuickReplies').style.display = 'none';
-  kiaSendMessage();
+function RiaQuickAsk(btn) {
+  document.getElementById('RiaInput').value = btn.textContent;
+  document.getElementById('RiaQuickReplies').style.display = 'none';
+  RiaSendMessage();
 }
 
-function kiaAddMessage(role, content) {
-  const area = document.getElementById('kiaMessages');
+function RiaAddMessage(role, content) {
+  const area = document.getElementById('RiaMessages');
   const div = document.createElement('div');
-  div.className = `kia-msg ${role}`;
+  div.className = `Ria-msg ${role}`;
   const avatar = document.createElement('div');
-  avatar.className = 'kia-msg-avatar';
+  avatar.className = 'Ria-msg-avatar';
   avatar.textContent = role === 'user' ? 'You' : '🤖';
   const bubble = document.createElement('div');
-  bubble.className = 'kia-msg-bubble';
-  bubble.innerHTML = kiaFormat(content);
+  bubble.className = 'Ria-msg-bubble';
+  bubble.innerHTML = RiaFormat(content);
   div.appendChild(avatar);
   div.appendChild(bubble);
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
 }
 
-function kiaAddTyping() {
-  const area = document.getElementById('kiaMessages');
+function RiaAddTyping() {
+  const area = document.getElementById('RiaMessages');
   const div = document.createElement('div');
-  div.className = 'kia-msg assistant';
-  div.id = 'kiaTyping';
-  div.innerHTML = `<div class="kia-msg-avatar">🤖</div><div class="kia-typing-bubble"><div class="kia-dot"></div><div class="kia-dot"></div><div class="kia-dot"></div></div>`;
+  div.className = 'Ria-msg assistant';
+  div.id = 'RiaTyping';
+  div.innerHTML = `<div class="Ria-msg-avatar">🤖</div><div class="Ria-typing-bubble"><div class="Ria-dot"></div><div class="Ria-dot"></div><div class="Ria-dot"></div></div>`;
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
 }
 
-function kiaFormat(text) {
+function RiaFormat(text) {
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
   text = text.replace(/```([\s\S]*?)```/g, '<pre style="background:#F1F5F9;border-radius:6px;padding:8px;font-size:11px;margin:4px 0;overflow-x:auto;font-family:monospace;white-space:pre-wrap">$1</pre>');
@@ -595,59 +605,59 @@ function kiaFormat(text) {
   return text;
 }
 
-async function kiaSendMessage() {
-  const input = document.getElementById('kiaInput');
+async function RiaSendMessage() {
+  const input = document.getElementById('RiaInput');
   const message = input.value.trim();
-  if (!message || kiaLoading) return;
+  if (!message || RiaLoading) return;
 
-  kiaLoading = true;
-  document.getElementById('kiaSend').disabled = true;
+  RiaLoading = true;
+  document.getElementById('RiaSend').disabled = true;
   input.value = '';
   input.style.height = 'auto';
-  document.getElementById('kiaQuickReplies').style.display = 'none';
+  document.getElementById('RiaQuickReplies').style.display = 'none';
 
-  kiaAddMessage('user', message);
-  kiaAddTyping();
+  RiaAddMessage('user', message);
+  RiaAddTyping();
 
   const wakeTimer = setTimeout(() => {
-    document.getElementById('kiaWakeMsg').classList.add('show');
+    document.getElementById('RiaWakeMsg').classList.add('show');
   }, 5000);
 
   try {
     const res = await fetch(`${API}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, session_id: kiaSessionId, history: kiaHistory }),
+      body: JSON.stringify({ message, session_id: RiaSessionId, history: RiaHistory }),
       signal: AbortSignal.timeout(120000)
     });
 
     clearTimeout(wakeTimer);
-    document.getElementById('kiaWakeMsg').classList.remove('show');
-    document.getElementById('kiaTyping')?.remove();
+    document.getElementById('RiaWakeMsg').classList.remove('show');
+    document.getElementById('RiaTyping')?.remove();
 
     if (!res.ok) throw new Error('Server error');
     const data = await res.json();
-    kiaAddMessage('assistant', data.reply);
-    kiaHistory.push({ role: 'user', content: message });
-    kiaHistory.push({ role: 'assistant', content: data.reply });
-    if (kiaHistory.length > 20) kiaHistory = kiaHistory.slice(-20);
+    RiaAddMessage('assistant', data.reply);
+    RiaHistory.push({ role: 'user', content: message });
+    RiaHistory.push({ role: 'assistant', content: data.reply });
+    if (RiaHistory.length > 20) RiaHistory = RiaHistory.slice(-20);
 
   } catch(err) {
     clearTimeout(wakeTimer);
-    document.getElementById('kiaWakeMsg').classList.remove('show');
-    document.getElementById('kiaTyping')?.remove();
-    kiaAddMessage('assistant', '⚠️ Server is waking up. Please wait 30-50 seconds and try again.');
+    document.getElementById('RiaWakeMsg').classList.remove('show');
+    document.getElementById('RiaTyping')?.remove();
+    RiaAddMessage('assistant', '⚠️ Server is waking up. Please wait 30-50 seconds and try again.');
   }
 
-  kiaLoading = false;
-  document.getElementById('kiaSend').disabled = false;
+  RiaLoading = false;
+  document.getElementById('RiaSend').disabled = false;
   input.focus();
 }
 
 // Show notification bubble after 3 seconds
 setTimeout(() => {
-  if (!kiaOpen) {
-    document.getElementById('kiaNotif').style.display = 'flex';
+  if (!RiaOpen) {
+    document.getElementById('RiaNotif').style.display = 'flex';
   }
 }, 3000);
 
