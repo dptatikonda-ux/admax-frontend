@@ -132,7 +132,7 @@ async function loadSession(sessionId, el) {
   el.classList.add('active');
   document.getElementById('messages').innerHTML = '<div class="loading">Loading conversation...</div>';
   try {
-    const res = await fetch(`${API}/history/${sessionId}`);
+    const res = await fetch(`${API}/history/session?session_id=${encodeURIComponent(sessionId)}`);
     const data = await res.json();
     const msgs = data.messages || [];
     document.getElementById('chatTitle').textContent = `${msgs.length} messages · ${timeAgo(msgs[0]?.created_at)}`;
