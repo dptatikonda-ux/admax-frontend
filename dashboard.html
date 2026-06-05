@@ -35,11 +35,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .refresh-btn:hover{background:#1D4ED8}
 .refresh-btn:disabled{background:#CBD5E1;cursor:not-allowed}
 
-/* ALERT BANNER */
-.alert-banner{display:none;background:#FEF2F2;border-bottom:1px solid #FECACA;padding:6px 20px;align-items:center;gap:8px;flex-shrink:0}
-.alert-banner.show{display:flex}
-.alert-text{font-size:12px;color:#991B1B;flex:1;font-weight:500}
-.alert-pill{background:#FEE2E2;color:#DC2626;padding:1px 8px;border-radius:20px;font-size:10px;font-weight:600}
+
 
 /* MAIN LAYOUT — 70/30 */
 .main-layout{display:grid;grid-template-columns:1fr 360px;flex:1;overflow:hidden}
@@ -158,9 +154,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ria-status{display:flex;align-items:center;gap:4px;margin-top:2px}
 .ria-status-dot{width:5px;height:5px;background:#10B981;border-radius:50%;animation:pulse 2s infinite}
 .ria-status span{font-size:10px;color:#6EE7B7}
-.ria-sidebar{border-left:1px solid rgba(255,255,255,.1);padding-left:10px;margin-left:auto;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
-.ria-stat{font-size:10px;color:#93C5FD;text-align:right}
-.ria-stat strong{color:#fff}
+
 .ria-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:#F8FAFC}
 .ria-msg{display:flex;gap:7px;max-width:100%}
 .ria-msg.user{flex-direction:row-reverse}
@@ -200,75 +194,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ria-wake{background:#FFFBEB;border:1px solid #FCD34D;border-radius:6px;padding:7px 10px;font-size:11px;color:#92400E;margin:0 12px 6px;display:none}
 .ria-wake.show{display:block}
 
-/* BREAKING SIDEBAR */
-.breaking-section {
-  border-bottom: 1px solid #E2E8F0;
-  background: #FFFBEB;
-  transition: max-height 0.25s ease-out;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.breaking-section.collapsed .breaking-content {
-  display: none;
-}
-.breaking-title-bar {
-  font-size: 11px;
-  font-weight: 600;
-  color: #991B1B;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  user-select: none;
-  background: #FEF2F2;
-}
-.breaking-count {
-  background: #DC2626;
-  color: #fff;
-  border-radius: 10px;
-  padding: 1px 6px;
-  font-size: 9px;
-  font-weight: 700;
-}
-.breaking-toggle-icon {
-  margin-left: auto;
-  font-size: 8px;
-  color: #991B1B;
-  transition: transform 0.2s;
-}
-.breaking-section:not(.collapsed) .breaking-toggle-icon {
-  transform: rotate(180deg);
-}
-.breaking-content {
-  padding: 10px 12px;
-  max-height: 160px;
-  overflow-y: auto;
-}
-.breaking-item {
-  padding: 6px 0;
-  border-bottom: 1px solid #FEE2E2;
-}
-.breaking-item:last-child {
-  border-bottom: none;
-}
-.breaking-ttl {
-  font-size: 11px;
-  color: #0F172A;
-  font-weight: 500;
-  line-height: 1.35;
-  margin-bottom: 2px;
-  cursor: pointer;
-}
-.breaking-ttl:hover {
-  color: #2563EB;
-}
-.breaking-meta {
-  font-size: 9px;
-  color: #64748B;
-}
+
 
 /* MOBILE */
 @media(max-width:900px){
@@ -299,11 +225,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<div class="alert-banner" id="alertBanner">
-  <span>⚠️</span>
-  <span class="alert-text" id="alertText"></span>
-  <span class="alert-pill" id="alertPill"></span>
-</div>
+
 
 <div class="main-layout">
 
@@ -420,22 +342,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <h3>Ria</h3>
         <p>Rowan Intelligence Agent</p>
         <div class="ria-status"><div class="ria-status-dot"></div><span>Online · Ready to help</span></div>
-      </div>
-      <div class="ria-sidebar">
-        <div class="ria-stat">Articles <strong id="riaArticles">—</strong></div>
-        <div class="ria-stat">Critical <strong id="riaCritical" style="color:#FCA5A5">—</strong></div>
-        <div class="ria-stat">Conf <strong id="riaConf">—%</strong></div>
-      </div>
-    </div>
-
-    <div class="breaking-section collapsed" id="breakingSection">
-      <div class="breaking-title-bar" onclick="toggleBreaking()">
-        <span>🔴 Breaking & Critical</span>
-        <span class="breaking-count" id="breakingCount">0</span>
-        <span class="breaking-toggle-icon" id="breakingToggleIcon">▼</span>
-      </div>
-      <div class="breaking-content" id="breakingList">
-        <div style="font-size:11px;color:#94A3B8">Loading...</div>
       </div>
     </div>
 
@@ -618,7 +524,7 @@ async function riaSend() {
 // Greet on load
 setTimeout(() => {
   riaGreeted = true;
-  riaAddMsg('assistant', "Hi! 👋 I'm **Ria**, your AdTech AI assistant.\n\nI can help with:\n• GAM troubleshooting\n• Prebid.js debugging\n• CPM drop analysis\n• SSP optimization\n• ads.txt issues\n• Revenue optimization\n\nYou can also 📎 upload screenshots for analysis.\n\nWhat can I help you with today?");
+  riaAddMsg('assistant', "Hi! 👋 I'm **Ria**, your AdTech AI assistant. How can I help you with AdTech operations or troubleshooting today?");
 }, 600);
 
 // ===== DASHBOARD =====
@@ -713,11 +619,6 @@ async function fetchNews() {
 function updateAll(news) {
   const avg = news.length ? Math.round(news.reduce((s,n)=>s+(n.confidence||85),0)/news.length) : 85;
 
-  // Ria stats
-  document.getElementById('riaArticles').textContent = news.length;
-  document.getElementById('riaCritical').textContent = news.filter(n=>n.importance==='critical').length;
-  document.getElementById('riaConf').textContent = avg+'%';
-
   // Update Sources List in Dropdown
   const sources = {};
   news.forEach(n => { if (n.source) sources[n.source] = (sources[n.source] || 0) + 1; });
@@ -748,14 +649,6 @@ function updateAll(news) {
   fe.textContent = fresh ? 'Fresh' : 'Check sources';
   fe.style.color = fresh ? '#16A34A' : '#D97706';
 
-  // Alert
-  const crit = news.filter(n=>n.importance==='critical');
-  if (crit.length) {
-    document.getElementById('alertBanner').classList.add('show');
-    document.getElementById('alertText').textContent = crit[0].title;
-    document.getElementById('alertPill').textContent = crit.length+' critical';
-  }
-
   // Filters
   buildFilters(news);
 
@@ -764,20 +657,6 @@ function updateAll(news) {
   renderList('criticalList', news.filter(n=>n.importance==='critical'||n.importance==='high'));
   renderList('prebidList', news.filter(n=>n.category==='Prebid'||(n.title+(n.summary||'')).toLowerCase().includes('prebid')));
   renderList('privacyList', news.filter(n=>n.category==='Privacy'||(n.title+(n.summary||'')).toLowerCase().includes('cookie')));
-
-  // Breaking sidebar
-  const breaking = news.filter(n=>n.importance==='critical'||n.importance==='high').slice(0,6);
-  document.getElementById('breakingCount').textContent = breaking.length;
-  document.getElementById('breakingList').innerHTML = breaking.length
-    ? breaking.map(n=>`<div class="breaking-item"><div class="breaking-ttl" onclick="window.open('${n.url}','_blank')">${n.title}</div><div class="breaking-meta">${n.source} · ${ago(n.created_at)}</div></div>`).join('')
-    : '<div style="font-size:11px;color:#94A3B8">No critical updates today</div>';
-}
-
-function toggleBreaking() {
-  const el = document.getElementById('breakingSection');
-  el.classList.toggle('collapsed');
-  const icon = document.getElementById('breakingToggleIcon');
-  icon.textContent = el.classList.contains('collapsed') ? '▼' : '▲';
 }
 
 function buildFilters(news) {
