@@ -472,6 +472,12 @@ async function riaSend() {
   document.getElementById('riaSend').disabled = true;
   document.getElementById('riaQuick').style.display = 'none';
 
+  let mySessions = JSON.parse(localStorage.getItem('admax_sessions') || '[]');
+  if (!mySessions.includes(riaSession)) {
+    mySessions.push(riaSession);
+    localStorage.setItem('admax_sessions', JSON.stringify(mySessions));
+  }
+
   // If image attached, add context to message
   let displayMessage = message || 'Please analyze this screenshot';
   if (pendingImage) {

@@ -109,7 +109,12 @@ let allSessions = [];
 
 async function loadSessions() {
   try {
-    const res = await fetch(`${API}/history/sessions`);
+    const mySessions = JSON.parse(localStorage.getItem('admax_sessions') || '[]');
+    const res = await fetch(`${API}/history/sessions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_ids: mySessions })
+    });
     const data = await res.json();
     allSessions = data.sessions || [];
     document.getElementById('sessionCount').textContent = `${allSessions.length} conversation${allSessions.length !== 1 ? 's' : ''}`;
