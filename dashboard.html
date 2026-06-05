@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <title>AdMax Intelligence</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -365,8 +366,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
 
     <div class="ria-input-area">
-      <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="handleImage(this)">
-      <button class="ria-img-btn" onclick="document.getElementById('imgInput').click()" title="Upload screenshot">📎</button>
+      <input type="file" id="imgInput" accept="image/*, .xlsx, .xls, .csv" style="display:none" onchange="handleFile(this)">
+      <button class="ria-img-btn" onclick="document.getElementById('imgInput').click()" title="Upload screenshot or spreadsheet">📎</button>
       <textarea id="riaInput" placeholder="Ask Ria anything about AdTech..." rows="1"
         onkeydown="riaKey(event)" oninput="riaResize(this)"></textarea>
       <button class="ria-send" id="riaSend" onclick="riaSend()">
@@ -381,7 +382,16 @@ const API = 'https://admax-adtech-agent.onrender.com/api';
 let allNews = [];
 let bookmarks = JSON.parse(localStorage.getItem('admax_bookmarks') || '[]');
 let riaHistory = [];
-let riaSession = 'ria-' + Date.now();
+const urlParams = new URLSearchParams(window.location.search);
+const isNewSession = urlParams.get('new') === 'true';
+let riaSession = localStorage.getItem('ria_active_session');
+if (isNewSession || !riaSession) {
+  riaSession = 'ria-' + Date.now();
+  localStorage.setItem('ria_active_session', riaSession);
+  if (isNewSession) {
+    history.replaceState({}, '', 'dashboard.html');
+  }
+}
 let riaLoading = false;
 let riaGreeted = false;
 let pendingImage = null;
@@ -404,22 +414,67 @@ function riaQuick(btn) {
   riaSend();
 }
 
-function handleImage(input) {
+let pendingDoc = null;
+
+function handleFile(input) {
   const file = input.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    pendingImage = { data: e.target.result, name: file.name, type: file.type };
-    document.getElementById('imgPreviewThumb').src = e.target.result;
-    document.getElementById('imgPreviewName').textContent = file.name;
-    document.getElementById('imgPreview').classList.add('show');
-  };
-  reader.readAsDataURL(file);
+  
+  const isImage = file.type.startsWith('image/');
+  const isExcel = file.name.endsWith('.xlsx') || file.name.endsWith('.xls') || file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type === 'application/vnd.ms-excel';
+  const isCsv = file.name.endsWith('.csv') || file.type === 'text/csv';
+  
+  if (isImage) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      pendingImage = { data: e.target.result, name: file.name, type: file.type };
+      pendingDoc = null;
+      document.getElementById('imgPreviewThumb').src = e.target.result;
+      document.getElementById('imgPreviewName').textContent = file.name;
+      document.getElementById('imgPreview').classList.add('show');
+    };
+    reader.readAsDataURL(file);
+  } else if (isExcel || isCsv) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      let csvContent = "";
+      if (isCsv) {
+        csvContent = e.target.result;
+      } else {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[sheetName];
+          csvContent = XLSX.utils.sheet_to_csv(sheet);
+        } catch (err) {
+          alert('Failed to parse Excel file: ' + err.message);
+          return;
+        }
+      }
+      
+      pendingDoc = { name: file.name, type: 'excel', content: csvContent };
+      pendingImage = null;
+      
+      const excelSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2316A34A" width="40" height="40"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-4H8V8h5v2z"/></svg>`;
+      document.getElementById('imgPreviewThumb').src = excelSvg;
+      document.getElementById('imgPreviewName').textContent = file.name + ' (Excel parsed)';
+      document.getElementById('imgPreview').classList.add('show');
+    };
+    if (isCsv) {
+      reader.readAsText(file);
+    } else {
+      reader.readAsArrayBuffer(file);
+    }
+  } else {
+    alert('Unsupported file type. Please upload an image, Excel sheet (.xlsx, .xls) or CSV file.');
+  }
   input.value = '';
 }
 
 function removeImage() {
   pendingImage = null;
+  pendingDoc = null;
   document.getElementById('imgPreview').classList.remove('show');
   document.getElementById('imgPreviewThumb').src = '';
 }
@@ -465,7 +520,7 @@ function riaFormat(text) {
 async function riaSend() {
   const input = document.getElementById('riaInput');
   let message = input.value.trim();
-  if (!message && !pendingImage) return;
+  if (!message && !pendingImage && !pendingDoc) return;
   if (riaLoading) return;
 
   riaLoading = true;
@@ -478,11 +533,14 @@ async function riaSend() {
     localStorage.setItem('admax_sessions', JSON.stringify(mySessions));
   }
 
-  // If image attached, add context to message
-  let displayMessage = message || 'Please analyze this screenshot';
+  // If image or spreadsheet attached, add context to message
+  let displayMessage = message || 'Please analyze this file';
   if (pendingImage) {
     displayMessage = `📎 ${pendingImage.name}\n${message || 'Please analyze this screenshot'}`;
     message = `[User uploaded a screenshot: ${pendingImage.name}]\n${message || 'Please analyze this image and help with any AdTech issues you can identify.'}`;
+  } else if (pendingDoc) {
+    displayMessage = `📊 ${pendingDoc.name}\n${message || 'Please analyze this spreadsheet'}`;
+    message = `[User uploaded a spreadsheet: ${pendingDoc.name}]\nData content (CSV format):\n${pendingDoc.content}\n\n${message || 'Please analyze this spreadsheet data and provide AdTech insights.'}`;
   }
 
   input.value = '';
@@ -527,11 +585,46 @@ async function riaSend() {
   input.focus();
 }
 
-// Greet on load
-setTimeout(() => {
+// Restore session or greet on load
+async function restoreRiaSession() {
+  const activeSession = localStorage.getItem('ria_active_session');
+  if (!activeSession) {
+    showGreeting();
+    return;
+  }
+  
+  try {
+    const res = await fetch(`${API}/history/session?session_id=${encodeURIComponent(activeSession)}`);
+    if (!res.ok) {
+      showGreeting();
+      return;
+    }
+    const data = await res.json();
+    const msgs = data.messages || [];
+    if (msgs.length > 0) {
+      riaGreeted = true;
+      document.getElementById('riaMessages').innerHTML = '';
+      msgs.forEach(m => {
+        riaAddMsg(m.role, m.content);
+        riaHistory.push({ role: m.role, content: m.content });
+      });
+      if (riaHistory.length > 20) riaHistory = riaHistory.slice(-20);
+    } else {
+      showGreeting();
+    }
+  } catch(e) {
+    console.error('Failed to restore session:', e);
+    showGreeting();
+  }
+}
+
+function showGreeting() {
+  if (riaGreeted) return;
   riaGreeted = true;
   riaAddMsg('assistant', "Hi! 👋 I'm **Ria**, your AdTech AI assistant. How can I help you with AdTech operations or troubleshooting today?");
-}, 600);
+}
+
+setTimeout(restoreRiaSession, 100);
 
 // ===== DASHBOARD =====
 const OFFICIAL = ['Prebid GitHub','IAB Tech Lab','Prebid.org','Google Ads Blog','Chromium Blog','IAB'];
