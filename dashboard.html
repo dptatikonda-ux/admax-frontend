@@ -41,14 +41,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .alert-text{font-size:12px;color:#991B1B;flex:1;font-weight:500}
 .alert-pill{background:#FEE2E2;color:#DC2626;padding:1px 8px;border-radius:20px;font-size:10px;font-weight:600}
 
-/* STATS BAR */
-.stats-bar{background:#fff;border-bottom:1px solid #E2E8F0;padding:6px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0;flex-wrap:wrap}
-.stat-item{display:flex;align-items:center;gap:5px;font-size:12px}
-.stat-label{color:#64748B}
-.stat-val{font-weight:600;color:#0F172A}
-.stat-div{width:1px;height:14px;background:#E2E8F0}
-.conf-pill{background:#DBEAFE;color:#1E40AF;padding:1px 7px;border-radius:20px;font-size:11px;font-weight:600}
-
 /* MAIN LAYOUT — 70/30 */
 .main-layout{display:grid;grid-template-columns:1fr 360px;flex:1;overflow:hidden}
 .tab-pane{display:none}
@@ -56,10 +48,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 /* LEFT — NEWS PANEL */
 .news-panel{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid #E2E8F0}
-.tabs{display:flex;gap:0;padding:0 16px;border-bottom:1px solid #E2E8F0;background:#fff;overflow-x:auto;flex-shrink:0}
-.tab{padding:10px 14px;font-size:12px;color:#64748B;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
+.tabs{display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:1px solid #E2E8F0;background:#fff;flex-shrink:0;height:40px}
+.tab-buttons{display:flex;gap:2px}
+.tab{padding:8px 10px;font-size:11.5px;color:#64748B;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .tab:hover{color:#0F172A}
-.tab.active{color:#2563EB;border-bottom-color:#2563EB;font-weight:500}
+.tab.active{color:#2563EB;border-bottom-color:#2563EB;font-weight:600}
+
+/* METADATA DROPDOWNS */
+.tab-metadata{display:flex;align-items:center;gap:12px;font-size:11px;color:#64748B}
+.meta-dropdown{position:relative;cursor:pointer;padding:4px 8px;border-radius:4px;background:#F8FAFC;border:1px solid #E2E8F0;transition:all .15s;user-select:none}
+.meta-dropdown:hover{background:#EFF6FF;border-color:#BFDBFE;color:#2563EB}
+.meta-dropdown-content{display:none;position:absolute;top:100%;right:0;background:#fff;border:1px solid #E2E8F0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.08);padding:10px;min-width:210px;z-index:150;margin-top:4px}
+.meta-dropdown:hover .meta-dropdown-content{display:block}
+.meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:11px;color:#0F172A}
+.meta-row:last-child{margin-bottom:0}
+.meta-label{color:#64748B}
+.meta-val{font-weight:600}
+.trust-badge{background:#F0FDF4;color:#16A34A;border-radius:3px;padding:1px 5px;font-size:9.5px;font-weight:600}
+.cat-badge{background:#EFF6FF;color:#2563EB;border-radius:3px;padding:1px 5px;font-size:9.5px;font-weight:600}
 .news-body{flex:1;overflow-y:auto;padding:14px 16px}
 .filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
 .f-btn{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:4px 10px;font-size:11px;color:#64748B;cursor:pointer;transition:all .15s}
@@ -299,33 +305,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <span class="alert-pill" id="alertPill"></span>
 </div>
 
-<div class="stats-bar">
-  <div class="stat-item"><span class="stat-label">Articles:</span><strong class="stat-val" id="totalCount">—</strong><span id="todayCount" style="font-size:10px;color:#16A34A"></span></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><span style="color:#DC2626">🔴</span><strong id="criticalCount" style="font-weight:600;color:#DC2626">—</strong><span class="stat-label"> critical</span></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><span style="color:#D97706">🟡</span><strong id="highCount" style="font-weight:600;color:#D97706">—</strong><span class="stat-label"> high</span></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><span class="stat-label">Sources:</span><strong class="stat-val" id="sourceCount">—</strong></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><span class="stat-label">Confidence:</span><span class="conf-pill" id="confPill">—%</span></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><span class="stat-label">Freshness:</span><span id="tFresh" style="font-weight:500;color:#D97706">Checking...</span></div>
-</div>
-
 <div class="main-layout">
 
   <!-- LEFT 70% — NEWS -->
   <div class="news-panel">
     <div class="tabs">
-      <button class="tab active" data-tab="news" onclick="switchTab('news',this)">📰 Latest News</button>
-      <button class="tab" data-tab="trends" onclick="switchTab('trends',this)">📈 Trends</button>
-      <button class="tab" data-tab="impact" onclick="switchTab('impact',this)">🎯 Publisher Impact</button>
-      <button class="tab" data-tab="risk" onclick="switchTab('risk',this)">⚠️ Risk</button>
-      <button class="tab" data-tab="critical" onclick="switchTab('critical',this)">🔴 Critical</button>
-      <button class="tab" data-tab="prebid" onclick="switchTab('prebid',this)">⚙️ Prebid</button>
-      <button class="tab" data-tab="privacy" onclick="switchTab('privacy',this)">🔒 Privacy</button>
-      <button class="tab" data-tab="saved" onclick="switchTab('saved',this)">🔖 Saved</button>
+      <div class="tab-buttons">
+        <button class="tab active" data-tab="news" onclick="switchTab('news',this)">📰 News</button>
+        <button class="tab" data-tab="trends" onclick="switchTab('trends',this)">📈 Trends</button>
+        <button class="tab" data-tab="impact" onclick="switchTab('impact',this)">🎯 Impact</button>
+        <button class="tab" data-tab="risk" onclick="switchTab('risk',this)">⚠️ Risk</button>
+        <button class="tab" data-tab="critical" onclick="switchTab('critical',this)">🔴 Critical</button>
+        <button class="tab" data-tab="prebid" onclick="switchTab('prebid',this)">⚙️ Prebid</button>
+        <button class="tab" data-tab="privacy" onclick="switchTab('privacy',this)">🔒 Privacy</button>
+        <button class="tab" data-tab="saved" onclick="switchTab('saved',this)">🔖 Saved</button>
+      </div>
+      <div class="tab-metadata">
+        <div class="meta-dropdown">
+          🔌 <span id="metaSourceCount">0 Sources</span>
+          <div class="meta-dropdown-content" id="metaSourceList">
+            <div style="font-size:10px;color:#94A3B8">Loading sources...</div>
+          </div>
+        </div>
+        <div class="meta-dropdown">
+          📂 <span id="metaCatCount">0 Categories</span>
+          <div class="meta-dropdown-content" id="metaCatList">
+            <div style="font-size:10px;color:#94A3B8">Loading categories...</div>
+          </div>
+        </div>
+        <span style="color:#E2E8F0">|</span>
+        <span>Conf: <strong id="metaConf">—%</strong></span>
+        <span style="color:#E2E8F0">|</span>
+        <span id="metaFresh" style="font-weight:500;color:#D97706">Checking...</span>
+      </div>
     </div>
 
     <div class="news-body">
@@ -699,26 +711,42 @@ async function fetchNews() {
 }
 
 function updateAll(news) {
-  // Stats
-  document.getElementById('totalCount').textContent = news.length;
-  document.getElementById('criticalCount').textContent = news.filter(n=>n.importance==='critical').length;
-  document.getElementById('highCount').textContent = news.filter(n=>n.importance==='high').length;
-  document.getElementById('sourceCount').textContent = [...new Set(news.map(n=>n.source))].length;
   const avg = news.length ? Math.round(news.reduce((s,n)=>s+(n.confidence||85),0)/news.length) : 85;
-  document.getElementById('confPill').textContent = avg+'%';
-  const today = news.filter(n=>(Date.now()-new Date(n.created_at).getTime())<86400000);
-  document.getElementById('todayCount').textContent = ` · ${today.length} today`;
 
   // Ria stats
   document.getElementById('riaArticles').textContent = news.length;
   document.getElementById('riaCritical').textContent = news.filter(n=>n.importance==='critical').length;
   document.getElementById('riaConf').textContent = avg+'%';
 
-  // Freshness
+  // Update Sources List in Dropdown
+  const sources = {};
+  news.forEach(n => { if (n.source) sources[n.source] = (sources[n.source] || 0) + 1; });
+  const sortedSources = Object.entries(sources).sort((a,b) => b[1] - a[1]);
+  document.getElementById('metaSourceCount').textContent = `${sortedSources.length} Sources`;
+  document.getElementById('metaSourceList').innerHTML = sortedSources.length
+    ? sortedSources.map(([src, count]) => {
+        const trust = TRUST[src] || 85;
+        return `<div class="meta-row"><span class="meta-label">${src} (${count})</span><span class="trust-badge">${trust}% Trust</span></div>`;
+      }).join('')
+    : '<div style="font-size:10px;color:#94A3B8">No sources found</div>';
+
+  // Update Categories List in Dropdown
+  const categories = {};
+  news.forEach(n => { if (n.category) categories[n.category] = (categories[n.category] || 0) + 1; });
+  const sortedCats = Object.entries(categories).sort((a,b) => b[1] - a[1]);
+  document.getElementById('metaCatCount').textContent = `${sortedCats.length} Categories`;
+  document.getElementById('metaCatList').innerHTML = sortedCats.length
+    ? sortedCats.map(([cat, count]) => {
+        return `<div class="meta-row"><span class="meta-label">${cat}</span><span class="cat-badge">${count} articles</span></div>`;
+      }).join('')
+    : '<div style="font-size:10px;color:#94A3B8">No categories found</div>';
+
+  // Update confidence and freshness
+  document.getElementById('metaConf').textContent = avg + '%';
   const fresh = news.length && (Date.now()-new Date(news[0].created_at).getTime())<3600000;
-  const fe = document.getElementById('tFresh');
-  fe.textContent = fresh?'Fresh':'Check sources';
-  fe.style.color = fresh?'#16A34A':'#D97706';
+  const fe = document.getElementById('metaFresh');
+  fe.textContent = fresh ? 'Fresh' : 'Check sources';
+  fe.style.color = fresh ? '#16A34A' : '#D97706';
 
   // Alert
   const crit = news.filter(n=>n.importance==='critical');
