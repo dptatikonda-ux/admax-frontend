@@ -193,13 +193,74 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ria-wake.show{display:block}
 
 /* BREAKING SIDEBAR */
-.breaking-section{border-top:1px solid #E2E8F0;padding:12px;flex-shrink:0;max-height:200px;overflow-y:auto}
-.breaking-title-bar{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px}
-.breaking-item{padding:6px 0;border-bottom:1px solid #F8FAFC}
-.breaking-item:last-child{border-bottom:none}
-.breaking-ttl{font-size:11px;color:#0F172A;font-weight:500;line-height:1.3;margin-bottom:2px;cursor:pointer}
-.breaking-ttl:hover{color:#2563EB}
-.breaking-meta{font-size:10px;color:#94A3B8}
+.breaking-section {
+  border-bottom: 1px solid #E2E8F0;
+  background: #FFFBEB;
+  transition: max-height 0.25s ease-out;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.breaking-section.collapsed .breaking-content {
+  display: none;
+}
+.breaking-title-bar {
+  font-size: 11px;
+  font-weight: 600;
+  color: #991B1B;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  background: #FEF2F2;
+}
+.breaking-count {
+  background: #DC2626;
+  color: #fff;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 700;
+}
+.breaking-toggle-icon {
+  margin-left: auto;
+  font-size: 8px;
+  color: #991B1B;
+  transition: transform 0.2s;
+}
+.breaking-section:not(.collapsed) .breaking-toggle-icon {
+  transform: rotate(180deg);
+}
+.breaking-content {
+  padding: 10px 12px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+.breaking-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #FEE2E2;
+}
+.breaking-item:last-child {
+  border-bottom: none;
+}
+.breaking-ttl {
+  font-size: 11px;
+  color: #0F172A;
+  font-weight: 500;
+  line-height: 1.35;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.breaking-ttl:hover {
+  color: #2563EB;
+}
+.breaking-meta {
+  font-size: 9px;
+  color: #64748B;
+}
 
 /* MOBILE */
 @media(max-width:900px){
@@ -353,6 +414,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
     </div>
 
+    <div class="breaking-section collapsed" id="breakingSection">
+      <div class="breaking-title-bar" onclick="toggleBreaking()">
+        <span>🔴 Breaking & Critical</span>
+        <span class="breaking-count" id="breakingCount">0</span>
+        <span class="breaking-toggle-icon" id="breakingToggleIcon">▼</span>
+      </div>
+      <div class="breaking-content" id="breakingList">
+        <div style="font-size:11px;color:#94A3B8">Loading...</div>
+      </div>
+    </div>
+
     <div class="ria-messages" id="riaMessages"></div>
 
     <div class="ria-wake" id="riaWake">
@@ -380,11 +452,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="ria-send" id="riaSend" onclick="riaSend()">
         <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
       </button>
-    </div>
-
-    <div class="breaking-section">
-      <div class="breaking-title-bar">🔴 Breaking & Critical</div>
-      <div id="breakingList"><div style="font-size:11px;color:#94A3B8">Loading...</div></div>
     </div>
   </div>
 </div>
@@ -670,9 +737,17 @@ function updateAll(news) {
 
   // Breaking sidebar
   const breaking = news.filter(n=>n.importance==='critical'||n.importance==='high').slice(0,6);
+  document.getElementById('breakingCount').textContent = breaking.length;
   document.getElementById('breakingList').innerHTML = breaking.length
     ? breaking.map(n=>`<div class="breaking-item"><div class="breaking-ttl" onclick="window.open('${n.url}','_blank')">${n.title}</div><div class="breaking-meta">${n.source} · ${ago(n.created_at)}</div></div>`).join('')
     : '<div style="font-size:11px;color:#94A3B8">No critical updates today</div>';
+}
+
+function toggleBreaking() {
+  const el = document.getElementById('breakingSection');
+  el.classList.toggle('collapsed');
+  const icon = document.getElementById('breakingToggleIcon');
+  icon.textContent = el.classList.contains('collapsed') ? '▼' : '▲';
 }
 
 function buildFilters(news) {
