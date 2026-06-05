@@ -3,279 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AdMax Intelligence — Dashboard</title>
+<title>AdMax Intelligence</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#0F172A;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#0F172A;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
 /* HEADER */
-.header{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 24px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
-.logo{width:32px;height:32px;background:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0}
+.header{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 20px;height:52px;display:flex;align-items:center;gap:12px;flex-shrink:0;z-index:50}
+.logo{width:30px;height:30px;background:#2563EB;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0}
 .brand h1{font-size:14px;font-weight:600;color:#0F172A}
-.brand p{font-size:11px;color:#94A3B8}
-.nav{display:flex;gap:4px;margin-left:16px}
-.nav a{padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;color:#64748B;transition:all .15s}
+.brand p{font-size:10px;color:#94A3B8}
+.nav{display:flex;gap:3px;margin-left:16px}
+.nav a{padding:5px 12px;border-radius:6px;font-size:12px;text-decoration:none;color:#64748B;transition:all .15s}
 .nav a:hover{background:#F1F5F9;color:#0F172A}
 .nav a.active{background:#EFF6FF;color:#2563EB;font-weight:500}
-.search-wrap{flex:1;max-width:320px;margin-left:16px;position:relative}
-.search-wrap input{width:100%;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:7px 12px 7px 32px;font-size:13px;color:#0F172A;outline:none;transition:all .15s}
+.search-wrap{flex:1;max-width:280px;margin-left:12px;position:relative}
+.search-wrap input{width:100%;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:7px;padding:6px 10px 6px 28px;font-size:12px;color:#0F172A;outline:none}
 .search-wrap input:focus{border-color:#2563EB;background:#fff}
 .search-wrap input::placeholder{color:#94A3B8}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#94A3B8;font-size:13px}
-.search-results{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #E2E8F0;border-radius:8px;margin-top:4px;max-height:300px;overflow-y:auto;z-index:200;display:none;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.search-item{padding:10px 14px;border-bottom:1px solid #F8FAFC;cursor:pointer;transition:background .15s}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:12px;color:#94A3B8}
+.search-results{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #E2E8F0;border-radius:8px;margin-top:4px;max-height:280px;overflow-y:auto;z-index:200;display:none;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.search-item{padding:9px 12px;border-bottom:1px solid #F8FAFC;cursor:pointer}
 .search-item:hover{background:#F8FAFC}
-.search-item-title{font-size:13px;color:#0F172A;font-weight:500;margin-bottom:2px}
-.search-item-meta{font-size:11px;color:#94A3B8}
-.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.live-pill{display:flex;align-items:center;gap:5px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:20px;padding:4px 10px;font-size:11px;color:#16A34A;font-weight:500}
-.live-dot{width:6px;height:6px;background:#16A34A;border-radius:50%;animation:pulse 2s infinite}
+.search-item-title{font-size:12px;color:#0F172A;font-weight:500;margin-bottom:1px}
+.search-item-meta{font-size:10px;color:#94A3B8}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.live-pill{display:flex;align-items:center;gap:4px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:20px;padding:3px 9px;font-size:11px;color:#16A34A;font-weight:500}
+.live-dot{width:5px;height:5px;background:#16A34A;border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.timestamp{font-size:11px;color:#94A3B8}
-.refresh-btn{background:#2563EB;border:none;border-radius:7px;padding:7px 14px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
+.refresh-btn{background:#2563EB;border:none;border-radius:6px;padding:6px 12px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
 .refresh-btn:hover{background:#1D4ED8}
 .refresh-btn:disabled{background:#CBD5E1;cursor:not-allowed}
-.bookmark-btn{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:7px;padding:6px 12px;font-size:12px;color:#64748B;cursor:pointer;display:flex;align-items:center;gap:5px;text-decoration:none;transition:all .15s}
-.bookmark-btn:hover{border-color:#2563EB;color:#2563EB}
-
-/* TRUST BAR */
-.trust-bar{background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:8px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.trust-item{display:flex;align-items:center;gap:6px;font-size:12px}
-.trust-label{color:#64748B}
-.trust-value{font-weight:600;color:#1E40AF}
-.conf-pill{background:#DBEAFE;color:#1E40AF;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
-.fresh-good{color:#16A34A;font-weight:600}
-.fresh-old{color:#D97706;font-weight:600}
-
-/* AI PANEL */
-.ai-panel{background:linear-gradient(135deg,#1E3A8A,#2563EB);margin:16px 24px;border-radius:12px;padding:18px 24px}
-.ai-panel-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#93C5FD;margin-bottom:10px}
-.ai-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.ai-item-label{font-size:10px;color:#93C5FD;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
-.ai-item-value{font-size:12px;font-weight:500;color:#fff;line-height:1.5}
-
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:0 24px 16px}
-.stat{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px 16px;transition:box-shadow .2s;cursor:pointer}
-.stat:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.stat-label{font-size:10px;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.stat-value{font-size:24px;font-weight:700;color:#0F172A;line-height:1}
-.stat-sub{font-size:11px;margin-top:4px}
-.up{color:#16A34A}.down{color:#DC2626}.warn{color:#D97706}.blue{color:#2563EB}
 
 /* ALERT BANNER */
-.alert-banner{display:none;background:#FEF2F2;border-bottom:1px solid #FECACA;padding:8px 24px;align-items:center;gap:10px}
+.alert-banner{display:none;background:#FEF2F2;border-bottom:1px solid #FECACA;padding:6px 20px;align-items:center;gap:8px;flex-shrink:0}
 .alert-banner.show{display:flex}
 .alert-text{font-size:12px;color:#991B1B;flex:1;font-weight:500}
-.alert-pill{background:#FEE2E2;color:#DC2626;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.alert-pill{background:#FEE2E2;color:#DC2626;padding:1px 8px;border-radius:20px;font-size:10px;font-weight:600}
 
-/* TABS */
-.tabs{display:flex;gap:2px;padding:0 24px;border-bottom:1px solid #E2E8F0;background:#fff;overflow-x:auto}
-.tab{padding:12px 16px;font-size:13px;color:#64748B;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
+/* STATS BAR */
+.stats-bar{background:#fff;border-bottom:1px solid #E2E8F0;padding:6px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0;flex-wrap:wrap}
+.stat-item{display:flex;align-items:center;gap:5px;font-size:12px}
+.stat-label{color:#64748B}
+.stat-val{font-weight:600;color:#0F172A}
+.stat-div{width:1px;height:14px;background:#E2E8F0}
+.conf-pill{background:#DBEAFE;color:#1E40AF;padding:1px 7px;border-radius:20px;font-size:11px;font-weight:600}
+
+/* MAIN LAYOUT — 70/30 */
+.main-layout{display:grid;grid-template-columns:1fr 360px;flex:1;overflow:hidden}
+
+/* LEFT — NEWS PANEL */
+.news-panel{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid #E2E8F0}
+.tabs{display:flex;gap:0;padding:0 16px;border-bottom:1px solid #E2E8F0;background:#fff;overflow-x:auto;flex-shrink:0}
+.tab{padding:10px 14px;font-size:12px;color:#64748B;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
 .tab:hover{color:#0F172A}
 .tab.active{color:#2563EB;border-bottom-color:#2563EB;font-weight:500}
-
-/* LAYOUT */
-.content{display:grid;grid-template-columns:1fr 360px;gap:0;padding:0;height:calc(100vh - 160px)}
-.tab-pane{display:none}
-.tab-pane.active{display:block}
-
-.sidebar{display:flex;flex-direction:column;gap:0;border-left:1px solid #E2E8F0;background:#fff;height:100%;overflow-y:auto}
-
-/* FILTERS */
-.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
-.f-btn{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:5px 12px;font-size:11px;color:#64748B;cursor:pointer;transition:all .15s}
+.news-body{flex:1;overflow-y:auto;padding:14px 16px}
+.filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.f-btn{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:4px 10px;font-size:11px;color:#64748B;cursor:pointer;transition:all .15s}
 .f-btn:hover,.f-btn.active{background:#EFF6FF;border-color:#BFDBFE;color:#2563EB}
-.sort-select{background:#fff;border:1px solid #E2E8F0;border-radius:6px;padding:5px 10px;font-size:11px;color:#64748B;cursor:pointer;margin-left:auto}
-
-/* NEWS CARDS */
+.sort-sel{background:#fff;border:1px solid #E2E8F0;border-radius:6px;padding:4px 8px;font-size:11px;color:#64748B;cursor:pointer;margin-left:auto}
 .news-list{display:flex;flex-direction:column;gap:8px}
-.news-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:all .15s;border-left:3px solid #E2E8F0;position:relative}
-.news-card:hover{box-shadow:0 2px 8px rgba(37,99,235,.08);transform:translateX(2px)}
+.news-card{background:#fff;border:1px solid #E2E8F0;border-radius:9px;padding:12px 14px;text-decoration:none;display:block;transition:all .15s;border-left:3px solid #E2E8F0;position:relative}
+.news-card:hover{box-shadow:0 2px 8px rgba(37,99,235,.07);transform:translateX(1px)}
 .news-card.critical{border-left-color:#DC2626}
 .news-card.high{border-left-color:#D97706}
 .news-card.medium{border-left-color:#2563EB}
-.card-tags{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;align-items:center}
-.tag{background:#F1F5F9;color:#475569;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:500}
-.imp-critical{background:#FEF2F2;color:#DC2626;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600}
-.imp-high{background:#FFFBEB;color:#D97706;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600}
-.imp-medium{background:#EFF6FF;color:#2563EB;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600}
-.cred-official{background:#F0FDF4;color:#16A34A;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600;border:1px solid #BBF7D0}
-.cred-verified{background:#EFF6FF;color:#2563EB;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600;border:1px solid #BFDBFE}
-.cred-ai{background:#F5F3FF;color:#7C3AED;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600;border:1px solid #DDD6FE}
-.impact-score{display:inline-flex;align-items:center;gap:4px;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700}
-.impact-score-high{background:#FEF2F2;color:#DC2626}
-.impact-score-medium{background:#FFFBEB;color:#D97706}
-.impact-score-low{background:#F0FDF4;color:#16A34A}
-.card-bookmark{position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;font-size:16px;opacity:.4;transition:opacity .15s;padding:2px}
-.card-bookmark:hover{opacity:1}
-.card-bookmark.saved{opacity:1}
-.card-title{font-size:13px;font-weight:600;color:#0F172A;line-height:1.5;margin-bottom:4px;padding-right:28px}
-.card-summary{font-size:12px;color:#64748B;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.card-tags{display:flex;gap:5px;margin-bottom:6px;flex-wrap:wrap;align-items:center}
+.tag{background:#F1F5F9;color:#475569;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:500}
+.imp-critical{background:#FEF2F2;color:#DC2626;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600}
+.imp-high{background:#FFFBEB;color:#D97706;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600}
+.imp-medium{background:#EFF6FF;color:#2563EB;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600}
+.cred-official{background:#F0FDF4;color:#16A34A;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;border:1px solid #BBF7D0}
+.cred-verified{background:#EFF6FF;color:#2563EB;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;border:1px solid #BFDBFE}
+.cred-ai{background:#F5F3FF;color:#7C3AED;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;border:1px solid #DDD6FE}
+.impact-score{display:inline-flex;align-items:center;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:700}
+.is-high{background:#FEF2F2;color:#DC2626}
+.is-med{background:#FFFBEB;color:#D97706}
+.is-low{background:#F0FDF4;color:#16A34A}
+.card-bm{position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;font-size:14px;opacity:.35;transition:opacity .15s;padding:2px}
+.card-bm:hover,.card-bm.saved{opacity:1}
+.card-title{font-size:13px;font-weight:600;color:#0F172A;line-height:1.45;margin-bottom:4px;padding-right:24px}
+.card-summary{font-size:12px;color:#64748B;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
 .card-time{font-size:10px;color:#94A3B8}
 .card-link{font-size:11px;color:#2563EB;font-weight:500}
+.loading{text-align:center;padding:30px;color:#94A3B8;font-size:13px}
+.empty{text-align:center;padding:24px;color:#94A3B8;font-size:13px}
 
 /* TRENDS */
-.trends-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.trend-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px;transition:box-shadow .2s}
-.trend-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.trend-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.trend-name{font-size:13px;font-weight:600;color:#0F172A}
-.trend-source{font-size:10px;color:#94A3B8;margin-top:2px}
-.t-badge{padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
-.t-up{background:#F0FDF4;color:#16A34A}
-.t-down{background:#FEF2F2;color:#DC2626}
-.t-stable{background:#EFF6FF;color:#2563EB}
-.trend-value{font-size:26px;font-weight:700;color:#0F172A;margin-bottom:2px}
-.trend-sub{font-size:11px;color:#64748B;margin-bottom:6px}
-.trend-action{font-size:11px;color:#1E40AF;background:#EFF6FF;padding:4px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
-.trend-conf{font-size:10px;color:#94A3B8}
-.bar-wrap{background:#F1F5F9;border-radius:10px;height:4px;margin-top:10px;overflow:hidden}
+.trends-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.trend-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
+.trend-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.trend-name{font-size:12px;font-weight:600;color:#0F172A}
+.trend-src{font-size:10px;color:#94A3B8;margin-top:1px}
+.t-up{background:#F0FDF4;color:#16A34A;border-radius:20px;padding:2px 7px;font-size:10px;font-weight:600}
+.t-down{background:#FEF2F2;color:#DC2626;border-radius:20px;padding:2px 7px;font-size:10px;font-weight:600}
+.t-stable{background:#EFF6FF;color:#2563EB;border-radius:20px;padding:2px 7px;font-size:10px;font-weight:600}
+.trend-val{font-size:22px;font-weight:700;color:#0F172A;margin-bottom:1px}
+.trend-sub{font-size:11px;color:#64748B;margin-bottom:5px}
+.trend-act{font-size:11px;color:#1E40AF;background:#EFF6FF;padding:3px 7px;border-radius:3px;display:inline-block}
+.bar-wrap{background:#F1F5F9;border-radius:10px;height:3px;margin-top:8px;overflow:hidden}
 .bar-fill{height:100%;border-radius:10px}
 .bar-green{background:#16A34A}.bar-red{background:#DC2626}.bar-blue{background:#2563EB}
-.cpm-live-header{display:flex;justify-content:space-between;align-items:center;margin:20px 0 12px}
-.cpm-table{background:#fff;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;margin-bottom:20px}
-.cpm-row{display:grid;grid-template-columns:150px 90px 80px 100px 1fr 140px;border-bottom:1px solid #F1F5F9;align-items:center}
+.cpm-table{background:#fff;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.cpm-row{display:grid;grid-template-columns:130px 80px 70px 90px 1fr 120px;border-bottom:1px solid #F1F5F9;align-items:center}
 .cpm-row:last-child{border-bottom:none}
-.cpm-header{background:#F8FAFC}
-.cpm-cell{padding:11px 14px;font-size:12px;color:#0F172A}
-.cpm-header .cpm-cell{font-size:10px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.4px}
-.opp-wrap{display:flex;align-items:center;gap:6px}
-.opp-bar{flex:1;background:#F1F5F9;border-radius:10px;height:4px;overflow:hidden}
+.cpm-h{background:#F8FAFC}
+.cpm-c{padding:9px 12px;font-size:11px;color:#0F172A}
+.cpm-h .cpm-c{font-size:10px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.3px}
+.opp-wrap{display:flex;align-items:center;gap:5px}
+.opp-bar{flex:1;background:#F1F5F9;border-radius:10px;height:3px;overflow:hidden}
 .opp-fill{height:100%;background:#2563EB;border-radius:10px}
-.live-cpm-badge{background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:600}
-.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.impact-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px}
-.impact-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.impact-title{font-size:13px;font-weight:600;color:#0F172A;margin-right:8px}
-.il{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap}
-.il-high{background:#FEF2F2;color:#DC2626}
-.il-medium{background:#FFFBEB;color:#D97706}
-.il-low{background:#F0FDF4;color:#16A34A}
-.impact-row{display:flex;justify-content:space-between;margin-bottom:4px}
-.impact-key{font-size:11px;color:#64748B}
-.impact-val{font-size:11px;color:#0F172A;font-weight:500}
-.impact-action{background:#EFF6FF;border-radius:6px;padding:8px 10px;margin-top:8px;font-size:11px;color:#1E40AF;line-height:1.5}
-.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-.risk-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px}
-.risk-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #F1F5F9}
-.risk-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.risk-title{font-size:13px;font-weight:600;color:#0F172A}
-.risk-item{padding:8px 0;border-bottom:1px solid #F8FAFC}
+
+/* IMPACT & RISK */
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.impact-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
+.impact-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.impact-ttl{font-size:12px;font-weight:600;color:#0F172A;margin-right:6px}
+.il{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap}
+.il-h{background:#FEF2F2;color:#DC2626}
+.il-m{background:#FFFBEB;color:#D97706}
+.il-l{background:#F0FDF4;color:#16A34A}
+.impact-row{display:flex;justify-content:space-between;margin-bottom:3px}
+.impact-k{font-size:11px;color:#64748B}
+.impact-v{font-size:11px;color:#0F172A;font-weight:500}
+.impact-act{background:#EFF6FF;border-radius:5px;padding:7px 9px;margin-top:7px;font-size:11px;color:#1E40AF;line-height:1.4}
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.risk-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
+.risk-hdr{display:flex;align-items:center;gap:7px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #F1F5F9}
+.risk-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.risk-ttl{font-size:12px;font-weight:600;color:#0F172A}
+.risk-item{padding:7px 0;border-bottom:1px solid #F8FAFC}
 .risk-item:last-child{border-bottom:none}
-.risk-name{font-size:12px;font-weight:500;color:#0F172A;margin-bottom:2px}
-.risk-detail{font-size:11px;color:#64748B;line-height:1.4;margin-bottom:3px}
-.risk-mit{font-size:10px;padding:2px 6px;border-radius:4px;display:inline-block;font-weight:500}
+.risk-name{font-size:11px;font-weight:500;color:#0F172A;margin-bottom:1px}
+.risk-det{font-size:11px;color:#64748B;margin-bottom:2px}
+.risk-mit{font-size:10px;padding:1px 5px;border-radius:3px;display:inline-block;font-weight:500}
+.sec-lbl{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 
-/* SIDEBAR */
-.sidebar{display:flex;flex-direction:column;gap:12px}
-.s-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
-.s-title{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
-.breaking-item{padding:8px 0;border-bottom:1px solid #F8FAFC}
-.breaking-item:last-child{border-bottom:none;padding-bottom:0}
-.breaking-title{font-size:12px;color:#0F172A;line-height:1.4;margin-bottom:2px;font-weight:500}
-.breaking-meta{font-size:10px;color:#94A3B8}
-.source-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0}
-.source-name{font-size:12px;color:#475569}
-.trust-pill{font-size:10px;font-weight:600;color:#16A34A;background:#F0FDF4;padding:1px 6px;border-radius:4px}
-.cat-row{display:flex;align-items:center;gap:8px;padding:3px 0}
-.cat-name{font-size:11px;color:#475569;flex:1;min-width:50px}
-.cat-bar-wrap{flex:2;background:#F1F5F9;border-radius:10px;height:3px}
-.cat-bar{height:100%;background:#2563EB;border-radius:10px}
-.cat-num{font-size:10px;color:#94A3B8;min-width:14px;text-align:right}
-.section-label{font-size:11px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
-.loading{text-align:center;padding:40px;color:#94A3B8;font-size:13px}
-.empty{text-align:center;padding:30px;color:#94A3B8;font-size:13px}
-
-/* ===== Ria CHAT WIDGET ===== */
-.Ria-trigger{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.Ria-bubble-btn{width:56px;height:56px;background:linear-gradient(135deg,#2563EB,#7C3AED);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,99,235,.4);transition:transform .2s,box-shadow .2s;position:relative}
-.Ria-bubble-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(37,99,235,.5)}
-.Ria-bubble-btn svg{width:24px;height:24px;fill:white}
-.Ria-notif{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#DC2626;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
-.Ria-tooltip{background:#0F172A;color:#fff;font-size:12px;padding:6px 12px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateX(8px);transition:all .2s}
-.Ria-trigger:hover .Ria-tooltip{opacity:1;transform:translateX(0)}
-
-/* Ria PANEL */
-.Ria-panel{position:fixed;bottom:90px;right:24px;width:380px;height:560px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.15);z-index:1000;display:flex;flex-direction:column;transform:scale(.95) translateY(10px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
-.Ria-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
-
-.Ria-header{background:linear-gradient(135deg,#1E3A8A,#2563EB);padding:16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.Ria-avatar{width:40px;height:40px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.Ria-info h3{font-size:15px;font-weight:600;color:#fff}
-.Ria-info p{font-size:11px;color:#93C5FD}
-.Ria-status{display:flex;align-items:center;gap:4px;margin-top:2px}
-.Ria-status-dot{width:5px;height:5px;background:#10B981;border-radius:50%;animation:pulse 2s infinite}
-.Ria-status span{font-size:10px;color:#6EE7B7}
-.Ria-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.Ria-close:hover{background:rgba(255,255,255,.25)}
-
-.Ria-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#F8FAFC}
-.Ria-msg{display:flex;gap:8px;max-width:100%}
-.Ria-msg.user{flex-direction:row-reverse}
-.Ria-msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
-.Ria-msg.assistant .Ria-msg-avatar{background:#EFF6FF;color:#2563EB;font-size:14px}
-.Ria-msg.user .Ria-msg-avatar{background:#2563EB;color:#fff;font-size:10px}
-.Ria-msg-bubble{padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.5;max-width:calc(100% - 40px)}
-.Ria-msg.assistant .Ria-msg-bubble{background:#fff;border:1px solid #E2E8F0;color:#0F172A;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.Ria-msg.user .Ria-msg-bubble{background:#2563EB;color:#fff;border-bottom-right-radius:4px}
-
-.Ria-typing-bubble{padding:10px 14px;background:#fff;border:1px solid #E2E8F0;border-radius:12px;border-bottom-left-radius:4px;display:flex;gap:4px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.Ria-dot{width:5px;height:5px;background:#2563EB;border-radius:50%;animation:bounce 1.2s infinite}
-.Ria-dot:nth-child(2){animation-delay:.2s}
-.Ria-dot:nth-child(3){animation-delay:.4s}
+/* RIGHT — RIA PANEL */
+.ria-panel{display:flex;flex-direction:column;background:#fff;overflow:hidden}
+.ria-header{background:linear-gradient(135deg,#1E3A8A,#2563EB);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ria-avatar{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ria-info h3{font-size:14px;font-weight:600;color:#fff}
+.ria-info p{font-size:10px;color:#93C5FD}
+.ria-status{display:flex;align-items:center;gap:4px;margin-top:2px}
+.ria-status-dot{width:5px;height:5px;background:#10B981;border-radius:50%;animation:pulse 2s infinite}
+.ria-status span{font-size:10px;color:#6EE7B7}
+.ria-sidebar{border-left:1px solid rgba(255,255,255,.1);padding-left:10px;margin-left:auto;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.ria-stat{font-size:10px;color:#93C5FD;text-align:right}
+.ria-stat strong{color:#fff}
+.ria-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:#F8FAFC}
+.ria-msg{display:flex;gap:7px;max-width:100%}
+.ria-msg.user{flex-direction:row-reverse}
+.ria-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.ria-msg.assistant .ria-av{background:#EFF6FF;color:#2563EB;font-size:13px}
+.ria-msg.user .ria-av{background:#2563EB;color:#fff;font-size:9px}
+.ria-bubble{padding:9px 11px;border-radius:10px;font-size:12px;line-height:1.5;max-width:calc(100% - 36px)}
+.ria-msg.assistant .ria-bubble{background:#fff;border:1px solid #E2E8F0;color:#0F172A;border-bottom-left-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.ria-msg.user .ria-bubble{background:#2563EB;color:#fff;border-bottom-right-radius:3px}
+.ria-typing-bubble{padding:9px 12px;background:#fff;border:1px solid #E2E8F0;border-radius:10px;border-bottom-left-radius:3px;display:flex;gap:3px;align-items:center}
+.ria-dot{width:5px;height:5px;background:#2563EB;border-radius:50%;animation:bounce 1.2s infinite}
+.ria-dot:nth-child(2){animation-delay:.2s}
+.ria-dot:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
 
-.Ria-quick-replies{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;background:#fff;border-top:1px solid #F1F5F9;flex-shrink:0}
-.Ria-quick{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:20px;padding:5px 10px;font-size:11px;color:#2563EB;cursor:pointer;transition:all .15s;white-space:nowrap}
-.Ria-quick:hover{background:#DBEAFE}
+/* IMAGE PREVIEW */
+.img-preview{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:7px;padding:8px 10px;margin:0 12px 6px;display:none;align-items:center;gap:8px}
+.img-preview.show{display:flex}
+.img-preview img{width:40px;height:40px;border-radius:5px;object-fit:cover;border:1px solid #BFDBFE}
+.img-preview-info{flex:1;font-size:11px;color:#1E40AF}
+.img-preview-remove{background:none;border:none;color:#DC2626;cursor:pointer;font-size:14px;padding:2px}
 
-.Ria-input-area{padding:12px 16px;background:#fff;border-top:1px solid #E2E8F0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
-.Ria-input-area textarea{flex:1;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:9px 12px;font-size:13px;color:#0F172A;font-family:inherit;resize:none;min-height:40px;max-height:100px;outline:none;transition:border-color .15s}
-.Ria-input-area textarea:focus{border-color:#2563EB;background:#fff}
-.Ria-input-area textarea::placeholder{color:#94A3B8}
-.Ria-send{background:#2563EB;border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
-.Ria-send:hover{background:#1D4ED8}
-.Ria-send:disabled{background:#CBD5E1;cursor:not-allowed}
-.Ria-send svg{width:16px;height:16px;fill:white}
+.ria-quick{padding:6px 10px;display:flex;gap:5px;flex-wrap:wrap;background:#fff;border-top:1px solid #F1F5F9;flex-shrink:0}
+.qbtn{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:20px;padding:4px 9px;font-size:11px;color:#2563EB;cursor:pointer;transition:all .15s;white-space:nowrap}
+.qbtn:hover{background:#DBEAFE}
 
-.Ria-wake-msg{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin:0 16px 8px;display:none}
-.Ria-wake-msg.show{display:block}
+.ria-input-area{padding:10px 12px;background:#fff;border-top:1px solid #E2E8F0;display:flex;gap:7px;align-items:flex-end;flex-shrink:0}
+.ria-input-area textarea{flex:1;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:8px 10px;font-size:12px;color:#0F172A;font-family:inherit;resize:none;min-height:38px;max-height:90px;outline:none;transition:border-color .15s}
+.ria-input-area textarea:focus{border-color:#2563EB;background:#fff}
+.ria-input-area textarea::placeholder{color:#94A3B8}
+.ria-img-btn{background:#F1F5F9;border:1px solid #E2E8F0;border-radius:7px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;flex-shrink:0}
+.ria-img-btn:hover{background:#EFF6FF;border-color:#BFDBFE}
+.ria-send{background:#2563EB;border:none;border-radius:7px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.ria-send:hover{background:#1D4ED8}
+.ria-send:disabled{background:#CBD5E1;cursor:not-allowed}
+.ria-send svg{width:14px;height:14px;fill:white}
+.ria-wake{background:#FFFBEB;border:1px solid #FCD34D;border-radius:6px;padding:7px 10px;font-size:11px;color:#92400E;margin:0 12px 6px;display:none}
+.ria-wake.show{display:block}
 
-/* MOBILE NAV */
-.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E2E8F0;padding:8px 0;z-index:200;justify-content:space-around}
-.mobile-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#64748B;font-size:10px;padding:4px 16px;border-radius:8px;transition:all .15s}
-.mobile-nav a.active{color:#2563EB}
-.mobile-nav a span:first-child{font-size:18px}
+/* BREAKING SIDEBAR */
+.breaking-section{border-top:1px solid #E2E8F0;padding:12px;flex-shrink:0;max-height:200px;overflow-y:auto}
+.breaking-title-bar{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.breaking-item{padding:6px 0;border-bottom:1px solid #F8FAFC}
+.breaking-item:last-child{border-bottom:none}
+.breaking-ttl{font-size:11px;color:#0F172A;font-weight:500;line-height:1.3;margin-bottom:2px;cursor:pointer}
+.breaking-ttl:hover{color:#2563EB}
+.breaking-meta{font-size:10px;color:#94A3B8}
 
 /* MOBILE */
-@media(max-width:1024px){.content{grid-template-columns:1fr}}
-@media(max-width:768px){
-  .header{padding:0 14px;height:52px}
-  .brand p,.timestamp,.live-pill,.search-wrap{display:none}
-  .nav{display:none}
-  .trust-bar{gap:12px;padding:6px 14px;overflow-x:auto;flex-wrap:nowrap}
-  .trust-item{white-space:nowrap;flex-shrink:0}
-  .ai-panel{margin:10px 14px;padding:14px}
-  .ai-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .stats{grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px}
-  .stat-value{font-size:20px}
-  .tabs{padding:0 14px;overflow-x:auto}
-  .tab{padding:10px 12px;font-size:12px}
-  .content{grid-template-columns:1fr;padding:12px 14px 80px}
-  .trends-grid{grid-template-columns:1fr}
-  .cpm-table{overflow-x:auto}
-  .cpm-row{min-width:580px}
-  .impact-grid{grid-template-columns:1fr}
-  .risk-grid{grid-template-columns:1fr}
-  .mobile-nav{display:flex}
-  .Ria-panel{width:calc(100vw - 32px);right:16px;bottom:70px}
-  .Ria-trigger{bottom:70px;right:16px}
+@media(max-width:900px){
+  .main-layout{grid-template-columns:1fr}
+  .ria-panel{position:fixed;bottom:0;right:0;width:100%;height:50vh;z-index:100;border-top:2px solid #2563EB}
+  .news-panel{padding-bottom:50vh}
 }
-@media(max-width:480px){.ai-grid{grid-template-columns:1fr}}
-.Ria-panel.expanded{width:680px;height:80vh;bottom:24px}
-@media(max-width:768px){.Ria-panel.expanded{width:calc(100vw - 32px);height:85vh}}
 </style>
 </head>
 <body>
@@ -289,259 +220,172 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </nav>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="globalSearch" placeholder="Search articles, sources..." oninput="handleSearch(this.value)" onblur="setTimeout(()=>closeSearch(),200)">
+    <input type="text" id="globalSearch" placeholder="Search articles..." oninput="handleSearch(this.value)" onblur="setTimeout(()=>closeSearch(),200)">
     <div class="search-results" id="searchResults"></div>
   </div>
   <div class="header-right">
-    <span class="timestamp" id="lastUpdated">Updating...</span>
+    <span style="font-size:11px;color:#94A3B8" id="lastUpdated"></span>
     <div class="live-pill"><div class="live-dot"></div>Live</div>
-    <a class="bookmark-btn" href="#" onclick="switchTabByName('bookmarks');return false">🔖 <span id="bookmarkCount">0</span></a>
     <button class="refresh-btn" id="refreshBtn" onclick="fetchNews()">↻ Refresh</button>
   </div>
 </div>
 
 <div class="alert-banner" id="alertBanner">
-  <span style="font-size:14px">⚠️</span>
+  <span>⚠️</span>
   <span class="alert-text" id="alertText"></span>
   <span class="alert-pill" id="alertPill"></span>
 </div>
 
-<div class="trust-bar">
-  <div class="trust-item"><span class="trust-label">Sources:</span><span class="trust-value" id="tSources">—</span></div>
-  <div class="trust-item"><span class="trust-label">Articles:</span><span class="trust-value" id="tArticles">—</span></div>
-  <div class="trust-item"><span class="trust-label">High priority:</span><span class="trust-value" id="tHigh">—</span></div>
-  <div class="trust-item"><span class="trust-label">Avg confidence:</span><span class="conf-pill" id="confPill">—%</span></div>
-  <div class="trust-item"><span class="trust-label">Freshness:</span><span id="tFresh" class="fresh-old">Checking...</span></div>
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-label">Articles:</span><strong class="stat-val" id="totalCount">—</strong><span id="todayCount" style="font-size:10px;color:#16A34A"></span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span style="color:#DC2626">🔴</span><strong id="criticalCount" style="font-weight:600;color:#DC2626">—</strong><span class="stat-label"> critical</span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span style="color:#D97706">🟡</span><strong id="highCount" style="font-weight:600;color:#D97706">—</strong><span class="stat-label"> high</span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-label">Sources:</span><strong class="stat-val" id="sourceCount">—</strong></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-label">Confidence:</span><span class="conf-pill" id="confPill">—%</span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-label">Freshness:</span><span id="tFresh" style="font-weight:500;color:#D97706">Checking...</span></div>
 </div>
 
-<!-- COMPACT STATS ROW -->
-<div style="display:flex;align-items:center;gap:12px;padding:10px 24px;background:#fff;border-bottom:1px solid #E2E8F0;flex-wrap:wrap">
-  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
-    <span style="color:#64748B">Articles:</span>
-    <strong id="totalCount" style="color:#0F172A">—</strong>
-    <span id="todayCount" style="font-size:11px;color:#16A34A"></span>
-  </div>
-  <div style="width:1px;height:16px;background:#E2E8F0"></div>
-  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
-    <span style="color:#DC2626">🔴</span>
-    <strong id="criticalCount" style="color:#DC2626">—</strong>
-    <span style="color:#64748B;font-size:11px">critical</span>
-  </div>
-  <div style="width:1px;height:16px;background:#E2E8F0"></div>
-  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
-    <span style="color:#D97706">🟡</span>
-    <strong id="highCount" style="color:#D97706">—</strong>
-    <span style="color:#64748B;font-size:11px">high priority</span>
-  </div>
-  <div style="width:1px;height:16px;background:#E2E8F0"></div>
-  <div style="display:flex;align-items:center;gap:6px;font-size:13px">
-    <span style="color:#64748B">Sources:</span>
-    <strong id="sourceCount" style="color:#2563EB">—</strong>
-  </div>
-  <div style="width:1px;height:16px;background:#E2E8F0"></div>
-  <div style="font-size:11px">
-    <span style="color:#64748B">Confidence:</span>
-    <span class="conf-pill" id="confPill" style="background:#DBEAFE;color:#1E40AF;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600">—%</span>
-  </div>
-  <div style="width:1px;height:16px;background:#E2E8F0"></div>
-  <div style="font-size:11px">
-    <span style="color:#64748B">Freshness:</span>
-    <span id="tFresh" style="color:#D97706;font-weight:500">Checking...</span>
-  </div>
-</div>
+<div class="main-layout">
 
-<div class="stats">
-  <div class="stat" onclick="switchTabByName('news')">
-    <div class="stat-label">Total Articles</div>
-    <div class="stat-value" id="totalCount">—</div>
-    <div class="stat-sub up" id="todayCount">Loading...</div>
-  </div>
-  <div class="stat" onclick="switchTabByName('critical')">
-    <div class="stat-label">🔴 Critical Alerts</div>
-    <div class="stat-value down" id="criticalCount">—</div>
-    <div class="stat-sub down">Immediate action</div>
-  </div>
-  <div class="stat">
-    <div class="stat-label">🟡 High Priority</div>
-    <div class="stat-value warn" id="highCount">—</div>
-    <div class="stat-sub warn">Review today</div>
-  </div>
-  <div class="stat">
-    <div class="stat-label">Active Sources</div>
-    <div class="stat-value blue" id="sourceCount">—</div>
-    <div class="stat-sub blue">Monitored feeds</div>
-  </div>
-  <div class="stat" onclick="switchTabByName('bookmarks')">
-    <div class="stat-label">🔖 Saved Articles</div>
-    <div class="stat-value" id="savedCount">0</div>
-    <div class="stat-sub blue">Your bookmarks</div>
-  </div>
-</div>
-
-<div class="tabs">
-  <button class="tab active" data-tab="news" onclick="switchTab('news',this)">📰 Latest News</button>
-  <button class="tab" data-tab="trends" onclick="switchTab('trends',this)">📈 Industry Trends</button>
-  <button class="tab" data-tab="impact" onclick="switchTab('impact',this)">🎯 Publisher Impact</button>
-  <button class="tab" data-tab="risk" onclick="switchTab('risk',this)">⚠️ Risk Center</button>
-  <button class="tab" data-tab="critical" onclick="switchTab('critical',this)">🔴 Critical Only</button>
-  <button class="tab" data-tab="prebid" onclick="switchTab('prebid',this)">⚙️ Prebid & Tech</button>
-  <button class="tab" data-tab="privacy" onclick="switchTab('privacy',this)">🔒 Privacy</button>
-  <button class="tab" data-tab="bookmarks" onclick="switchTab('bookmarks',this)">🔖 Saved</button>
-</div>
-
-<div class="content">
-  <div>
-    <!-- NEWS TAB -->
-    <div class="tab-pane active" id="tab-news">
-      <div class="filters" id="filters"></div>
-      <div class="news-list" id="newsList"><div class="loading">Loading AdTech intelligence...</div></div>
+  <!-- LEFT 70% — NEWS -->
+  <div class="news-panel">
+    <div class="tabs">
+      <button class="tab active" data-tab="news" onclick="switchTab('news',this)">📰 Latest News</button>
+      <button class="tab" data-tab="trends" onclick="switchTab('trends',this)">📈 Trends</button>
+      <button class="tab" data-tab="impact" onclick="switchTab('impact',this)">🎯 Publisher Impact</button>
+      <button class="tab" data-tab="risk" onclick="switchTab('risk',this)">⚠️ Risk</button>
+      <button class="tab" data-tab="critical" onclick="switchTab('critical',this)">🔴 Critical</button>
+      <button class="tab" data-tab="prebid" onclick="switchTab('prebid',this)">⚙️ Prebid</button>
+      <button class="tab" data-tab="privacy" onclick="switchTab('privacy',this)">🔒 Privacy</button>
+      <button class="tab" data-tab="saved" onclick="switchTab('saved',this)">🔖 Saved</button>
     </div>
 
-    <!-- TRENDS TAB -->
-    <div class="tab-pane" id="tab-trends">
-      <div style="font-size:11px;color:#94A3B8;margin-bottom:14px">Q1 2026 earnings · Confidence 91% · Source: Public earnings calls</div>
-      <div class="section-label">DSP & Platform Performance</div>
-      <div class="trends-grid">
-        <div class="trend-card"><div class="trend-top"><div><div class="trend-name">The Trade Desk</div><div class="trend-source">Q1 2026 · 95% confidence</div></div><span class="t-badge t-up">↑ Up</span></div><div class="trend-value">+18%</div><div class="trend-sub">YoY revenue growth</div><div class="trend-action">Increase TTD deal volume</div><div class="trend-conf">Strong demand, higher CPMs expected</div><div class="bar-wrap"><div class="bar-fill bar-green" style="width:78%"></div></div></div>
-        <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Google AdX</div><div class="trend-source">Q1 2026 · 97% confidence</div></div><span class="t-badge t-stable">→ Stable</span></div><div class="trend-value">+4%</div><div class="trend-sub">Ad revenue growth</div><div class="trend-action">Maintain current GAM setup</div><div class="trend-conf">Stable monetization</div><div class="bar-wrap"><div class="bar-fill bar-blue" style="width:55%"></div></div></div>
-        <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Magnite</div><div class="trend-source">Q1 2026 · 93% confidence</div></div><span class="t-badge t-up">↑ Up</span></div><div class="trend-value">+12%</div><div class="trend-sub">CTV revenue growth</div><div class="trend-action">Expand CTV inventory</div><div class="trend-conf">CTV publishers see higher fill rates</div><div class="bar-wrap"><div class="bar-fill bar-green" style="width:62%"></div></div></div>
-        <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Criteo</div><div class="trend-source">Q1 2026 · 92% confidence</div></div><span class="t-badge t-down">↓ Down</span></div><div class="trend-value">-6%</div><div class="trend-sub">Retargeting revenue</div><div class="trend-action">Diversify demand partners</div><div class="trend-conf">Retargeting CPMs softening</div><div class="bar-wrap"><div class="bar-fill bar-red" style="width:30%"></div></div></div>
-        <div class="trend-card"><div class="trend-top"><div><div class="trend-name">PubMatic</div><div class="trend-source">Q1 2026 · 94% confidence</div></div><span class="t-badge t-up">↑ Up</span></div><div class="trend-value">+9%</div><div class="trend-sub">Programmatic revenue</div><div class="trend-action">Add PubMatic if not active</div><div class="trend-conf">Good header bidding partner</div><div class="bar-wrap"><div class="bar-fill bar-green" style="width:58%"></div></div></div>
-        <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Index Exchange</div><div class="trend-source">Industry data · 88% confidence</div></div><span class="t-badge t-stable">→ Stable</span></div><div class="trend-value">+2%</div><div class="trend-sub">Header bidding revenue</div><div class="trend-action">Maintain current IX setup</div><div class="trend-conf">Reliable baseline demand</div><div class="bar-wrap"><div class="bar-fill bar-blue" style="width:45%"></div></div></div>
+    <div class="news-body">
+      <!-- NEWS -->
+      <div class="tab-pane active" id="tab-news">
+        <div class="filters" id="filters"></div>
+        <div class="news-list" id="newsList"><div class="loading">Loading AdTech intelligence...</div></div>
       </div>
-      <div class="cpm-live-header">
-        <div class="section-label" style="margin:0">Current Industry CPMs <span class="live-cpm-badge">Q2 2026 Benchmarks</span></div>
+      <!-- TRENDS -->
+      <div class="tab-pane" id="tab-trends">
+        <div style="font-size:11px;color:#94A3B8;margin-bottom:12px">Q1 2026 earnings · 91% confidence · Public earnings calls</div>
+        <div class="sec-lbl">DSP & Platform Performance</div>
+        <div class="trends-grid">
+          <div class="trend-card"><div class="trend-top"><div><div class="trend-name">The Trade Desk</div><div class="trend-src">Q1 2026 · 95% conf</div></div><span class="t-up">↑ Up</span></div><div class="trend-val">+18%</div><div class="trend-sub">YoY revenue growth</div><div class="trend-act">Increase TTD deals</div><div class="bar-wrap"><div class="bar-fill bar-green" style="width:78%"></div></div></div>
+          <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Google AdX</div><div class="trend-src">Q1 2026 · 97% conf</div></div><span class="t-stable">→ Stable</span></div><div class="trend-val">+4%</div><div class="trend-sub">Ad revenue growth</div><div class="trend-act">Maintain GAM setup</div><div class="bar-wrap"><div class="bar-fill bar-blue" style="width:55%"></div></div></div>
+          <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Magnite</div><div class="trend-src">Q1 2026 · 93% conf</div></div><span class="t-up">↑ Up</span></div><div class="trend-val">+12%</div><div class="trend-sub">CTV revenue growth</div><div class="trend-act">Expand CTV inventory</div><div class="bar-wrap"><div class="bar-fill bar-green" style="width:62%"></div></div></div>
+          <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Criteo</div><div class="trend-src">Q1 2026 · 92% conf</div></div><span class="t-down">↓ Down</span></div><div class="trend-val">-6%</div><div class="trend-sub">Retargeting revenue</div><div class="trend-act">Diversify demand</div><div class="bar-wrap"><div class="bar-fill bar-red" style="width:30%"></div></div></div>
+          <div class="trend-card"><div class="trend-top"><div><div class="trend-name">PubMatic</div><div class="trend-src">Q1 2026 · 94% conf</div></div><span class="t-up">↑ Up</span></div><div class="trend-val">+9%</div><div class="trend-sub">Programmatic revenue</div><div class="trend-act">Add PubMatic HB</div><div class="bar-wrap"><div class="bar-fill bar-green" style="width:58%"></div></div></div>
+          <div class="trend-card"><div class="trend-top"><div><div class="trend-name">Index Exchange</div><div class="trend-src">Industry · 88% conf</div></div><span class="t-stable">→ Stable</span></div><div class="trend-val">+2%</div><div class="trend-sub">Header bidding revenue</div><div class="trend-act">Maintain IX setup</div><div class="bar-wrap"><div class="bar-fill bar-blue" style="width:45%"></div></div></div>
+        </div>
+        <div class="sec-lbl" style="margin-top:4px">Current Industry CPMs — Q2 2026 Benchmarks</div>
+        <div class="cpm-table">
+          <div class="cpm-row cpm-h"><div class="cpm-c">Format</div><div class="cpm-c">Avg CPM</div><div class="cpm-c">Range</div><div class="cpm-c">YoY</div><div class="cpm-c">Opp Score</div><div class="cpm-c">Action</div></div>
+          <div class="cpm-row"><div class="cpm-c" style="font-weight:500">📺 CTV/OTT</div><div class="cpm-c" style="color:#16A34A;font-weight:700">$38</div><div class="cpm-c" style="font-size:10px;color:#64748B">$25–$55</div><div class="cpm-c" style="color:#16A34A">+22%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:92%"></div></div><span style="font-size:10px;font-weight:700;color:#2563EB">92</span></div></div><div class="cpm-c" style="font-size:10px;color:#2563EB;font-weight:500">↑ Expand now</div></div>
+          <div class="cpm-row"><div class="cpm-c" style="font-weight:500">🎬 Outstream Video</div><div class="cpm-c" style="color:#16A34A;font-weight:700">$13</div><div class="cpm-c" style="font-size:10px;color:#64748B">$8–$20</div><div class="cpm-c" style="color:#16A34A">+8%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:74%"></div></div><span style="font-size:10px;font-weight:700;color:#2563EB">74</span></div></div><div class="cpm-c" style="font-size:10px;color:#2563EB">↑ Add placements</div></div>
+          <div class="cpm-row"><div class="cpm-c" style="font-weight:500">📻 Audio/Podcast</div><div class="cpm-c" style="color:#16A34A;font-weight:700">$22</div><div class="cpm-c" style="font-size:10px;color:#64748B">$15–$35</div><div class="cpm-c" style="color:#16A34A">+31%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:88%"></div></div><span style="font-size:10px;font-weight:700;color:#2563EB">88</span></div></div><div class="cpm-c" style="font-size:10px;color:#2563EB">↑ Explore audio</div></div>
+          <div class="cpm-row"><div class="cpm-c" style="font-weight:500">📸 Native</div><div class="cpm-c" style="font-weight:700">$5.50</div><div class="cpm-c" style="font-size:10px;color:#64748B">$3–$9</div><div class="cpm-c" style="color:#16A34A">+5%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:58%"></div></div><span style="font-size:10px;font-weight:700;color:#2563EB">58</span></div></div><div class="cpm-c" style="font-size:10px;color:#64748B">→ Optimize</div></div>
+          <div class="cpm-row"><div class="cpm-c" style="font-weight:500">🖥️ Desktop Display</div><div class="cpm-c" style="font-weight:700">$3.80</div><div class="cpm-c" style="font-size:10px;color:#64748B">$1.50–$7</div><div class="cpm-c" style="color:#64748B">0%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:42%"></div></div><span style="font-size:10px;font-weight:700;color:#64748B">42</span></div></div><div class="cpm-c" style="font-size:10px;color:#64748B">→ Maintain</div></div>
+          <div class="cpm-row"><div class="cpm-c" style="font-weight:500">📱 Mobile Display</div><div class="cpm-c" style="color:#DC2626;font-weight:700">$2.10</div><div class="cpm-c" style="font-size:10px;color:#64748B">$0.80–$4</div><div class="cpm-c" style="color:#DC2626">-3%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill bar-red" style="width:28%"></div></div><span style="font-size:10px;font-weight:700;color:#DC2626">28</span></div></div><div class="cpm-c" style="font-size:10px;color:#DC2626">↓ Review floors</div></div>
+        </div>
       </div>
-      <div class="cpm-table">
-        <div class="cpm-row cpm-header"><div class="cpm-cell">Format</div><div class="cpm-cell">Avg CPM</div><div class="cpm-cell">Range</div><div class="cpm-cell">YoY</div><div class="cpm-cell">Opportunity</div><div class="cpm-cell">Action</div></div>
-        <div class="cpm-row"><div class="cpm-cell" style="font-weight:500">📺 CTV / OTT</div><div class="cpm-cell up" style="font-weight:700;font-size:14px">$38</div><div class="cpm-cell" style="font-size:11px;color:#64748B">$25–$55</div><div class="cpm-cell up">+22%</div><div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:92%"></div></div><span style="font-size:11px;font-weight:700;color:#2563EB">92</span></div></div><div class="cpm-cell" style="font-size:11px;color:#2563EB;font-weight:500">↑ Increase allocation</div></div>
-        <div class="cpm-row"><div class="cpm-cell" style="font-weight:500">🎬 Outstream Video</div><div class="cpm-cell up" style="font-weight:700;font-size:14px">$13</div><div class="cpm-cell" style="font-size:11px;color:#64748B">$8–$20</div><div class="cpm-cell up">+8%</div><div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:74%"></div></div><span style="font-size:11px;font-weight:700;color:#2563EB">74</span></div></div><div class="cpm-cell" style="font-size:11px;color:#2563EB;font-weight:500">↑ Add placements</div></div>
-        <div class="cpm-row"><div class="cpm-cell" style="font-weight:500">📻 Audio / Podcast</div><div class="cpm-cell up" style="font-weight:700;font-size:14px">$22</div><div class="cpm-cell" style="font-size:11px;color:#64748B">$15–$35</div><div class="cpm-cell up">+31%</div><div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:88%"></div></div><span style="font-size:11px;font-weight:700;color:#2563EB">88</span></div></div><div class="cpm-cell" style="font-size:11px;color:#2563EB;font-weight:500">↑ Explore audio</div></div>
-        <div class="cpm-row"><div class="cpm-cell" style="font-weight:500">📸 Native Ads</div><div class="cpm-cell" style="font-weight:700;font-size:14px">$5.50</div><div class="cpm-cell" style="font-size:11px;color:#64748B">$3–$9</div><div class="cpm-cell up">+5%</div><div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:58%"></div></div><span style="font-size:11px;font-weight:700;color:#2563EB">58</span></div></div><div class="cpm-cell" style="font-size:11px;color:#64748B">→ Optimize</div></div>
-        <div class="cpm-row"><div class="cpm-cell" style="font-weight:500">🖥️ Desktop Display</div><div class="cpm-cell" style="font-weight:700;font-size:14px">$3.80</div><div class="cpm-cell" style="font-size:11px;color:#64748B">$1.50–$7</div><div class="cpm-cell blue">0%</div><div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill" style="width:42%"></div></div><span style="font-size:11px;font-weight:700;color:#64748B">42</span></div></div><div class="cpm-cell" style="font-size:11px;color:#64748B">→ Maintain floors</div></div>
-        <div class="cpm-row"><div class="cpm-cell" style="font-weight:500">📱 Mobile Display</div><div class="cpm-cell down" style="font-weight:700;font-size:14px">$2.10</div><div class="cpm-cell" style="font-size:11px;color:#64748B">$0.80–$4</div><div class="cpm-cell down">-3%</div><div class="cpm-cell"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill bar-red" style="width:28%"></div></div><span style="font-size:11px;font-weight:700;color:#DC2626">28</span></div></div><div class="cpm-cell" style="font-size:11px;color:#DC2626;font-weight:500">↓ Review floors</div></div>
+      <!-- PUBLISHER IMPACT -->
+      <div class="tab-pane" id="tab-impact">
+        <div class="impact-grid">
+          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Google AdX Demand Softening</div><span class="il il-m">Medium</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#DC2626">-3% to -5%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">Display, Mobile</span></div><div class="impact-act">Review floor prices. Activate additional SSPs.</div></div>
+          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">CTV Demand Surge</div><span class="il il-l">Opportunity</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#16A34A">+15% to +22%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">Video, OTT, CTV</span></div><div class="impact-act">Increase CTV inventory immediately.</div></div>
+          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Cookie Deprecation</div><span class="il il-h">High Impact</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#DC2626">-8% to -15%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">All retargeting</span></div><div class="impact-act">Activate UID2 and ID5 immediately.</div></div>
+          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Prebid.js v11 Migration</div><span class="il il-m">Medium</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#2563EB">Neutral to +5%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">All header bidding</span></div><div class="impact-act">Upgrade to Prebid v11 now. Test staging first.</div></div>
+        </div>
+        <div class="sec-lbl">Publisher Action Center</div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;padding:9px;background:#F0FDF4;border-radius:7px;border:1px solid #BBF7D0"><span>🚀</span><div><div style="font-size:12px;font-weight:600;color:#16A34A;margin-bottom:2px">Immediate: Upgrade Prebid.js to v11.15</div><div style="font-size:11px;color:#064E3B">Latest release just published. Test in staging first.</div></div></div>
+          <div style="display:flex;gap:10px;padding:9px;background:#FFFBEB;border-radius:7px;border:1px solid #FCD34D"><span>⚠️</span><div><div style="font-size:12px;font-weight:600;color:#D97706;margin-bottom:2px">This Week: Review Floor Prices</div><div style="font-size:11px;color:#92400E">AdX demand softening Q2 2026. Lower floors 10-15% on mobile.</div></div></div>
+          <div style="display:flex;gap:10px;padding:9px;background:#EFF6FF;border-radius:7px;border:1px solid #BFDBFE"><span>📋</span><div><div style="font-size:12px;font-weight:600;color:#2563EB;margin-bottom:2px">This Month: Activate UID2</div><div style="font-size:11px;color:#1E3A8A">Protects 60-70% of retargeting revenue from cookie deprecation.</div></div></div>
+          <div style="display:flex;gap:10px;padding:9px;background:#F5F3FF;border-radius:7px;border:1px solid #DDD6FE"><span>📺</span><div><div style="font-size:12px;font-weight:600;color:#7C3AED;margin-bottom:2px">Q3 Goal: Expand CTV Supply</div><div style="font-size:11px;color:#4C1D95">CTV CPMs at $38 avg, +22% YoY. Highest opportunity format.</div></div></div>
+        </div>
+      </div>
+      <!-- RISK -->
+      <div class="tab-pane" id="tab-risk">
+        <div class="risk-grid">
+          <div class="risk-card"><div class="risk-hdr"><div class="risk-dot" style="background:#DC2626"></div><div class="risk-ttl">High Risk</div></div><div class="risk-item"><div class="risk-name">Cookie Deprecation</div><div class="risk-det">All retargeting · -8% to -15% RPM</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Deploy UID2</span></div><div class="risk-item"><div class="risk-name">Privacy Sandbox</div><div class="risk-det">Behavioral targeting · -5% to -12%</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Contextual targeting</span></div></div>
+          <div class="risk-card"><div class="risk-hdr"><div class="risk-dot" style="background:#D97706"></div><div class="risk-ttl">Medium Risk</div></div><div class="risk-item"><div class="risk-name">AdX Demand Softening</div><div class="risk-det">Display · -3% to -5% RPM</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Add SSP partners</span></div><div class="risk-item"><div class="risk-name">Floor Price Sensitivity</div><div class="risk-det">Open auction · -2% to -8%</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Dynamic floors</span></div></div>
+          <div class="risk-card"><div class="risk-hdr"><div class="risk-dot" style="background:#16A34A"></div><div class="risk-ttl">Opportunity</div></div><div class="risk-item"><div class="risk-name">CTV Growth</div><div class="risk-det">Video · +15% to +22% RPM</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Expand CTV now</span></div><div class="risk-item"><div class="risk-name">Audio Advertising</div><div class="risk-det">Podcast · +25% to +35% RPM</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Explore audio</span></div></div>
+        </div>
+      </div>
+      <!-- CRITICAL -->
+      <div class="tab-pane" id="tab-critical">
+        <div class="news-list" id="criticalList"><div class="loading">Loading...</div></div>
+      </div>
+      <!-- PREBID -->
+      <div class="tab-pane" id="tab-prebid">
+        <div class="news-list" id="prebidList"><div class="loading">Loading...</div></div>
+      </div>
+      <!-- PRIVACY -->
+      <div class="tab-pane" id="tab-privacy">
+        <div class="news-list" id="privacyList"><div class="loading">Loading...</div></div>
+      </div>
+      <!-- SAVED -->
+      <div class="tab-pane" id="tab-saved">
+        <div class="news-list" id="savedList"><div class="empty">📌 No saved articles yet. Click 🏷️ to save.</div></div>
       </div>
     </div>
+  </div>
 
-    <!-- PUBLISHER IMPACT TAB -->
-    <div class="tab-pane" id="tab-impact">
-      <div style="font-size:11px;color:#94A3B8;margin-bottom:14px">Publisher impact analysis · Updated daily</div>
-      <div class="impact-grid">
-        <div class="impact-card"><div class="impact-header"><div class="impact-title">Google AdX Demand Softening</div><span class="il il-medium">Medium</span></div><div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val down">-3% to -5%</span></div><div class="impact-row"><span class="impact-key">Formats</span><span class="impact-val">Display, Mobile</span></div><div class="impact-action">Review floor prices. Activate additional SSPs to compensate.</div></div>
-        <div class="impact-card"><div class="impact-header"><div class="impact-title">CTV Demand Surge</div><span class="il il-low">Opportunity</span></div><div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val up">+15% to +22%</span></div><div class="impact-row"><span class="impact-key">Formats</span><span class="impact-val">Video, OTT, CTV</span></div><div class="impact-action">Increase CTV inventory immediately. TTD showing strong demand.</div></div>
-        <div class="impact-card"><div class="impact-header"><div class="impact-title">Cookie Deprecation</div><span class="il il-high">High Impact</span></div><div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val down">-8% to -15%</span></div><div class="impact-row"><span class="impact-key">Formats</span><span class="impact-val">All retargeting</span></div><div class="impact-action">Activate UID2 and ID5 immediately. Build first-party data strategy.</div></div>
-        <div class="impact-card"><div class="impact-header"><div class="impact-title">Prebid.js v11 Migration</div><span class="il il-medium">Medium</span></div><div class="impact-row"><span class="impact-key">Revenue impact</span><span class="impact-val blue">Neutral to +5%</span></div><div class="impact-row"><span class="impact-key">Formats</span><span class="impact-val">All header bidding</span></div><div class="impact-action">Upgrade to Prebid.js v11 now. New async handlers improve yield.</div></div>
+  <!-- RIGHT 30% — RIA -->
+  <div class="ria-panel">
+    <div class="ria-header">
+      <div class="ria-avatar">🤖</div>
+      <div class="ria-info">
+        <h3>Ria</h3>
+        <p>Rowan Intelligence Agent</p>
+        <div class="ria-status"><div class="ria-status-dot"></div><span>Online · Ready to help</span></div>
       </div>
-      <div class="section-label">Publisher Action Center</div>
-      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:10px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0"><span style="font-size:18px">🚀</span><div><div style="font-size:13px;font-weight:600;color:#16A34A;margin-bottom:2px">Immediate: Upgrade Prebid.js to v11.14</div><div style="font-size:12px;color:#064E3B">New release includes mergeConfig fix affecting price granularity. Test in staging first.</div></div></div>
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:10px;background:#FFFBEB;border-radius:8px;border:1px solid #FCD34D"><span style="font-size:18px">⚠️</span><div><div style="font-size:13px;font-weight:600;color:#D97706;margin-bottom:2px">This Week: Review Floor Prices</div><div style="font-size:12px;color:#92400E">AdX demand softening Q2 2026. Lower floors 10-15% on mobile and desktop display.</div></div></div>
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:10px;background:#EFF6FF;border-radius:8px;border:1px solid #BFDBFE"><span style="font-size:18px">📋</span><div><div style="font-size:13px;font-weight:600;color:#2563EB;margin-bottom:2px">This Month: Activate UID2</div><div style="font-size:12px;color:#1E3A8A">Cookie deprecation accelerating. UID2 protects 60-70% of retargeting revenue.</div></div></div>
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:10px;background:#F5F3FF;border-radius:8px;border:1px solid #DDD6FE"><span style="font-size:18px">📺</span><div><div style="font-size:13px;font-weight:600;color:#7C3AED;margin-bottom:2px">Q3 Goal: Expand CTV Supply</div><div style="font-size:12px;color:#4C1D95">CTV CPMs at $38 avg, +22% YoY. Highest opportunity format right now.</div></div></div>
+      <div class="ria-sidebar">
+        <div class="ria-stat">Articles <strong id="riaArticles">—</strong></div>
+        <div class="ria-stat">Critical <strong id="riaCritical" style="color:#FCA5A5">—</strong></div>
+        <div class="ria-stat">Conf <strong id="riaConf">—%</strong></div>
       </div>
     </div>
 
-    <!-- RISK CENTER TAB -->
-    <div class="tab-pane" id="tab-risk">
-      <div style="font-size:11px;color:#94A3B8;margin-bottom:14px">Revenue risk assessment · Confidence: 88%</div>
-      <div class="risk-grid">
-        <div class="risk-card"><div class="risk-header"><div class="risk-dot" style="background:#DC2626"></div><div class="risk-title">High Risk</div></div><div class="risk-item"><div class="risk-name">Cookie Deprecation</div><div class="risk-detail">Affected: All retargeting · RPM: -8% to -15%</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Deploy UID2 now</span></div><div class="risk-item"><div class="risk-name">Privacy Sandbox</div><div class="risk-detail">Affected: Behavioral · RPM: -5% to -12%</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Contextual targeting</span></div></div>
-        <div class="risk-card"><div class="risk-header"><div class="risk-dot" style="background:#D97706"></div><div class="risk-title">Medium Risk</div></div><div class="risk-item"><div class="risk-name">AdX Demand Softening</div><div class="risk-detail">Affected: Display · RPM: -3% to -5%</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Add SSP partners</span></div><div class="risk-item"><div class="risk-name">Floor Price Sensitivity</div><div class="risk-detail">Affected: Open auction · RPM: -2% to -8%</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Dynamic floors</span></div></div>
-        <div class="risk-card"><div class="risk-header"><div class="risk-dot" style="background:#16A34A"></div><div class="risk-title">Opportunity</div></div><div class="risk-item"><div class="risk-name">CTV Growth</div><div class="risk-detail">Video inventory · +15% to +22% RPM</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Expand CTV now</span></div><div class="risk-item"><div class="risk-name">Audio Advertising</div><div class="risk-detail">Podcast/streaming · +25% to +35% RPM</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Explore audio</span></div></div>
-      </div>
+    <div class="ria-messages" id="riaMessages"></div>
+
+    <div class="ria-wake" id="riaWake">
+      ⏳ Ria is waking up — first response takes ~50 seconds. Please wait...
     </div>
 
-    <!-- CRITICAL TAB -->
-    <div class="tab-pane" id="tab-critical">
-      <div class="news-list" id="criticalList"><div class="loading">Loading critical alerts...</div></div>
+    <div class="img-preview" id="imgPreview">
+      <img id="imgPreviewThumb" src="" alt="preview">
+      <div class="img-preview-info" id="imgPreviewName">Image ready to send</div>
+      <button class="img-preview-remove" onclick="removeImage()">✕</button>
     </div>
 
-    <!-- PREBID TAB -->
-    <div class="tab-pane" id="tab-prebid">
-      <div class="news-list" id="prebidList"><div class="loading">Loading Prebid & tech news...</div></div>
+    <div class="ria-quick" id="riaQuick">
+      <button class="qbtn" onclick="riaQuick(this)">Why did my CPM drop?</button>
+      <button class="qbtn" onclick="riaQuick(this)">Debug Prebid.js</button>
+      <button class="qbtn" onclick="riaQuick(this)">ads.txt issues</button>
+      <button class="qbtn" onclick="riaQuick(this)">Latest Prebid version</button>
     </div>
 
-    <!-- PRIVACY TAB -->
-    <div class="tab-pane" id="tab-privacy">
-      <div class="news-list" id="privacyList"><div class="loading">Loading privacy updates...</div></div>
+    <div class="ria-input-area">
+      <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="handleImage(this)">
+      <button class="ria-img-btn" onclick="document.getElementById('imgInput').click()" title="Upload screenshot">📎</button>
+      <textarea id="riaInput" placeholder="Ask Ria anything about AdTech..." rows="1"
+        onkeydown="riaKey(event)" oninput="riaResize(this)"></textarea>
+      <button class="ria-send" id="riaSend" onclick="riaSend()">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
     </div>
 
-    <!-- BOOKMARKS TAB -->
-    <div class="tab-pane" id="tab-bookmarks">
-      <div class="news-list" id="bookmarksList"><div class="empty">📌 No saved articles yet. Click 🏷️ on any article to save it.</div></div>
+    <div class="breaking-section">
+      <div class="breaking-title-bar">🔴 Breaking & Critical</div>
+      <div id="breakingList"><div style="font-size:11px;color:#94A3B8">Loading...</div></div>
     </div>
-  </div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="s-card">
-      <div class="s-title">🔴 Breaking & Critical</div>
-      <div id="breakingList"><div style="font-size:12px;color:#94A3B8">Loading...</div></div>
-    </div>
-    <div class="s-card">
-      <div class="s-title">📊 By Category</div>
-      <div id="catBreakdown"></div>
-    </div>
-    <div class="s-card">
-      <div class="s-title">📰 Sources & Trust</div>
-      <div id="sourceList"></div>
-    </div>
-    <div class="s-card">
-      <div class="s-title">💬 Ask Ria</div>
-      <p style="font-size:12px;color:#64748B;margin-bottom:10px">Your AI AdTech assistant is ready</p>
-      <button onclick="toggleRia()" style="display:block;width:100%;background:#2563EB;color:#fff;text-align:center;padding:10px;border-radius:8px;border:none;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#1D4ED8'" onmouseout="this.style.background='#2563EB'">Chat with Ria →</button>
-    </div>
-  </div>
-</div>
-
-<!-- MOBILE NAV -->
-<nav class="mobile-nav">
-  <a href="dashboard.html" class="active"><span>🏠</span><span>Dashboard</span></a>
-  <a href="#" onclick="toggleRia();return false"><span>💬</span><span>Ask Ria</span></a>
-  <a href="history.html"><span>📜</span><span>History</span></a>
-</nav>
-
-<!-- ===== Ria CHAT WIDGET ===== -->
-<div class="Ria-trigger">
-  <span class="Ria-tooltip">Ask Ria anything about AdTech</span>
-  <button class="Ria-bubble-btn" onclick="toggleRia()">
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-    <div class="Ria-notif" id="RiaNotif" style="display:none">1</div>
-  </button>
-</div>
-
-<div class="Ria-panel" id="RiaPanel">
-  <div class="Ria-header">
-  <div class="Ria-avatar">🤖</div>
-  <div class="Ria-info">
-    <h3>Ria</h3>
-    <p>Rowan Intelligence Agent</p>
-    <div class="Ria-status"><div class="Ria-status-dot"></div><span>Online · Powered by AI</span></div>
-  </div>
-  <button class="Ria-close" onclick="toggleRiaSize()" id="RiaExpandBtn" title="Expand">⛶</button>
-  <button class="Ria-close" onclick="toggleRia()" style="margin-left:4px">✕</button>
-</div>
-
-  <div class="Ria-messages" id="RiaMessages"></div>
-
-  <div class="Ria-wake-msg" id="RiaWakeMsg">
-    ⏳ Ria is waking up — first response takes ~50s on free tier. Please wait...
-  </div>
-
-  <div class="Ria-quick-replies" id="RiaQuickReplies">
-    <button class="Ria-quick" onclick="RiaQuickAsk(this)">Why did my CPM drop?</button>
-    <button class="Ria-quick" onclick="RiaQuickAsk(this)">Debug Prebid.js</button>
-    <button class="Ria-quick" onclick="RiaQuickAsk(this)">ads.txt issues</button>
-    <button class="Ria-quick" onclick="RiaQuickAsk(this)">GAM line items</button>
-    <button class="Ria-quick" onclick="RiaQuickAsk(this)">Latest Prebid version</button>
-  </div>
-
-  <div class="Ria-input-area">
-    <textarea id="RiaInput" placeholder="Ask Ria anything about AdTech..." rows="1"
-      onkeydown="RiaHandleKey(event)" oninput="RiaAutoResize(this)"></textarea>
-    <button class="Ria-send" id="RiaSend" onclick="RiaSendMessage()">
-      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
-    </button>
   </div>
 </div>
 
@@ -549,229 +393,220 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const API = 'https://admax-adtech-agent.onrender.com/api';
 let allNews = [];
 let bookmarks = JSON.parse(localStorage.getItem('admax_bookmarks') || '[]');
-let RiaOpen = false;
-let RiaHistory = [];
-let RiaSessionId = 'Ria-' + Date.now();
-let RiaLoading = false;
-let RiaGreeted = false;
+let riaHistory = [];
+let riaSession = 'ria-' + Date.now();
+let riaLoading = false;
+let riaGreeted = false;
+let pendingImage = null;
 
 document.getElementById('lastUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString();
-updateBookmarkCount();
 
-function toggleKiaSize() {
-  const panel = document.getElementById('kiaPanel');
-  const btn = document.getElementById('kiaExpandBtn');
-  panel.classList.toggle('expanded');
-  btn.textContent = panel.classList.contains('expanded') ? '⊡' : '⛶';
-}
-
-// ===== Ria CHAT =====
-function toggleRia() {
-  RiaOpen = !RiaOpen;
-  document.getElementById('RiaPanel').classList.toggle('open', RiaOpen);
-  document.getElementById('RiaNotif').style.display = 'none';
-  if (RiaOpen && !RiaGreeted) {
-    RiaGreeted = true;
-    setTimeout(() => RiaAddMessage('assistant',
-      "Hi! 👋 I'm **Ria**, your AdTech Operations AI assistant.\n\nI can help you with:\n• GAM troubleshooting\n• Prebid.js debugging\n• CPM drop analysis\n• SSP optimization\n• ads.txt issues\n• Revenue optimization\n\nWhat can I help you with today?"), 400);
-  }
-  if (RiaOpen) {
-    setTimeout(() => document.getElementById('RiaInput').focus(), 300);
-  }
-}
-
-function RiaAutoResize(el) {
+// ===== RIA CHAT =====
+function riaResize(el) {
   el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  el.style.height = Math.min(el.scrollHeight, 90) + 'px';
 }
 
-function RiaHandleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); RiaSendMessage(); }
+function riaKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); riaSend(); }
 }
 
-function RiaQuickAsk(btn) {
-  document.getElementById('RiaInput').value = btn.textContent;
-  document.getElementById('RiaQuickReplies').style.display = 'none';
-  RiaSendMessage();
+function riaQuick(btn) {
+  document.getElementById('riaInput').value = btn.textContent;
+  document.getElementById('riaQuick').style.display = 'none';
+  riaSend();
 }
 
-function RiaAddMessage(role, content) {
-  const area = document.getElementById('RiaMessages');
+function handleImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    pendingImage = { data: e.target.result, name: file.name, type: file.type };
+    document.getElementById('imgPreviewThumb').src = e.target.result;
+    document.getElementById('imgPreviewName').textContent = file.name;
+    document.getElementById('imgPreview').classList.add('show');
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function removeImage() {
+  pendingImage = null;
+  document.getElementById('imgPreview').classList.remove('show');
+  document.getElementById('imgPreviewThumb').src = '';
+}
+
+function riaAddMsg(role, content) {
+  const area = document.getElementById('riaMessages');
   const div = document.createElement('div');
-  div.className = `Ria-msg ${role}`;
-  const avatar = document.createElement('div');
-  avatar.className = 'Ria-msg-avatar';
-  avatar.textContent = role === 'user' ? 'You' : '🤖';
+  div.className = `ria-msg ${role}`;
+  const av = document.createElement('div');
+  av.className = 'ria-av';
+  av.textContent = role === 'user' ? 'You' : '🤖';
   const bubble = document.createElement('div');
-  bubble.className = 'Ria-msg-bubble';
-  bubble.innerHTML = RiaFormat(content);
-  div.appendChild(avatar);
+  bubble.className = 'ria-bubble';
+  bubble.innerHTML = riaFormat(content);
+  div.appendChild(av);
   div.appendChild(bubble);
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
 }
 
-function RiaAddTyping() {
-  const area = document.getElementById('RiaMessages');
+function riaAddTyping() {
+  const area = document.getElementById('riaMessages');
   const div = document.createElement('div');
-  div.className = 'Ria-msg assistant';
-  div.id = 'RiaTyping';
-  div.innerHTML = `<div class="Ria-msg-avatar">🤖</div><div class="Ria-typing-bubble"><div class="Ria-dot"></div><div class="Ria-dot"></div><div class="Ria-dot"></div></div>`;
+  div.className = 'ria-msg assistant';
+  div.id = 'riaTyping';
+  div.innerHTML = `<div class="ria-av">🤖</div><div class="ria-typing-bubble"><div class="ria-dot"></div><div class="ria-dot"></div><div class="ria-dot"></div></div>`;
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
 }
 
-function RiaFormat(text) {
+function riaFormat(text) {
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  text = text.replace(/```([\s\S]*?)```/g, '<pre style="background:#F1F5F9;border-radius:6px;padding:8px;font-size:11px;margin:4px 0;overflow-x:auto;font-family:monospace;white-space:pre-wrap">$1</pre>');
-  text = text.replace(/`([^`]+)`/g, '<code style="background:#EFF6FF;color:#1E40AF;padding:1px 4px;border-radius:3px;font-size:11px;font-family:monospace">$1</code>');
-  text = text.replace(/^([🔍🎯✅🔧📊💰⚠️🔴🟡].*)$/gm, '<div style="font-weight:700;color:#0F172A;margin:10px 0 4px;padding-top:6px;border-top:1px solid #E2E8F0">$1</div>');
-  text = text.replace(/^\d+\. (.*$)/gm, '<div style="padding:2px 0">$&</div>');
-  text = text.replace(/^[•\-] (.*$)/gm, '<div style="padding:2px 0 2px 8px">• $1</div>');
+  text = text.replace(/```([\s\S]*?)```/g, '<pre style="background:#F1F5F9;border-radius:5px;padding:7px;font-size:10px;margin:4px 0;overflow-x:auto;font-family:monospace;white-space:pre-wrap">$1</pre>');
+  text = text.replace(/`([^`]+)`/g, '<code style="background:#EFF6FF;color:#1E40AF;padding:1px 3px;border-radius:2px;font-size:10px;font-family:monospace">$1</code>');
+  text = text.replace(/^([🔍🎯✅🔧📊💰⚠️🔴🟡].*)$/gm, '<div style="font-weight:700;color:#0F172A;margin:8px 0 3px;padding-top:5px;border-top:1px solid #E2E8F0;font-size:12px">$1</div>');
+  text = text.replace(/^\d+\. (.*$)/gm, '<div style="padding:1px 0;font-size:12px">$&</div>');
+  text = text.replace(/^[•\-] (.*$)/gm, '<div style="padding:1px 0 1px 6px;font-size:12px">• $1</div>');
   text = text.replace(/\n/g, '<br>');
   return text;
 }
 
-async function RiaSendMessage() {
-  const input = document.getElementById('RiaInput');
-  const message = input.value.trim();
-  if (!message || RiaLoading) return;
+async function riaSend() {
+  const input = document.getElementById('riaInput');
+  let message = input.value.trim();
+  if (!message && !pendingImage) return;
+  if (riaLoading) return;
 
-  RiaLoading = true;
-  document.getElementById('RiaSend').disabled = true;
+  riaLoading = true;
+  document.getElementById('riaSend').disabled = true;
+  document.getElementById('riaQuick').style.display = 'none';
+
+  // If image attached, add context to message
+  let displayMessage = message || 'Please analyze this screenshot';
+  if (pendingImage) {
+    displayMessage = `📎 ${pendingImage.name}\n${message || 'Please analyze this screenshot'}`;
+    message = `[User uploaded a screenshot: ${pendingImage.name}]\n${message || 'Please analyze this image and help with any AdTech issues you can identify.'}`;
+  }
+
   input.value = '';
   input.style.height = 'auto';
-  document.getElementById('RiaQuickReplies').style.display = 'none';
+  removeImage();
 
-  RiaAddMessage('user', message);
-  RiaAddTyping();
+  riaAddMsg('user', displayMessage);
+  riaAddTyping();
 
   const wakeTimer = setTimeout(() => {
-    document.getElementById('RiaWakeMsg').classList.add('show');
+    document.getElementById('riaWake').classList.add('show');
   }, 5000);
 
   try {
     const res = await fetch(`${API}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, session_id: RiaSessionId, history: RiaHistory }),
+      body: JSON.stringify({ message, session_id: riaSession, history: riaHistory }),
       signal: AbortSignal.timeout(120000)
     });
 
     clearTimeout(wakeTimer);
-    document.getElementById('RiaWakeMsg').classList.remove('show');
-    document.getElementById('RiaTyping')?.remove();
+    document.getElementById('riaWake').classList.remove('show');
+    document.getElementById('riaTyping')?.remove();
 
     if (!res.ok) throw new Error('Server error');
     const data = await res.json();
-    RiaAddMessage('assistant', data.reply);
-    RiaHistory.push({ role: 'user', content: message });
-    RiaHistory.push({ role: 'assistant', content: data.reply });
-    if (RiaHistory.length > 20) RiaHistory = RiaHistory.slice(-20);
+    riaAddMsg('assistant', data.reply);
+    riaHistory.push({ role: 'user', content: message });
+    riaHistory.push({ role: 'assistant', content: data.reply });
+    if (riaHistory.length > 20) riaHistory = riaHistory.slice(-20);
 
   } catch(err) {
     clearTimeout(wakeTimer);
-    document.getElementById('RiaWakeMsg').classList.remove('show');
-    document.getElementById('RiaTyping')?.remove();
-    RiaAddMessage('assistant', '⚠️ Server is waking up. Please wait 30-50 seconds and try again.');
+    document.getElementById('riaWake').classList.remove('show');
+    document.getElementById('riaTyping')?.remove();
+    riaAddMsg('assistant', '⚠️ Server waking up. Please wait 30-50 seconds and try again.');
   }
 
-  RiaLoading = false;
-  document.getElementById('RiaSend').disabled = false;
+  riaLoading = false;
+  document.getElementById('riaSend').disabled = false;
   input.focus();
 }
 
-// Show notification bubble after 3 seconds
+// Greet on load
 setTimeout(() => {
-  if (!RiaOpen) {
-    document.getElementById('RiaNotif').style.display = 'flex';
-  }
-}, 3000);
+  riaGreeted = true;
+  riaAddMsg('assistant', "Hi! 👋 I'm **Ria**, your AdTech AI assistant.\n\nI can help with:\n• GAM troubleshooting\n• Prebid.js debugging\n• CPM drop analysis\n• SSP optimization\n• ads.txt issues\n• Revenue optimization\n\nYou can also 📎 upload screenshots for analysis.\n\nWhat can I help you with today?");
+}, 600);
 
 // ===== DASHBOARD =====
-const OFFICIAL_SOURCES = ['Prebid GitHub','IAB Tech Lab','Prebid.org','Google Ads Blog','Chromium Blog','IAB'];
-const VERIFIED_SOURCES = ['AdExchanger','Adweek','ExchangeWire','Digiday'];
-const TRUST_MAP = {'Prebid GitHub':99,'IAB Tech Lab':98,'Prebid.org':97,'Google Ads Blog':97,'Chromium Blog':96,'IAB':94,'AdExchanger':90,'Adweek':88,'ExchangeWire':87,'Digiday':86,'MediaPost':85,'The Drum':84,'Nieman Lab':83};
+const OFFICIAL = ['Prebid GitHub','IAB Tech Lab','Prebid.org','Google Ads Blog','Chromium Blog','IAB'];
+const VERIFIED = ['AdExchanger','Adweek','ExchangeWire','Digiday'];
+const TRUST = {'Prebid GitHub':99,'IAB Tech Lab':98,'Prebid.org':97,'Google Ads Blog':97,'Chromium Blog':96,'IAB':94,'AdExchanger':90,'Adweek':88,'ExchangeWire':87,'Digiday':86,'MediaPost':85,'The Drum':84,'Nieman Lab':83};
 
-function getCredBadge(source) {
-  if (OFFICIAL_SOURCES.includes(source)) return '<span class="cred-official">✓ Official</span>';
-  if (VERIFIED_SOURCES.includes(source)) return '<span class="cred-verified">✓ Verified</span>';
-  return '<span class="cred-ai">AI Analysis</span>';
+function credBadge(s) {
+  if (OFFICIAL.includes(s)) return '<span class="cred-official">✓ Official</span>';
+  if (VERIFIED.includes(s)) return '<span class="cred-verified">✓ Verified</span>';
+  return '<span class="cred-ai">AI</span>';
 }
 
-function getImpactScore(item) {
-  let score = 5;
-  if (item.importance === 'critical') score = 9;
-  else if (item.importance === 'high') score = 7;
-  const text = (item.title + ' ' + (item.summary || '')).toLowerCase();
-  if (text.includes('revenue') || text.includes('cpm')) score = Math.min(score+1, 10);
-  if (text.includes('prebid') || text.includes('header bidding')) score = Math.min(score+1, 10);
-  return score;
+function impactScore(item) {
+  let s = 5;
+  if (item.importance === 'critical') s = 9;
+  else if (item.importance === 'high') s = 7;
+  const t = (item.title + (item.summary||'')).toLowerCase();
+  if (t.includes('revenue')||t.includes('cpm')) s = Math.min(s+1,10);
+  if (t.includes('prebid')||t.includes('header bidding')) s = Math.min(s+1,10);
+  return s;
 }
 
-function getImpactBadge(score) {
-  const cls = score >= 8 ? 'impact-score-high' : score >= 6 ? 'impact-score-medium' : 'impact-score-low';
-  return `<span class="impact-score ${cls}">Impact ${score}/10</span>`;
+function impactBadge(s) {
+  const c = s>=8?'is-high':s>=6?'is-med':'is-low';
+  return `<span class="impact-score ${c}">Impact ${s}/10</span>`;
 }
 
 function switchTab(tab, el) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(t=>t.classList.remove('active'));
   if (el) el.classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
-  if (tab === 'bookmarks') renderBookmarks();
+  document.getElementById('tab-'+tab).classList.add('active');
+  if (tab==='saved') renderSaved();
 }
 
-function switchTabByName(name) {
-  const btn = document.querySelector(`[data-tab="${name}"]`);
-  if (btn) switchTab(name, btn);
-}
-
-function handleSearch(query) {
-  const resultsEl = document.getElementById('searchResults');
-  if (!query || query.length < 2) { resultsEl.style.display = 'none'; return; }
-  const q = query.toLowerCase();
-  const matches = allNews.filter(n =>
-    n.title.toLowerCase().includes(q) ||
-    (n.summary || '').toLowerCase().includes(q) ||
-    (n.source || '').toLowerCase().includes(q)
-  ).slice(0, 6);
-  if (!matches.length) { resultsEl.style.display = 'none'; return; }
-  resultsEl.innerHTML = matches.map(n => `
+function handleSearch(q) {
+  const el = document.getElementById('searchResults');
+  if (!q||q.length<2){el.style.display='none';return;}
+  const matches = allNews.filter(n=>
+    n.title.toLowerCase().includes(q.toLowerCase())||
+    (n.source||'').toLowerCase().includes(q.toLowerCase())
+  ).slice(0,6);
+  if (!matches.length){el.style.display='none';return;}
+  el.innerHTML = matches.map(n=>`
     <div class="search-item" onclick="window.open('${n.url}','_blank')">
       <div class="search-item-title">${n.title}</div>
-      <div class="search-item-meta">${n.source} · ${n.category} · ${timeAgo(n.created_at)}</div>
+      <div class="search-item-meta">${n.source} · ${n.category} · ${ago(n.created_at)}</div>
     </div>`).join('');
-  resultsEl.style.display = 'block';
+  el.style.display='block';
 }
 
-function closeSearch() { document.getElementById('searchResults').style.display = 'none'; }
+function closeSearch(){document.getElementById('searchResults').style.display='none';}
 
-function toggleBookmark(id, event) {
-  event.preventDefault(); event.stopPropagation();
-  const idx = bookmarks.indexOf(id);
-  if (idx > -1) bookmarks.splice(idx, 1); else bookmarks.push(id);
+function toggleBm(id, e) {
+  e.preventDefault(); e.stopPropagation();
+  const i = bookmarks.indexOf(id);
+  if (i>-1) bookmarks.splice(i,1); else bookmarks.push(id);
   localStorage.setItem('admax_bookmarks', JSON.stringify(bookmarks));
-  updateBookmarkCount();
-  document.querySelectorAll(`[data-bookmark="${id}"]`).forEach(btn => {
-    btn.textContent = bookmarks.includes(id) ? '🔖' : '🏷️';
-    btn.classList.toggle('saved', bookmarks.includes(id));
+  document.querySelectorAll(`[data-bm="${id}"]`).forEach(b=>{
+    b.textContent = bookmarks.includes(id)?'🔖':'🏷️';
+    b.classList.toggle('saved', bookmarks.includes(id));
   });
 }
 
-function updateBookmarkCount() {
-  document.getElementById('bookmarkCount').textContent = bookmarks.length;
-  document.getElementById('savedCount').textContent = bookmarks.length;
-}
-
-function renderBookmarks() {
-  const saved = allNews.filter(n => bookmarks.includes(n.id));
-  if (!saved.length) {
-    document.getElementById('bookmarksList').innerHTML = '<div class="empty">📌 No saved articles yet. Click 🏷️ to save.</div>';
-    return;
-  }
-  renderList('bookmarksList', saved);
+function renderSaved() {
+  const saved = allNews.filter(n=>bookmarks.includes(n.id));
+  renderList('savedList', saved.length?saved:[]);
+  if (!saved.length) document.getElementById('savedList').innerHTML='<div class="empty">📌 No saved articles yet. Click 🏷️ to save.</div>';
 }
 
 async function loadNews() {
@@ -779,133 +614,127 @@ async function loadNews() {
     const res = await fetch(`${API}/news`);
     const data = await res.json();
     allNews = data.news || [];
-    renderAll(allNews);
+    updateAll(allNews);
   } catch(e) {
-    document.getElementById('newsList').innerHTML = '<div class="empty">Backend not connected.</div>';
+    document.getElementById('newsList').innerHTML='<div class="empty">Backend not connected.</div>';
   }
 }
 
 async function fetchNews() {
   const btn = document.getElementById('refreshBtn');
-  btn.disabled = true; btn.textContent = '⟳ Fetching...';
-  document.getElementById('newsList').innerHTML = '<div class="loading">Fetching latest AdTech news...</div>';
-  try { await fetch(`${API}/news/fetch`, {method:'POST'}); await loadNews(); }
-  catch(e) { alert('Backend not reachable.'); }
-  btn.disabled = false; btn.textContent = '↻ Refresh';
+  btn.disabled=true; btn.textContent='⟳ Fetching...';
+  document.getElementById('newsList').innerHTML='<div class="loading">Fetching latest AdTech news...</div>';
+  try { await fetch(`${API}/news/fetch`,{method:'POST'}); await loadNews(); }
+  catch(e){alert('Backend not reachable.');}
+  btn.disabled=false; btn.textContent='↻ Refresh';
 }
 
-function renderAll(news) {
-  updateStats(news);
-  buildFilters(news);
-  renderList('newsList', news);
-  renderList('criticalList', news.filter(n => n.importance==='critical'||n.importance==='high'));
-  renderList('prebidList', news.filter(n => n.category==='Prebid'||(n.title+(n.summary||'')).toLowerCase().includes('prebid')));
-  renderList('privacyList', news.filter(n => n.category==='Privacy'||(n.title+(n.summary||'')).toLowerCase().includes('cookie')));
-  updateSidebar(news);
-  document.getElementById('tSources').textContent = [...new Set(news.map(n=>n.source))].length;
-  document.getElementById('tArticles').textContent = news.length;
-  document.getElementById('tHigh').textContent = news.filter(n=>n.importance==='critical'||n.importance==='high').length;
-  const avgConf = news.length ? Math.round(news.reduce((s,n)=>s+(n.confidence||85),0)/news.length) : 85;
-  document.getElementById('confPill').textContent = avgConf + '%';
-  const fresh = news.length && (Date.now()-new Date(news[0].created_at).getTime()) < 3600000;
-  const el = document.getElementById('tFresh');
-  el.textContent = fresh ? 'Fresh (< 1hr)' : 'Check sources';
-  el.className = fresh ? 'fresh-good' : 'fresh-old';
-}
-
-function updateStats(news) {
+function updateAll(news) {
+  // Stats
   document.getElementById('totalCount').textContent = news.length;
   document.getElementById('criticalCount').textContent = news.filter(n=>n.importance==='critical').length;
   document.getElementById('highCount').textContent = news.filter(n=>n.importance==='high').length;
   document.getElementById('sourceCount').textContent = [...new Set(news.map(n=>n.source))].length;
+  const avg = news.length ? Math.round(news.reduce((s,n)=>s+(n.confidence||85),0)/news.length) : 85;
+  document.getElementById('confPill').textContent = avg+'%';
   const today = news.filter(n=>(Date.now()-new Date(n.created_at).getTime())<86400000);
-  document.getElementById('todayCount').textContent = today.length + ' added today';
-  const critical = news.filter(n=>n.importance==='critical');
-  if (critical.length) {
+  document.getElementById('todayCount').textContent = ` · ${today.length} today`;
+
+  // Ria stats
+  document.getElementById('riaArticles').textContent = news.length;
+  document.getElementById('riaCritical').textContent = news.filter(n=>n.importance==='critical').length;
+  document.getElementById('riaConf').textContent = avg+'%';
+
+  // Freshness
+  const fresh = news.length && (Date.now()-new Date(news[0].created_at).getTime())<3600000;
+  const fe = document.getElementById('tFresh');
+  fe.textContent = fresh?'Fresh':'Check sources';
+  fe.style.color = fresh?'#16A34A':'#D97706';
+
+  // Alert
+  const crit = news.filter(n=>n.importance==='critical');
+  if (crit.length) {
     document.getElementById('alertBanner').classList.add('show');
-    document.getElementById('alertText').textContent = critical[0].title;
-    document.getElementById('alertPill').textContent = critical.length + ' critical';
+    document.getElementById('alertText').textContent = crit[0].title;
+    document.getElementById('alertPill').textContent = crit.length+' critical';
   }
+
+  // Filters
+  buildFilters(news);
+
+  // Lists
+  renderList('newsList', news);
+  renderList('criticalList', news.filter(n=>n.importance==='critical'||n.importance==='high'));
+  renderList('prebidList', news.filter(n=>n.category==='Prebid'||(n.title+(n.summary||'')).toLowerCase().includes('prebid')));
+  renderList('privacyList', news.filter(n=>n.category==='Privacy'||(n.title+(n.summary||'')).toLowerCase().includes('cookie')));
+
+  // Breaking sidebar
+  const breaking = news.filter(n=>n.importance==='critical'||n.importance==='high').slice(0,6);
+  document.getElementById('breakingList').innerHTML = breaking.length
+    ? breaking.map(n=>`<div class="breaking-item"><div class="breaking-ttl" onclick="window.open('${n.url}','_blank')">${n.title}</div><div class="breaking-meta">${n.source} · ${ago(n.created_at)}</div></div>`).join('')
+    : '<div style="font-size:11px;color:#94A3B8">No critical updates today</div>';
 }
 
 function buildFilters(news) {
   const cats = [...new Set(news.map(n=>n.category).filter(Boolean))];
   const el = document.getElementById('filters');
   el.innerHTML = `<button class="f-btn active" onclick="filterBy('all',this)">All (${news.length})</button>`;
-  cats.forEach(cat => {
-    const count = news.filter(n=>n.category===cat).length;
-    el.innerHTML += `<button class="f-btn" onclick="filterBy('${cat}',this)">${cat} (${count})</button>`;
+  cats.forEach(cat=>{
+    const c = news.filter(n=>n.category===cat).length;
+    el.innerHTML += `<button class="f-btn" onclick="filterBy('${cat}',this)">${cat} (${c})</button>`;
   });
-  ['critical','high'].forEach(imp => {
-    const count = news.filter(n=>n.importance===imp).length;
-    if (count) el.innerHTML += `<button class="f-btn" onclick="filterImp('${imp}',this)">${imp==='critical'?'🔴':'🟡'} ${imp} (${count})</button>`;
+  ['critical','high'].forEach(imp=>{
+    const c = news.filter(n=>n.importance===imp).length;
+    if (c) el.innerHTML += `<button class="f-btn" onclick="filterImp('${imp}',this)">${imp==='critical'?'🔴':'🟡'} ${imp} (${c})</button>`;
   });
-  el.innerHTML += `<select class="sort-select" onchange="sortNews(this.value)" style="margin-left:auto">
+  el.innerHTML += `<select class="sort-sel" onchange="sortNews(this.value)" style="margin-left:auto">
     <option value="date">Latest first</option>
     <option value="importance">Priority first</option>
     <option value="confidence">Confidence first</option>
   </select>`;
 }
 
-function sortNews(by) {
-  let sorted = [...allNews];
-  if (by==='importance') { const o={critical:0,high:1,medium:2}; sorted.sort((a,b)=>(o[a.importance]||2)-(o[b.importance]||2)); }
-  else if (by==='confidence') sorted.sort((a,b)=>(b.confidence||85)-(a.confidence||85));
-  else sorted.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  renderList('newsList', sorted);
-}
-
-function filterBy(cat, btn) { setActive(btn); renderList('newsList', cat==='all'?allNews:allNews.filter(n=>n.category===cat)); }
-function filterImp(imp, btn) { setActive(btn); renderList('newsList', allNews.filter(n=>n.importance===imp)); }
-function setActive(btn) { document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
-
-function updateSidebar(news) {
-  const breaking = news.filter(n=>n.importance==='critical'||n.importance==='high').slice(0,5);
-  document.getElementById('breakingList').innerHTML = breaking.length
-    ? breaking.map(n=>`<div class="breaking-item"><div class="breaking-title">${n.title}</div><div class="breaking-meta">${n.source} · ${timeAgo(n.created_at)}</div></div>`).join('')
-    : '<div style="font-size:12px;color:#94A3B8">No critical updates today</div>';
-  const cats = {};
-  news.forEach(n=>{ if(n.category) cats[n.category]=(cats[n.category]||0)+1; });
-  const max = Math.max(...Object.values(cats),1);
-  document.getElementById('catBreakdown').innerHTML = Object.entries(cats).sort((a,b)=>b[1]-a[1])
-    .map(([c,count])=>`<div class="cat-row"><span class="cat-name">${c}</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:${Math.round(count/max*100)}%"></div></div><span class="cat-num">${count}</span></div>`).join('');
-  const sources = {};
-  news.forEach(n=>{ if(n.source) sources[n.source]=(sources[n.source]||0)+1; });
-  document.getElementById('sourceList').innerHTML = Object.entries(sources).sort((a,b)=>b[1]-a[1])
-    .map(([src,count])=>`<div class="source-row"><span class="source-name">${src} (${count})</span><span class="trust-pill">${TRUST_MAP[src]||85}%</span></div>`).join('');
+function filterBy(cat,btn){setA(btn);renderList('newsList',cat==='all'?allNews:allNews.filter(n=>n.category===cat));}
+function filterImp(imp,btn){setA(btn);renderList('newsList',allNews.filter(n=>n.importance===imp));}
+function setA(btn){document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function sortNews(by){
+  let s=[...allNews];
+  if(by==='importance'){const o={critical:0,high:1,medium:2};s.sort((a,b)=>(o[a.importance]||2)-(o[b.importance]||2));}
+  else if(by==='confidence')s.sort((a,b)=>(b.confidence||85)-(a.confidence||85));
+  else s.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  renderList('newsList',s);
 }
 
 function renderList(id, news) {
   const el = document.getElementById(id);
-  if (!news.length) { el.innerHTML = '<div class="empty">No articles found.</div>'; return; }
-  const order = {critical:0,high:1,medium:2};
-  const sorted = [...news].sort((a,b)=>(order[a.importance]||2)-(order[b.importance]||2));
-  el.innerHTML = sorted.map(item => {
-    const isBookmarked = bookmarks.includes(item.id);
-    const score = getImpactScore(item);
+  if (!news.length){el.innerHTML='<div class="empty">No articles found.</div>';return;}
+  const order={critical:0,high:1,medium:2};
+  const sorted=[...news].sort((a,b)=>(order[a.importance]||2)-(order[b.importance]||2));
+  el.innerHTML = sorted.map(item=>{
+    const bm = bookmarks.includes(item.id);
+    const sc = impactScore(item);
     return `
     <a class="news-card ${item.importance||'medium'}" href="${item.url}" target="_blank">
-      <button class="card-bookmark ${isBookmarked?'saved':''}" data-bookmark="${item.id}"
-        onclick="toggleBookmark('${item.id}',event)">${isBookmarked?'🔖':'🏷️'}</button>
+      <button class="card-bm ${bm?'saved':''}" data-bm="${item.id}" onclick="toggleBm('${item.id}',event)">${bm?'🔖':'🏷️'}</button>
       <div class="card-tags">
-        <span class="tag">${item.source||'Unknown'}</span>
+        <span class="tag">${item.source||'?'}</span>
         <span class="tag">${item.category||'General'}</span>
         <span class="imp-${item.importance||'medium'}">${item.importance==='critical'?'🔴 CRITICAL':item.importance==='high'?'🟡 HIGH':'🔵 Update'}</span>
-        ${getCredBadge(item.source)}
-        ${getImpactBadge(score)}
-        ${item.confidence?`<span style="background:#F8FAFC;color:#64748B;border-radius:4px;padding:2px 6px;font-size:10px;border:1px solid #E2E8F0">${item.confidence}% conf</span>`:''}
+        ${credBadge(item.source)}
+        ${impactBadge(sc)}
+        ${item.confidence?`<span style="background:#F8FAFC;color:#64748B;border-radius:3px;padding:1px 5px;font-size:10px;border:1px solid #E2E8F0">${item.confidence}%</span>`:''}
       </div>
       <div class="card-title">${item.title}</div>
       ${item.summary?`<div class="card-summary">${item.summary}</div>`:''}
       <div class="card-footer">
-        <span class="card-time">${item.source} · ${timeAgo(item.created_at)}</span>
-        <span class="card-link">Read full article →</span>
+        <span class="card-time">${item.source} · ${ago(item.created_at)}</span>
+        <span class="card-link">Read →</span>
       </div>
     </a>`;
   }).join('');
 }
 
-function timeAgo(d) {
+function ago(d) {
   if(!d)return'';
   const diff=Date.now()-new Date(d).getTime();
   const m=Math.floor(diff/60000),h=Math.floor(diff/3600000),days=Math.floor(diff/86400000);
@@ -913,7 +742,7 @@ function timeAgo(d) {
 }
 
 loadNews();
-setInterval(loadNews, 300000);
+setInterval(loadNews,300000);
 </script>
 </body>
 </html>
