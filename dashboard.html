@@ -1563,7 +1563,9 @@ async function riaSend() {
 
   // If image or spreadsheet attached, add context to message
   let displayMessage = message || 'Please analyze this file';
+  let imageToSend = null;
   if (pendingImage) {
+    imageToSend = pendingImage.data;
     displayMessage = `📎 ${pendingImage.name}\n${message || 'Please analyze this screenshot'}`;
     message = `[User uploaded a screenshot: ${pendingImage.name}]\n${message || 'Please analyze this image and help with any AdTech issues you can identify.'}`;
   } else if (pendingDoc) {
@@ -1586,7 +1588,7 @@ async function riaSend() {
     const res = await fetch(`${API}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, session_id: riaSession, history: riaHistory }),
+      body: JSON.stringify({ message, session_id: riaSession, history: riaHistory, image: imageToSend }),
       signal: AbortSignal.timeout(120000)
     });
 
