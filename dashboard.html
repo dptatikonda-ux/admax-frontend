@@ -1588,7 +1588,7 @@ async function riaSend() {
     const res = await fetch(`${API}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, session_id: riaSession, history: riaHistory, image: imageToSend }),
+      body: JSON.stringify({ message, session_id: riaSession, history: riaHistory, image: imageToSend || undefined }),
       signal: AbortSignal.timeout(120000)
     });
 
