@@ -2855,7 +2855,7 @@ function toggleTheme() {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
-if (localStorage.getItem('theme') === 'dark') {
+if (localStorage.getItem('theme') !== 'light') {
   document.body.classList.add('dark');
 }
 
