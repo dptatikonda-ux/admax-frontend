@@ -1781,6 +1781,216 @@ body.dark #actionCenterContainer div {
 body.dark #actionCenterContainer div div {
   color: #fff !important;
 }
+
+/* Premium news card overhaul */
+.news-card {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+.news-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 20px -3px rgba(99, 102, 241, 0.15), 0 4px 8px -2px rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.35) !important;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  background: #ffffff;
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 650px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(0.95);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  position: relative;
+}
+.modal-overlay.show .modal-content {
+  transform: scale(1);
+}
+body.dark .modal-content {
+  background: #111827;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #F3F4F6;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: rgba(15, 23, 42, 0.05);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #64748B;
+  transition: all 0.2s;
+  z-index: 10;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover {
+  color: #0F172A;
+  background: rgba(15, 23, 42, 0.1);
+}
+body.dark .modal-close {
+  background: rgba(255, 255, 255, 0.05);
+  color: #94A3B8;
+}
+body.dark .modal-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.modal-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #F1F5F9;
+}
+body.dark .modal-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+.modal-header h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-top: 8px;
+  line-height: 1.35;
+}
+body.dark .modal-header h2 {
+  color: #fff;
+}
+.modal-meta {
+  font-size: 11.5px;
+  color: #64748B;
+  margin-top: 6px;
+}
+body.dark .modal-meta {
+  color: #94A3B8;
+}
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #4F46E5;
+  margin-bottom: 6px;
+}
+body.dark .modal-section h3 {
+  color: #818CF8;
+}
+.modal-section p, .modal-section li {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #334155;
+}
+body.dark .modal-section p, body.dark .modal-section li {
+  color: #D1D5DB;
+}
+.modal-section ul {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #F1F5F9;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #F8FAFC;
+}
+body.dark .modal-footer {
+  background: #1F2937;
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+.modal-btn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.modal-btn.primary {
+  background: linear-gradient(135deg, #6366F1, #06B6D4);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+}
+.modal-btn.primary:hover {
+  background: linear-gradient(135deg, #4F46E5, #0891B2);
+  transform: translateY(-1px);
+}
+.modal-btn.secondary {
+  background: #fff;
+  color: #4F46E5;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+.modal-btn.secondary:hover {
+  background: rgba(99, 102, 241, 0.05);
+  transform: translateY(-1px);
+}
+body.dark .modal-btn.secondary {
+  background: #111827;
+  color: #818CF8;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+body.dark .modal-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.modal-btn.link {
+  margin-left: auto;
+  text-decoration: none;
+  color: #64748B;
+  font-weight: 500;
+  font-size: 12px;
+}
+.modal-btn.link:hover {
+  color: #0F172A;
+}
+body.dark .modal-btn.link:hover {
+  color: #fff;
+}
 </style>
 </head>
 <body>
@@ -2336,6 +2546,36 @@ body.dark #actionCenterContainer div div {
         <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
       </button>
     </div>
+</div>
+
+<!-- NEWS DETAIL MODAL -->
+<div class="modal-overlay" id="newsModal" onclick="closeNewsModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeNewsModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-badge-row" id="modalBadgeRow" style="display:flex;align-items:center;flex-wrap:wrap;gap:4px"></div>
+      <h2 id="modalTitle">Article Title</h2>
+      <div class="modal-meta" id="modalMeta">Source · Time</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h3>📢 What Happened?</h3>
+        <p id="modalWhatHappened" style="margin-top:4px"></p>
+      </div>
+      <div class="modal-section">
+        <h3>🎯 Why It Matters to Publishers</h3>
+        <p id="modalWhyMatters" style="margin-top:4px"></p>
+      </div>
+      <div class="modal-section">
+        <h3>📋 Recommended AdOps Action Plan</h3>
+        <ul id="modalActionPlan" style="margin-top:4px"></ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn primary" id="modalActionBtn">Ask Ria About This</button>
+      <button class="modal-btn secondary" id="modalToolBtn" style="display:none">Open Diagnostic Tool</button>
+      <a class="modal-btn link" id="modalRawLink" target="_blank">Read Original Article ↗</a>
+    </div>
   </div>
 </div>
 
@@ -2823,7 +3063,7 @@ function renderList(id, news) {
     const bm = bookmarks.includes(item.id);
     const sc = impactScore(item);
     return `
-    <a class="news-card ${item.importance||'medium'}" href="${item.url}" target="_blank">
+    <div class="news-card ${item.importance||'medium'}" onclick="openNewsModal('${item.id}', event)">
       <button class="card-bm ${bm?'saved':''}" data-bm="${item.id}" onclick="toggleBm('${item.id}',event)">${bm?'🔖':'🏷️'}</button>
       <div class="card-tags">
         <span class="tag">${item.source||'?'}</span>
@@ -2837,10 +3077,156 @@ function renderList(id, news) {
       ${item.summary?`<div class="card-summary">${item.summary}</div>`:''}
       <div class="card-footer">
         <span class="card-time">${item.source} · ${ago(item.created_at)}</span>
-        <span class="card-link">Read →</span>
+        <span class="card-link">Read Overview →</span>
       </div>
-    </a>`;
+    </div>`;
   }).join('');
+}
+
+// ===== NEWS DETAIL MODAL FUNCTIONS =====
+function openNewsModal(id, event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
+  const item = allNews.find(n => n.id === id);
+  if (!item) return;
+  
+  const badgeRow = document.getElementById('modalBadgeRow');
+  const bm = bookmarks.includes(item.id);
+  const sc = impactScore(item);
+  badgeRow.innerHTML = `
+    <span class="tag" style="background:rgba(99,102,241,0.08);color:#4F46E5;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">${item.source}</span>
+    <span class="tag" style="background:rgba(6,182,212,0.08);color:#0891B2;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin-left:4px">${item.category}</span>
+    <span class="imp-${item.importance}" style="margin-left:4px">${item.importance.toUpperCase()}</span>
+    <span style="margin-left:auto;cursor:pointer;font-size:14px" onclick="toggleBm('${item.id}',event); updateModalBm('${item.id}')" id="modalBmBtn">${bm?'🔖':'🏷️'}</span>
+  `;
+  
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalMeta').textContent = `${item.source} · ${ago(item.created_at)} · Trust Level: ${TRUST[item.source] || 85}%`;
+  
+  const details = getArticleDetails(item);
+  
+  document.getElementById('modalWhatHappened').textContent = details.whatHappened;
+  document.getElementById('modalWhyMatters').textContent = details.whyMatters;
+  
+  const actionList = document.getElementById('modalActionPlan');
+  actionList.innerHTML = details.actions.map(act => `<li>${act}</li>`).join('');
+  
+  const askBtn = document.getElementById('modalActionBtn');
+  askBtn.onclick = () => {
+    closeNewsModal();
+    askRiaFromAction(details.riaQuery);
+  };
+  
+  const toolBtn = document.getElementById('modalToolBtn');
+  if (details.toolShortcut) {
+    toolBtn.style.display = 'block';
+    toolBtn.textContent = details.toolLabel;
+    toolBtn.onclick = () => {
+      closeNewsModal();
+      switchTab('tools');
+      selectTool(details.toolShortcut);
+    };
+  } else {
+    toolBtn.style.display = 'none';
+  }
+  
+  document.getElementById('modalRawLink').href = item.url;
+  document.getElementById('newsModal').classList.add('show');
+}
+
+function updateModalBm(id) {
+  const btn = document.getElementById('modalBmBtn');
+  if (btn) {
+    const bm = bookmarks.includes(id);
+    btn.textContent = bm ? '🔖' : '🏷️';
+  }
+}
+
+function closeNewsModal(event) {
+  document.getElementById('newsModal').classList.remove('show');
+}
+
+function getArticleDetails(item) {
+  const title = item.title.toLowerCase();
+  const summary = (item.summary || '').toLowerCase();
+  const category = (item.category || '').toLowerCase();
+  
+  if (title.includes('prebid') && (title.includes('released') || title.includes('version') || title.includes('v11'))) {
+    return {
+      whatHappened: `Prebid.js has released an update (current version ${item.title.match(/v\d+\.\d+\.\d+/)?.[0] || 'v11'}). This release includes critical performance updates, bug fixes, and minor updates to major exchange bidder adapters including Rubicon, PubMatic, and Index Exchange.`,
+      whyMatters: `Upgrading keeps your bidder connections secure, prevents memory leaks during high-frequency bid requests, and speeds up user sync connection times (often improving CPM yields by 1-3% due to bid execution speed).`,
+      actions: [
+        "Audit your current Prebid.js version in production (type pbjs.version in browser dev tools console).",
+        "Generate a fresh build of Prebid.js incorporating the updated adapters you utilize.",
+        "Deploy to your staging server and monitor the network requests for bid latency spikes or sync issues.",
+        "Perform a full deployment of the updated code snippet."
+      ],
+      riaQuery: `What are the benefits of upgrading to the latest Prebid version?`,
+      toolShortcut: 'prebid',
+      toolLabel: '⚙️ Configure Prebid Wrapper'
+    };
+  }
+  
+  if (title.includes('cookie') || title.includes('privacy') || title.includes('sandbox') || title.includes('deprecation')) {
+    return {
+      whatHappened: `Google has confirmed transitions of active user cohorts to 100% third-party cookie deprecation. This means traditional tracking pixels and behavioral buying methods will no longer work for these users.`,
+      whyMatters: `Remnant inventory targeting relies heavily on cookie tracking. Unidentified inventory CPMs are projected to fall by up to 15-20% if publishers do not implement alternative identifier structures.`,
+      actions: [
+        "Audit alternative identifiers (UID2, ID5, LiveRamp) in your current header bidding config.",
+        "Use the Prebid Wrapper generator to enable userSync iframe settings for these sync partners.",
+        "Integrate first-party publisher data capture modules to enrich direct campaign inventories."
+      ],
+      riaQuery: `How do I prepare my publisher inventory for complete cookie deprecation?`,
+      toolShortcut: 'prebid',
+      toolLabel: '⚙️ Configure User Sync'
+    };
+  }
+  
+  if (category.includes('gam') || title.includes('google ad manager') || title.includes('adx') || title.includes('floor')) {
+    return {
+      whatHappened: `Programmatic demand changes have been observed across Google AdX, resulting in increased auction latency and temporary drops in bid density.`,
+      whyMatters: `High floor prices on mobile or display formats are rejecting bids too early, leading to higher unfilled impression rates and immediate revenue losses.`,
+      actions: [
+        "Analyze your current fill rates in Google Ad Manager reporting tabs.",
+        "Review floor price setups: consider lowering price floors by 10-15% temporarily on underperforming inventory formats to capture filler bids.",
+        "Run the Yield Optimization Calculator to model how adjusting price floors will affect your net monthly revenue."
+      ],
+      riaQuery: `How should I adjust Google AdX floor prices to recover from a demand drop?`,
+      toolShortcut: 'yield',
+      toolLabel: '🧮 Open Yield Calculator'
+    };
+  }
+  
+  if (title.includes('ads.txt') || category.includes('iab')) {
+    return {
+      whatHappened: `The IAB Tech Lab has released updates to the ads.txt specification (current spec v1.8.2) defining tighter validation controls for RESELLER partners and clarifying owner/manager domain declaration syntaxes.`,
+      whyMatters: `Unauthorized lines, formatting mistakes, or missing reseller details can trigger automatic DSP bidder blocklists, causing exchanges to drop your inventory from auctions instantly.`,
+      actions: [
+        "Examine your ads.txt records for proper syntax formats.",
+        "Copy your ads.txt entries and run them through our validator tool.",
+        "Remove any invalid or duplicate records immediately, and verify RESELLER relations with SSP partners."
+      ],
+      riaQuery: `What is the latest ads.txt IAB specification and how do I format RESELLER rows?`,
+      toolShortcut: 'adstxt',
+      toolLabel: '📋 Open Ads.txt Auditor'
+    };
+  }
+  
+  return {
+    whatHappened: item.summary || `This industry update covers latest programmatic market shifts, DSP billing optimizations, or header bidding standard modifications.`,
+    whyMatters: `Staying informed about standard changes ensures you keep bidder integrations functional and avoid sudden revenue drop-offs.`,
+    actions: [
+      "Read the full article details at the publisher domain.",
+      "Ask Ria for contextual AdTech optimization guides relative to this update.",
+      "Test integrations on staging before making live code changes."
+    ],
+    riaQuery: `Can you explain the main impacts of: "${item.title}"?`,
+    toolShortcut: null,
+    toolLabel: null
+  };
 }
 
 function ago(d) {
