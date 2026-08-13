@@ -373,27 +373,146 @@ body {
   font-size: 13px;
   font-weight: 500;
 }
-@media (max-width: 768px) {
-  .header {
-    padding: 0 14px;
-    height: 52px;
+  @media (max-width: 768px) {
+    .header {
+      padding: 0 14px;
+      height: 52px;
+    }
+    .brand p {
+      display: none;
+    }
+    .main {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      max-height: 260px;
+      border-right: none;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+    }
+    .session-list {
+      max-height: 190px;
+    }
   }
-  .brand p {
-    display: none;
+
+  /* DARK MODE OVERRIDES */
+  body.dark {
+    background: radial-gradient(at 0% 0%, #1E1B4B 0px, transparent 50%), 
+                radial-gradient(at 100% 0%, #311042 0px, transparent 50%), 
+                radial-gradient(at 50% 100%, #0F172A 0px, transparent 50%), 
+                #0B0F19;
+    color: #E2E8F0;
   }
-  .main {
-    flex-direction: column;
+  body.dark .header {
+    background: rgba(15, 23, 42, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .sidebar {
-    width: 100%;
-    max-height: 260px;
-    border-right: none;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+  body.dark .brand h1 {
+    color: #F8FAFC;
   }
-  .session-list {
-    max-height: 190px;
+  body.dark .brand p {
+    color: #94A3B8;
   }
-}
+  body.dark .nav a {
+    color: #94A3B8;
+  }
+  body.dark .nav a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #F8FAFC;
+  }
+  body.dark .nav a.active {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818CF8;
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+  body.dark #themeToggleBtn {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #818CF8 !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+  }
+  body.dark .sidebar {
+    background: rgba(15, 23, 42, 0.6);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  body.dark .sidebar-header h2 {
+    color: #F8FAFC;
+  }
+  body.dark .sidebar-header p {
+    color: #94A3B8;
+  }
+  body.dark .search-box input {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #F8FAFC;
+  }
+  body.dark .search-box input:focus {
+    border-color: #818CF8;
+    background: #1E293B;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+  }
+  body.dark .session-item {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.65));
+  }
+  body.dark .session-item:hover {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  body.dark .session-item.active {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+    border-left: 4px solid #818CF8;
+  }
+  body.dark .session-preview {
+    color: #F1F5F9;
+  }
+  body.dark .session-time {
+    color: #94A3B8;
+  }
+  body.dark .session-count {
+    background: rgba(255, 255, 255, 0.05);
+    color: #818CF8;
+    border-color: rgba(99, 102, 241, 0.25);
+  }
+  body.dark .chat-view-header {
+    background: rgba(15, 23, 42, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  body.dark .chat-view-header h3 {
+    color: #94A3B8;
+  }
+  body.dark .messages {
+    background: rgba(15, 23, 42, 0.4);
+  }
+  body.dark .empty-state h3 {
+    color: #F8FAFC;
+  }
+  body.dark .empty-state p {
+    color: #94A3B8;
+  }
+  body.dark .message.assistant .avatar {
+    background: #1E293B;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #818CF8;
+  }
+  body.dark .message.assistant .bubble {
+    background: linear-gradient(135deg, #1E293B, #151D30);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #F8FAFC;
+  }
+  body.dark .message.assistant .bubble code {
+    background: #1E1B4B;
+    color: #A5B4FC;
+  }
+  body.dark .message.assistant .bubble pre {
+    background: #0F172A !important;
+    color: #F1F5F9;
+  }
+  body.dark .message.assistant .bubble div {
+    color: #F8FAFC !important;
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+  }
 </style>
 </head>
 <body>
@@ -408,6 +527,7 @@ body {
     <a href="dashboard.html">Dashboard</a>
     <a href="history.html" class="active">History</a>
   </nav>
+  <button id="themeToggleBtn" onclick="toggleTheme()" style="margin-left:auto;padding:6px 12px;border-radius:8px;font-size:12.5px;font-weight:500;border:1px solid rgba(99,102,241,0.15);background:rgba(99,102,241,0.08);color:#4F46E5;cursor:pointer;transition:all 0.2s" title="Toggle Light/Dark Mode">🌓 Theme</button>
 </div>
 
 <div class="main">
@@ -440,8 +560,41 @@ body {
 </div>
 
 <script>
-const API = 'https://admax-adtech-agent.onrender.com/api';
+// ===== THEME TOGGLE =====
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+// ===== API DETECTION =====
+let API = 'https://admax-adtech-agent.onrender.com/api';
+
+async function detectAPI() {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+    const res = await fetch('http://localhost:8000/', { signal: controller.signal });
+    if (res.ok) {
+      API = 'http://localhost:8000/api';
+      console.log('Using local backend:', API);
+    }
+  } catch (e) {
+    console.log('Using hosted backend:', API);
+  }
+}
+
 let allSessions = [];
+
+async function init() {
+  await detectAPI();
+  loadSessions();
+}
+setTimeout(init, 100);
 
 async function loadSessions() {
   try {
@@ -562,8 +715,6 @@ function timeAgo(d) {
   if (h < 24) return h + 'h ago';
   return days + 'd ago';
 }
-
-loadSessions();
 </script>
 </body>
 </html>

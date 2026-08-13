@@ -1321,6 +1321,466 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* KPI Metrics Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.kpi-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(238, 242, 255, 0.65));
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.02);
+  transition: all 0.25s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+.kpi-card.warning {
+  border-left: 4px solid #F59E0B;
+}
+.kpi-card.danger {
+  border-left: 4px solid #EF4444;
+}
+.kpi-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.kpi-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.kpi-trend {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.kpi-trend.up {
+  background: rgba(34, 197, 94, 0.08);
+  color: #16A34A;
+}
+.kpi-trend.down {
+  background: rgba(239, 68, 68, 0.08);
+  color: #EF4444;
+}
+.kpi-subtitle {
+  font-size: 10.5px;
+  color: #94A3B8;
+}
+
+/* Tools Layout */
+.tools-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  min-height: 400px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.08);
+}
+.tools-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 1px solid rgba(99, 102, 241, 0.08);
+  padding-right: 12px;
+}
+.tool-menu-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.tool-menu-item:hover {
+  background: rgba(99, 102, 241, 0.05);
+  color: #0F172A;
+}
+.tool-menu-item.active {
+  background: rgba(99, 102, 241, 0.08);
+  color: #4F46E5;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+.tool-content {
+  overflow-y: auto;
+  padding: 4px;
+}
+.tool-pane {
+  display: none;
+}
+.tool-pane.active {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Forms & UI Elements */
+.tool-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 2px;
+}
+.tool-desc {
+  font-size: 12px;
+  color: #64748B;
+  margin-bottom: 10px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+.form-control {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  color: #0F172A;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.form-control:focus {
+  border-color: #6366F1;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+.tool-btn {
+  background: linear-gradient(135deg, #7C3AED, #06B6D4);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+  align-self: flex-start;
+}
+.tool-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
+}
+.code-wrapper {
+  position: relative;
+  margin-top: 8px;
+}
+.code-display {
+  background: #0F172A;
+  color: #F8FAFC;
+  padding: 14px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 250px;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ads.txt Result Display */
+.audit-results {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.audit-summary {
+  display: flex;
+  gap: 12px;
+}
+.audit-stat {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.audit-stat .num {
+  font-size: 18px;
+  font-weight: 800;
+}
+.audit-table-wrap {
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 250px;
+  overflow-y: auto;
+}
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+.audit-table th {
+  background: rgba(99, 102, 241, 0.05);
+  color: #64748B;
+  text-align: left;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.audit-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+.audit-status {
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 9.5px;
+}
+.audit-status.valid { background: rgba(34, 197, 94, 0.08); color: #16A34A; }
+.audit-status.warning { background: rgba(245, 158, 11, 0.08); color: #D97706; }
+.audit-status.error { background: rgba(239, 68, 68, 0.08); color: #EF4444; }
+
+/* Dark Mode Overrides */
+body.dark {
+  background: radial-gradient(at 0% 0%, #12102e 0px, transparent 50%), 
+              radial-gradient(at 100% 0%, #1f0c2f 0px, transparent 50%), 
+              radial-gradient(at 50% 100%, #061930 0px, transparent 50%), 
+              #05070F !important;
+  color: #F8FAFC;
+}
+body.dark .header {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom-color: rgba(99, 102, 241, 0.2);
+}
+body.dark .brand h1 { color: #F8FAFC; }
+body.dark .brand p { color: #94A3B8; }
+body.dark .nav a { color: #94A3B8; }
+body.dark .nav a:hover { background: rgba(99, 102, 241, 0.15); color: #fff; }
+body.dark .nav a.active { background: rgba(99, 102, 241, 0.2); color: #818CF8; border-color: rgba(99, 102, 241, 0.35); }
+body.dark .search-wrap input { background: rgba(30, 41, 59, 0.8); border-color: rgba(99, 102, 241, 0.2); color: #fff; }
+body.dark .search-wrap input:focus { border-color: #818CF8; background: #0f172a; }
+body.dark .search-results { background: #1e293b; border-color: rgba(99, 102, 241, 0.2); }
+body.dark .search-item { border-bottom-color: rgba(255,255,255,0.05); }
+body.dark .search-item:hover { background: rgba(99,102,241,0.1); }
+body.dark .search-item-title { color: #fff; }
+body.dark .search-item-meta { color: #94A3B8; }
+body.dark .news-panel { border-right-color: rgba(99, 102, 241, 0.15); }
+body.dark .tabs { background: rgba(15, 23, 42, 0.6); border-bottom-color: rgba(99, 102, 241, 0.15); }
+body.dark .tab { color: #94A3B8; }
+body.dark .tab:hover { color: #fff; }
+body.dark .tab.active { color: #818CF8; border-bottom-color: #818CF8; }
+body.dark .meta-dropdown { background: rgba(30, 41, 59, 0.7); border-color: rgba(99, 102, 241, 0.2); color: #94A3B8; }
+body.dark .meta-dropdown:hover { background: rgba(99, 102, 241, 0.2); color: #818CF8; }
+body.dark .meta-dropdown-content { background: #1e293b; border-color: rgba(99, 102, 241, 0.2); }
+body.dark .meta-row { color: #F8FAFC; }
+body.dark .meta-label { color: #94A3B8; }
+body.dark .f-btn { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.2); color: #94A3B8; }
+body.dark .f-btn:hover, body.dark .f-btn.active { background: rgba(99, 102, 241, 0.2); border-color: #818CF8; color: #818CF8; }
+body.dark .sort-sel { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.2); color: #94A3B8; }
+body.dark .news-card, body.dark .trend-card, body.dark .impact-card, body.dark .risk-card, body.dark .forecast-insights-card, body.dark .trend-chart-container, body.dark .kpi-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85)) !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+body.dark .news-card:hover, body.dark .trend-card:hover {
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
+}
+body.dark .card-title, body.dark .trend-name, body.dark .trend-val, body.dark .impact-ttl, body.dark .risk-ttl, body.dark .risk-name, body.dark .kpi-value, body.dark .tool-title {
+  color: #F8FAFC !important;
+}
+body.dark .card-summary, body.dark .trend-sub, body.dark .impact-k, body.dark .risk-det, body.dark .kpi-title, body.dark .kpi-subtitle, body.dark .tool-desc, body.dark .form-group label {
+  color: #94A3B8 !important;
+}
+body.dark .card-footer {
+  border-top-color: rgba(255,255,255,0.05);
+}
+body.dark .card-link, body.dark .trend-act {
+  color: #818CF8;
+}
+body.dark .trend-act {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+body.dark .trend-act:hover {
+  background: rgba(99, 102, 241, 0.3);
+}
+body.dark .ria-panel {
+  background: rgba(15, 23, 42, 0.65);
+  border-left-color: rgba(99, 102, 241, 0.2);
+}
+body.dark .ria-header {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom-color: rgba(99, 102, 241, 0.2);
+}
+body.dark .ria-info h3 { color: #fff; }
+body.dark .ria-messages {
+  background: rgba(9, 15, 30, 0.5);
+}
+body.dark .ria-msg.assistant .ria-av {
+  background: #1e293b;
+  border-color: rgba(99,102,241,0.2);
+  color: #818CF8;
+}
+body.dark .ria-msg.assistant .ria-bubble, body.dark .ria-typing-bubble {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-color: rgba(99,102,241,0.15);
+  color: #fff;
+}
+body.dark .ria-quick {
+  background: rgba(15,23,42,0.8);
+  border-top-color: rgba(99,102,241,0.2);
+}
+body.dark .qbtn {
+  background: rgba(30,41,59,0.8);
+  border-color: rgba(99,102,241,0.25);
+  color: #94A3B8;
+}
+body.dark .qbtn:hover {
+  background: rgba(99,102,241,0.2);
+  color: #818CF8;
+  border-color: #818CF8;
+}
+body.dark .ria-input-area {
+  background: rgba(15,23,42,0.85);
+  border-top-color: rgba(99,102,241,0.2);
+}
+body.dark .ria-input-area textarea {
+  background: rgba(30,41,59,0.8);
+  border-color: rgba(99,102,241,0.2);
+  color: #fff;
+}
+body.dark .ria-input-area textarea:focus {
+  border-color: #818CF8;
+  background: #0f172a;
+}
+body.dark .ria-img-btn {
+  background: rgba(30,41,59,0.8);
+  border-color: rgba(99,102,241,0.2);
+}
+body.dark .ria-img-btn:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: #818CF8;
+}
+body.dark .cpm-table {
+  background: rgba(15, 23, 42, 0.45);
+  border-color: rgba(99,102,241,0.15);
+}
+body.dark .cpm-row {
+  border-bottom-color: rgba(99,102,241,0.15);
+  color: #F8FAFC !important;
+}
+body.dark .cpm-row:not(.cpm-h):hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+body.dark .cpm-h {
+  background: rgba(99, 102, 241, 0.15);
+}
+body.dark .cpm-h .cpm-c {
+  color: #94A3B8;
+}
+body.dark .cpm-c {
+  color: #F8FAFC !important;
+}
+body.dark .tools-layout {
+  background: rgba(15, 23, 42, 0.3);
+  border-color: rgba(99,102,241,0.15);
+}
+body.dark .tools-sidebar {
+  border-right-color: rgba(99,102,241,0.15);
+}
+body.dark .tool-menu-item {
+  color: #94A3B8;
+}
+body.dark .tool-menu-item:hover {
+  background: rgba(99,102,241,0.1);
+  color: #fff;
+}
+body.dark .tool-menu-item.active {
+  background: rgba(99,102,241,0.2);
+  color: #818CF8;
+  border-color: rgba(99,102,241,0.3);
+}
+body.dark .form-control {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(99,102,241,0.25);
+  color: #fff;
+}
+body.dark .form-control:focus {
+  background: #0f172a;
+  border-color: #818CF8;
+}
+body.dark .audit-stat {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(99,102,241,0.15);
+}
+body.dark .audit-table-wrap {
+  border-color: rgba(99,102,241,0.15);
+}
+body.dark .audit-table th {
+  background: rgba(99, 102, 241, 0.15);
+  color: #94A3B8;
+}
+body.dark .audit-table td {
+  border-bottom-color: rgba(255,255,255,0.05);
+  color: #e2e8f0;
+}
+body.dark .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+body.dark #actionCenterContainer {
+  background: rgba(30, 41, 59, 0.6) !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+body.dark #actionCenterContainer div {
+  color: #e2e8f0 !important;
+}
+body.dark #actionCenterContainer div div {
+  color: #fff !important;
+}
 </style>
 </head>
 <body>
@@ -1338,27 +1798,24 @@ body {
     <div class="search-results" id="searchResults"></div>
   </div>
   <div class="header-right">
+    <button class="f-btn" id="themeToggleBtn" onclick="toggleTheme()" style="padding:5px 10px;border-radius:8px;margin-right:4px" title="Toggle Light/Dark Mode">🌓 Theme</button>
     <span style="font-size:11px;color:#94A3B8" id="lastUpdated"></span>
     <div class="live-pill"><div class="live-dot"></div>Live</div>
     <button class="refresh-btn" id="refreshBtn" onclick="fetchNews()">↻ Refresh</button>
   </div>
 </div>
 
-
-
 <div class="main-layout">
 
-  <!-- LEFT 70% — NEWS -->
+  <!-- LEFT 70% — NEWS & TOOLS -->
   <div class="news-panel">
     <div class="tabs">
       <div class="tab-buttons">
-        <button class="tab active" data-tab="news" onclick="switchTab('news',this)">📰 News</button>
-        <button class="tab" data-tab="trends" onclick="switchTab('trends',this)">📈 Trends</button>
-        <button class="tab" data-tab="impact" onclick="switchTab('impact',this)">🎯 Impact</button>
-        <button class="tab" data-tab="risk" onclick="switchTab('risk',this)">⚠️ Risk</button>
-        <button class="tab" data-tab="critical" onclick="switchTab('critical',this)">🔴 Critical</button>
-        <button class="tab" data-tab="prebid" onclick="switchTab('prebid',this)">⚙️ Prebid</button>
-        <button class="tab" data-tab="privacy" onclick="switchTab('privacy',this)">🔒 Privacy</button>
+        <button class="tab active" data-tab="ops-dashboard" onclick="switchTab('ops-dashboard',this)">⚙️ Ops Dashboard</button>
+        <button class="tab" data-tab="updates" onclick="switchTab('updates',this)">📢 Just Updates</button>
+        <button class="tab" data-tab="trends" onclick="switchTab('trends',this)">📈 Trends & Benchmarks</button>
+        <button class="tab" data-tab="tools" onclick="switchTab('tools',this)">🛠️ AdOps Tools</button>
+        <button class="tab" data-tab="impact-risk" onclick="switchTab('impact-risk',this)">🎯 Impact & Risk</button>
         <button class="tab" data-tab="saved" onclick="switchTab('saved',this)">🔖 Saved</button>
       </div>
       <div class="tab-metadata">
@@ -1382,11 +1839,58 @@ body {
     </div>
 
     <div class="news-body">
-      <!-- NEWS -->
-      <div class="tab-pane active" id="tab-news">
+      <!-- OPS DASHBOARD -->
+      <div class="tab-pane active" id="tab-ops-dashboard">
+        <!-- KPI Metrics Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Programmatic Yield (RPM)</div>
+            <div class="kpi-value">$4.92 <span class="kpi-trend up">↑ 8.4%</span></div>
+            <div class="kpi-subtitle">vs historical avg ($4.54)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Avg Industry CPM</div>
+            <div class="kpi-value">$3.85 <span class="kpi-trend up">↑ 4.1%</span></div>
+            <div class="kpi-subtitle">Across top demand exchanges</div>
+          </div>
+          <div class="kpi-card warning">
+            <div class="kpi-title">Bid Latency Spike</div>
+            <div class="kpi-value">842ms <span class="kpi-trend down">12% latency</span></div>
+            <div class="kpi-subtitle">Google OB latency warning</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Ads.txt Integrity</div>
+            <div class="kpi-value">100% <span class="kpi-trend up">Valid</span></div>
+            <div class="kpi-subtitle">Zero unauthorized lines</div>
+          </div>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:8px">
+          <div>
+            <div class="sec-lbl">🚨 Live Operations & Revenue Alerts</div>
+            <div class="news-list" id="opsAlertsList"><div class="loading">Loading important AdTech alerts...</div></div>
+          </div>
+          <div>
+            <div class="sec-lbl">📋 Recommended Yield Actions</div>
+            <div class="forecast-insights-card" style="height:fit-content;margin-bottom:0">
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;color:#4F46E5;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+                <span>📋</span> Operations Action Plan
+              </div>
+              <div id="opsActionList" style="display:flex;flex-direction:column;gap:10px">
+                <!-- Dynamically populated yield actions -->
+                <div style="font-size:11.5px;color:#64748B">No pending high-priority actions.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JUST UPDATES (General news) -->
+      <div class="tab-pane" id="tab-updates">
         <div class="filters" id="filters"></div>
         <div class="news-list" id="newsList"><div class="loading">Loading AdTech intelligence...</div></div>
       </div>
+
       <!-- TRENDS -->
       <div class="tab-pane" id="tab-trends">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
@@ -1462,7 +1966,7 @@ body {
                   <stop offset="100%" stop-color="#3B82F6" />
                 </linearGradient>
               </defs>
-
+ 
               <!-- CTV Nodes & Interactive Tooltips -->
               <g class="chart-node">
                 <circle cx="75" cy="30" r="4" fill="#7C3AED" stroke="#fff" stroke-width="1.5" />
@@ -1492,7 +1996,7 @@ body {
                   <text x="450" y="0" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">CTV Q4: $42.50</text>
                 </g>
               </g>
-
+ 
               <!-- Outstream Video Nodes & Tooltips -->
               <g class="chart-node">
                 <circle cx="75" cy="110" r="4" fill="#06B6D4" stroke="#fff" stroke-width="1.5" />
@@ -1522,7 +2026,7 @@ body {
                   <text x="450" y="80" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">Vid Q4: $16.00</text>
                 </g>
               </g>
-
+ 
               <!-- Legend -->
               <g transform="translate(60, 5)">
                 <circle cx="0" cy="0" r="3" fill="#7C3AED" />
@@ -1534,7 +2038,7 @@ body {
               </g>
             </svg>
           </div>
-
+ 
           <!-- FORECAST INSIGHTS CARD -->
           <div class="forecast-insights-card">
             <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;color:#4F46E5;margin-bottom:10px;display:flex;align-items:center;gap:6px">
@@ -1560,7 +2064,7 @@ body {
             </div>
           </div>
         </div>
-
+ 
         <div class="sec-lbl" style="margin-top:4px">Current Industry CPMs — Q2 2026 Benchmarks</div>
         <div class="cpm-table">
           <div class="cpm-row cpm-h"><div class="cpm-c">Format</div><div class="cpm-c">Avg CPM</div><div class="cpm-c">Range</div><div class="cpm-c">YoY</div><div class="cpm-c">Opp Score</div><div class="cpm-c">Action</div></div>
@@ -1574,42 +2078,217 @@ body {
           <div class="cpm-row"><div class="cpm-c" style="font-weight:500">📱 Mobile Display</div><div class="cpm-c" style="color:#DC2626;font-weight:700">$2.10</div><div class="cpm-c" style="font-size:10px;color:#64748B">$0.80–$4</div><div class="cpm-c" style="color:#DC2626">-3%</div><div class="cpm-c"><div class="opp-wrap"><div class="opp-bar"><div class="opp-fill bar-red" style="width:28%"></div></div><span style="font-size:10px;font-weight:700;color:#DC2626">28</span></div></div><div class="cpm-c"><span class="cpm-action-badge low">↓ Review floors</span></div></div>
         </div>
       </div>
-      <!-- PUBLISHER IMPACT -->
-      <div class="tab-pane" id="tab-impact">
-        <div class="impact-grid">
-          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Google AdX Demand Softening</div><span class="il il-m">Medium</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#DC2626">-3% to -5%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">Display, Mobile</span></div><div class="impact-act">Review floor prices. Activate additional SSPs.</div></div>
-          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">CTV Demand Surge</div><span class="il il-l">Opportunity</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#16A34A">+15% to +22%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">Video, OTT, CTV</span></div><div class="impact-act">Increase CTV inventory immediately.</div></div>
-          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Cookie Deprecation</div><span class="il il-h">High Impact</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#DC2626">-8% to -15%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">All retargeting</span></div><div class="impact-act">Activate UID2 and ID5 immediately.</div></div>
-          <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Prebid.js v11 Migration</div><span class="il il-m">Medium</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#2563EB">Neutral to +5%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">All header bidding</span></div><div class="impact-act">Upgrade to Prebid v11 now. Test staging first.</div></div>
-        </div>
-        <div class="sec-lbl">Publisher Action Center</div>
-        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;gap:10px;padding:9px;background:#F0FDF4;border-radius:7px;border:1px solid #BBF7D0"><span>🚀</span><div><div style="font-size:12px;font-weight:600;color:#16A34A;margin-bottom:2px">Immediate: Upgrade Prebid.js to v11.15</div><div style="font-size:11px;color:#064E3B">Latest release just published. Test in staging first.</div></div></div>
-          <div style="display:flex;gap:10px;padding:9px;background:#FFFBEB;border-radius:7px;border:1px solid #FCD34D"><span>⚠️</span><div><div style="font-size:12px;font-weight:600;color:#D97706;margin-bottom:2px">This Week: Review Floor Prices</div><div style="font-size:11px;color:#92400E">AdX demand softening Q2 2026. Lower floors 10-15% on mobile.</div></div></div>
-          <div style="display:flex;gap:10px;padding:9px;background:#EFF6FF;border-radius:7px;border:1px solid #BFDBFE"><span>📋</span><div><div style="font-size:12px;font-weight:600;color:#2563EB;margin-bottom:2px">This Month: Activate UID2</div><div style="font-size:11px;color:#1E3A8A">Protects 60-70% of retargeting revenue from cookie deprecation.</div></div></div>
-          <div style="display:flex;gap:10px;padding:9px;background:#F5F3FF;border-radius:7px;border:1px solid #DDD6FE"><span>📺</span><div><div style="font-size:12px;font-weight:600;color:#7C3AED;margin-bottom:2px">Q3 Goal: Expand CTV Supply</div><div style="font-size:11px;color:#4C1D95">CTV CPMs at $38 avg, +22% YoY. Highest opportunity format.</div></div></div>
+
+      <!-- ADOPS TOOLS -->
+      <div class="tab-pane" id="tab-tools">
+        <div class="tools-layout">
+          <div class="tools-sidebar">
+            <div class="tool-menu-item active" data-tool="adstxt" onclick="selectTool('adstxt')">📋 Ads.txt Auditor</div>
+            <div class="tool-menu-item" data-tool="yield" onclick="selectTool('yield')">🧮 Yield Calculator</div>
+            <div class="tool-menu-item" data-tool="prebid" onclick="selectTool('prebid')">⚙️ Prebid Config Gen</div>
+            <div class="tool-menu-item" data-tool="vast" onclick="selectTool('vast')">📺 VAST/VPAID Resolver</div>
+          </div>
+          <div class="tool-content">
+            <!-- Ads.txt Auditor -->
+            <div class="tool-pane active" id="tool-adstxt">
+              <div class="tool-title">Ads.txt Syntax Auditor</div>
+              <div class="tool-desc">Paste lines from your domain's ads.txt file below to check formatting and verify partner authorization rules.</div>
+              <div class="form-group">
+                <label>Ads.txt Records</label>
+                <textarea id="adstxtInput" class="form-control" rows="6" placeholder="google.com, pub-1234567890, DIRECT, f08c47fec0942fa0&#10;pubmatic.com, 98765, RESELLER"></textarea>
+              </div>
+              <button class="tool-btn" onclick="runAdsTxtAudit()">Audit Records</button>
+              <div id="adstxtResults" class="audit-results" style="display:none">
+                <div class="audit-summary">
+                  <div class="audit-stat">Scanned: <span class="num" id="statScanned">0</span></div>
+                  <div class="audit-stat" style="color:#16A34A">Valid: <span class="num" id="statValid">0</span></div>
+                  <div class="audit-stat" style="color:#D97706">Warnings: <span class="num" id="statWarn">0</span></div>
+                  <div class="audit-stat" style="color:#EF4444">Errors: <span class="num" id="statErr">0</span></div>
+                </div>
+                <div class="audit-table-wrap">
+                  <table class="audit-table">
+                    <thead>
+                      <tr><th style="width:50px">Line</th><th>Record</th><th style="width:80px">Status</th><th>Issue/Recommendation</th></tr>
+                    </thead>
+                    <tbody id="auditTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Yield Calculator -->
+            <div class="tool-pane" id="tool-yield">
+              <div class="tool-title">Yield Optimization Calculator</div>
+              <div class="tool-desc">Simulate monthly revenue uplift by adjusting pageviews, ad units per page, CPM, and floor optimizations.</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+                <div>
+                  <div class="form-group">
+                    <label>Monthly Pageviews: <span id="valPageviews">10,000,000</span></label>
+                    <input type="range" id="inputPageviews" min="1000000" max="100000000" step="1000000" value="10000000" class="form-control" oninput="updateYieldCalc()">
+                  </div>
+                  <div class="form-group">
+                    <label>Ad Units Per Page: <span id="valUnits">3</span></label>
+                    <input type="range" id="inputUnits" min="1" max="10" step="1" value="3" class="form-control" oninput="updateYieldCalc()">
+                  </div>
+                  <div class="form-group">
+                    <label>Average CPM ($): <span id="valCPM">$2.50</span></label>
+                    <input type="range" id="inputCPM" min="0.10" max="20.00" step="0.10" value="2.50" class="form-control" oninput="updateYieldCalc()">
+                  </div>
+                  <div class="form-group">
+                    <label>Current Fill Rate (%): <span id="valFill">80%</span></label>
+                    <input type="range" id="inputFill" min="10" max="100" step="1" value="80" class="form-control" oninput="updateYieldCalc()">
+                  </div>
+                  <div class="form-group">
+                    <label>Floor Optimization Uplift (%): <span id="valUplift">+15%</span></label>
+                    <input type="range" id="inputUplift" min="0" max="50" step="1" value="15" class="form-control" oninput="updateYieldCalc()">
+                  </div>
+                </div>
+                
+                <div style="background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.15);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px">
+                  <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:#4F46E5">Revenue Projections</div>
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.05);padding-bottom:6px">
+                    <span style="font-size:12px;color:#64748B">Current Revenue:</span>
+                    <strong style="font-size:12px" id="calcCurrRev">$60,000.00</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.05);padding-bottom:6px">
+                    <span style="font-size:12px;color:#64748B">Projected CPM:</span>
+                    <strong style="font-size:12px;color:#16A34A" id="calcProjCPM">$2.88</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.05);padding-bottom:6px">
+                    <span style="font-size:12px;color:#64748B">Est. Projected Fill Rate:</span>
+                    <strong style="font-size:12px" id="calcProjFill">75.5%</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.05);padding-bottom:6px">
+                    <span style="font-size:12px;color:#64748B">Projected Revenue:</span>
+                    <strong style="font-size:12px;color:#16A34A" id="calcProjRev">$65,250.00</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-top:4px;padding-top:4px">
+                    <span style="font-size:13px;font-weight:700;color:#0F172A">Net Monthly Uplift:</span>
+                    <strong style="font-size:14px;color:#16A34A" id="calcNetUplift">+$5,250.00</strong>
+                  </div>
+                  <div style="font-size:11px;color:#64748B;line-height:1.45;margin-top:8px;padding:8px;background:#fff;border-radius:6px;border:1px solid rgba(99,102,241,0.08)" id="calcAdvice">
+                    Loading yield advice...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prebid Wrapper Generator -->
+            <div class="tool-pane" id="tool-prebid">
+              <div class="tool-title">Prebid.js Config Generator</div>
+              <div class="tool-desc">Select bidder, parameters, and sizes to output a production-ready Prebid.js setup.</div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px">
+                <div>
+                  <div class="form-group">
+                    <label>Bidder Adapter</label>
+                    <select id="pbBidder" class="form-control" onchange="updatePrebidParams()">
+                      <option value="appnexus">AppNexus / Xandr</option>
+                      <option value="rubicon">Rubicon Project / Magnite</option>
+                      <option value="pubmatic">PubMatic</option>
+                      <option value="ix">Index Exchange</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Ad Unit Code (DOM Slot ID)</label>
+                    <input type="text" id="pbAdUnit" class="form-control" value="div-gpt-ad-12345">
+                  </div>
+                  <div class="form-group">
+                    <label>Placement Sizes (e.g. 300x250, 728x90)</label>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+                      <label style="display:flex;align-items:center;gap:4px;font-weight:normal;text-transform:none"><input type="checkbox" class="pbSize" value="300x250" checked> 300x250</label>
+                      <label style="display:flex;align-items:center;gap:4px;font-weight:normal;text-transform:none"><input type="checkbox" class="pbSize" value="728x90" checked> 728x90</label>
+                      <label style="display:flex;align-items:center;gap:4px;font-weight:normal;text-transform:none"><input type="checkbox" class="pbSize" value="300x600"> 300x600</label>
+                      <label style="display:flex;align-items:center;gap:4px;font-weight:normal;text-transform:none"><input type="checkbox" class="pbSize" value="970x250"> 970x250</label>
+                    </div>
+                  </div>
+                  <div id="pbParamInputs">
+                    <!-- Dynamic parameters based on bidder -->
+                  </div>
+                  <button class="tool-btn" onclick="generatePrebidConfig()" style="margin-top:10px">Generate Code</button>
+                </div>
+                
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;margin-bottom:4px">Generated Wrapper Code</div>
+                  <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyPrebidCode()">Copy</button>
+                    <pre class="code-display" id="pbOutputCode">// Select settings above and click Generate Code</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VAST/VPAID Resolver -->
+            <div class="tool-pane" id="tool-vast">
+              <div class="tool-title">VAST/VPAID Error Reference Resolver</div>
+              <div class="tool-desc">Select an IAB VAST error code to understand its root causes and get clear instructions to resolve it.</div>
+              <div class="form-group">
+                <label>Select VAST Error Code</label>
+                <select id="vastErrorCode" class="form-control" onchange="resolveVastError()">
+                  <option value="">-- Choose VAST Code --</option>
+                  <option value="100">VAST 100: XML Parsing Error</option>
+                  <option value="301">VAST 301: VAST Redirect Timeout</option>
+                  <option value="303">VAST 303: No Ad Returned (Empty VAST)</option>
+                  <option value="400">VAST 400: General Linear Error</option>
+                  <option value="402">VAST 402: Video Playback Error / Timeout</option>
+                  <option value="901">VAST 901: General VPAID Error</option>
+                </select>
+              </div>
+              
+              <div id="vastResultBox" style="display:none;background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.15);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#4F46E5" id="vastErrTitle">VAST Code</strong>
+                  <span id="vastErrSeverity" class="audit-status warning">Common</span>
+                </div>
+                <div style="font-size:12px;line-height:1.5"><strong style="color:#0F172A">Technical Root Cause:</strong> <span id="vastErrCause">...</span></div>
+                <div style="font-size:12px;line-height:1.5"><strong style="color:#0F172A">Ops Action Plan:</strong><div id="vastErrFix" style="margin-top:4px">...</div></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- RISK -->
-      <div class="tab-pane" id="tab-risk">
+
+      <!-- IMPACT & RISK -->
+      <div class="tab-pane" id="tab-impact-risk">
+        <div class="sec-lbl">Industry Risk Assessment Matrix</div>
         <div class="risk-grid">
-          <div class="risk-card"><div class="risk-hdr"><div class="risk-dot" style="background:#DC2626"></div><div class="risk-ttl">High Risk</div></div><div class="risk-item"><div class="risk-name">Cookie Deprecation</div><div class="risk-det">All retargeting · -8% to -15% RPM</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Deploy UID2</span></div><div class="risk-item"><div class="risk-name">Privacy Sandbox</div><div class="risk-det">Behavioral targeting · -5% to -12%</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Contextual targeting</span></div></div>
-          <div class="risk-card"><div class="risk-hdr"><div class="risk-dot" style="background:#D97706"></div><div class="risk-ttl">Medium Risk</div></div><div class="risk-item"><div class="risk-name">AdX Demand Softening</div><div class="risk-det">Display · -3% to -5% RPM</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Add SSP partners</span></div><div class="risk-item"><div class="risk-name">Floor Price Sensitivity</div><div class="risk-det">Open auction · -2% to -8%</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Dynamic floors</span></div></div>
-          <div class="risk-card"><div class="risk-hdr"><div class="risk-dot" style="background:#16A34A"></div><div class="risk-ttl">Opportunity</div></div><div class="risk-item"><div class="risk-name">CTV Growth</div><div class="risk-det">Video · +15% to +22% RPM</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Expand CTV now</span></div><div class="risk-item"><div class="risk-name">Audio Advertising</div><div class="risk-det">Podcast · +25% to +35% RPM</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Explore audio</span></div></div>
+          <div class="risk-card">
+            <div class="risk-hdr"><div class="risk-dot" style="background:#DC2626"></div><div class="risk-ttl">High Risk / Immediate Mitigation</div></div>
+            <div class="risk-item"><div class="risk-name">Cookie Deprecation Phaseout</div><div class="risk-det">Google Privacy Sandbox · -8% to -15% Remnant RPM</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Deploy UID2 / ID5 Shared ID wrapper</span></div>
+            <div class="risk-item"><div class="risk-name">User Tracking Refusal</div><div class="risk-det">Safari ITP / iOS App Tracking · -5% to -12% CPMs</div><span class="risk-mit" style="background:#FEF2F2;color:#DC2626">Contextual categorization tags</span></div>
+          </div>
+          <div class="risk-card">
+            <div class="risk-hdr"><div class="risk-dot" style="background:#D97706"></div><div class="risk-ttl">Medium Risk / Action Recommended</div></div>
+            <div class="risk-item"><div class="risk-name">Google AdX Demand Softening</div><div class="risk-det">Remnant Open Auction · -3% to -5% overall CPMs</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Add programmatic SSP partners</span></div>
+            <div class="risk-item"><div class="risk-name">Floor Price Sensitivity</div><div class="risk-det">Bid rejection rate increase · -2% to -8% fill</div><span class="risk-mit" style="background:#FFFBEB;color:#D97706">Set dynamic floor bidding pricing</span></div>
+          </div>
+          <div class="risk-card">
+            <div class="risk-hdr"><div class="risk-dot" style="background:#16A34A"></div><div class="risk-ttl">Opportunities & Uplifts</div></div>
+            <div class="risk-item"><div class="risk-name">CTV & Live Video Growth</div><div class="risk-det">Premium bidding demand · +15% to +22% Yield</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Increase CTV direct placements</span></div>
+            <div class="risk-item"><div class="risk-name">Audio/Podcast Advertising</div><div class="risk-det">Podcast sponsorships · +25% to +35% direct CPMs</div><span class="risk-mit" style="background:#F0FDF4;color:#16A34A">Integrate SSP Audio player tags</span></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+          <div>
+            <div class="sec-lbl">Revenue Impact Details</div>
+            <div class="impact-grid" style="grid-template-columns:1fr;gap:10px">
+              <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Google AdX Demand Softening</div><span class="il il-m">Medium</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#DC2626">-3% to -5%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">Display, Mobile</span></div><div class="impact-act">Review floor prices. Activate additional SSPs.</div></div>
+              <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">CTV Demand Surge</div><span class="il il-l">Opportunity</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#16A34A">+15% to +22%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">Video, OTT, CTV</span></div><div class="impact-act">Increase CTV inventory immediately.</div></div>
+              <div class="impact-card"><div class="impact-hdr"><div class="impact-ttl">Cookie Deprecation</div><span class="il il-h">High Impact</span></div><div class="impact-row"><span class="impact-k">Revenue impact</span><span class="impact-v" style="color:#DC2626">-8% to -15%</span></div><div class="impact-row"><span class="impact-k">Formats</span><span class="impact-v">All retargeting</span></div><div class="impact-act">Activate UID2 and ID5 immediately.</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec-lbl">Publisher Action Center</div>
+            <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;height:fit-content" id="actionCenterContainer">
+              <div style="display:flex;gap:10px;padding:9px;background:#F0FDF4;border-radius:7px;border:1px solid #BBF7D0"><span>🚀</span><div><div style="font-size:12px;font-weight:600;color:#16A34A;margin-bottom:2px">Immediate: Upgrade Prebid.js to v11.15</div><div style="font-size:11px;color:#064E3B">Latest release just published. Test in staging first.</div></div></div>
+              <div style="display:flex;gap:10px;padding:9px;background:#FFFBEB;border-radius:7px;border:1px solid #FCD34D"><span>⚠️</span><div><div style="font-size:12px;font-weight:600;color:#D97706;margin-bottom:2px">This Week: Review Floor Prices</div><div style="font-size:11px;color:#92400E">AdX demand softening Q2 2026. Lower floors 10-15% on mobile.</div></div></div>
+              <div style="display:flex;gap:10px;padding:9px;background:#EFF6FF;border-radius:7px;border:1px solid #BFDBFE"><span>📋</span><div><div style="font-size:12px;font-weight:600;color:#2563EB;margin-bottom:2px">This Month: Activate UID2</div><div style="font-size:11px;color:#1E3A8A">Protects 60-70% of retargeting revenue from cookie deprecation.</div></div></div>
+              <div style="display:flex;gap:10px;padding:9px;background:#F5F3FF;border-radius:7px;border:1px solid #DDD6FE"><span>📺</span><div><div style="font-size:12px;font-weight:600;color:#7C3AED;margin-bottom:2px">Q3 Goal: Expand CTV Supply</div><div style="font-size:11px;color:#4C1D95">CTV CPMs at $38 avg, +22% YoY. Highest opportunity format.</div></div></div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- CRITICAL -->
-      <div class="tab-pane" id="tab-critical">
-        <div class="news-list" id="criticalList"><div class="loading">Loading...</div></div>
-      </div>
-      <!-- PREBID -->
-      <div class="tab-pane" id="tab-prebid">
-        <div class="news-list" id="prebidList"><div class="loading">Loading...</div></div>
-      </div>
-      <!-- PRIVACY -->
-      <div class="tab-pane" id="tab-privacy">
-        <div class="news-list" id="privacyList"><div class="loading">Loading...</div></div>
-      </div>
+
       <!-- SAVED -->
       <div class="tab-pane" id="tab-saved">
         <div class="news-list" id="savedList"><div class="empty">📌 No saved articles yet. Click 🏷️ to save.</div></div>
@@ -1928,7 +2607,45 @@ function startNewChat() {
   }
 }
 
-setTimeout(restoreRiaSession, 100);
+// ===== THEME TOGGLE =====
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+// ===== API DETECTION =====
+let API = 'https://admax-adtech-agent.onrender.com/api';
+
+async function detectAPI() {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+    const res = await fetch('http://localhost:8000/', { signal: controller.signal });
+    if (res.ok) {
+      API = 'http://localhost:8000/api';
+      console.log('Using local backend:', API);
+    }
+  } catch (e) {
+    console.log('Using hosted backend:', API);
+  }
+}
+
+async function init() {
+  await detectAPI();
+  restoreRiaSession();
+  loadNews();
+  setInterval(loadNews, 300000);
+  
+  // Set up initial tools tab views
+  updatePrebidParams();
+  updateYieldCalc();
+}
+setTimeout(init, 100);
 
 // ===== DASHBOARD =====
 const OFFICIAL = ['Prebid GitHub','IAB Tech Lab','Prebid.org','Google Ads Blog','Chromium Blog','IAB'];
@@ -2007,6 +2724,7 @@ async function loadNews() {
     updateAll(allNews);
   } catch(e) {
     document.getElementById('newsList').innerHTML='<div class="empty">Backend not connected.</div>';
+    document.getElementById('opsAlertsList').innerHTML='<div class="empty">Backend not connected.</div>';
   }
 }
 
@@ -2014,6 +2732,7 @@ async function fetchNews() {
   const btn = document.getElementById('refreshBtn');
   btn.disabled=true; btn.textContent='⟳ Fetching...';
   document.getElementById('newsList').innerHTML='<div class="loading">Fetching latest AdTech news...</div>';
+  document.getElementById('opsAlertsList').innerHTML='<div class="loading">Fetching latest AdTech alerts...</div>';
   try { await fetch(`${API}/news/fetch`,{method:'POST'}); await loadNews(); }
   catch(e){alert('Backend not reachable.');}
   btn.disabled=false; btn.textContent='↻ Refresh';
@@ -2057,9 +2776,13 @@ function updateAll(news) {
 
   // Lists
   renderList('newsList', news);
-  renderList('criticalList', news.filter(n=>n.importance==='critical'||n.importance==='high'));
-  renderList('prebidList', news.filter(n=>n.category==='Prebid'||(n.title+(n.summary||'')).toLowerCase().includes('prebid')));
-  renderList('privacyList', news.filter(n=>n.category==='Privacy'||(n.title+(n.summary||'')).toLowerCase().includes('cookie')));
+  
+  // Ops Dashboard Alerts (Only Critical & High)
+  const opsAlerts = news.filter(n => n.importance === 'critical' || n.importance === 'high');
+  renderList('opsAlertsList', opsAlerts);
+  
+  // Populate Ops Action Plan dynamically
+  generateOpsActions(news);
 }
 
 function buildFilters(news) {
@@ -2094,6 +2817,7 @@ function sortNews(by){
 
 function renderList(id, news) {
   const el = document.getElementById(id);
+  if (!el) return;
   if (!news.length){el.innerHTML='<div class="empty">No articles found.</div>';return;}
   const order={critical:0,high:1,medium:2};
   const sorted=[...news].sort((a,b)=>(order[a.importance]||2)-(order[b.importance]||2));
@@ -2127,6 +2851,7 @@ function ago(d) {
   const m=Math.floor(diff/60000),h=Math.floor(diff/3600000),days=Math.floor(diff/86400000);
   if(m<1)return'just now';if(m<60)return m+'m ago';if(h<24)return h+'h ago';return days+'d ago';
 }
+
 function setTrendQuarter(q) {
   const btnQ1 = document.getElementById('btnTrendQ1');
   const btnQ2 = document.getElementById('btnTrendQ2');
@@ -2147,6 +2872,458 @@ function setTrendQuarter(q) {
     gridQ2.style.display = 'grid';
     subtitle.textContent = 'Q2 2026 Forecasts · 86% confidence · Consensuses & Pacing projections';
   }
+}
+
+// ===== OPS ACTION PLAN GENERATOR =====
+function generateOpsActions(news) {
+  const container = document.getElementById('opsActionList');
+  if (!container) return;
+  
+  const alerts = news.filter(n => n.importance === 'critical' || n.importance === 'high');
+  let actions = [];
+  
+  let hasCookie = false;
+  let hasPrebid = false;
+  let hasGam = false;
+  let hasLatency = false;
+  
+  alerts.forEach(item => {
+    const text = (item.title + (item.summary || '')).toLowerCase();
+    if (text.includes('cookie') || text.includes('identity') || text.includes('sandbox') || text.includes('uid2') || text.includes('privacy')) {
+      hasCookie = true;
+    }
+    if (text.includes('prebid')) {
+      hasPrebid = true;
+    }
+    if (text.includes('gam') || text.includes('ad manager') || text.includes('floor')) {
+      hasGam = true;
+    }
+    if (text.includes('latency') || text.includes('outage') || text.includes('ssp') || text.includes('down')) {
+      hasLatency = true;
+    }
+  });
+  
+  if (hasCookie) {
+    actions.push({
+      icon: '🔒',
+      color: 'rgba(99, 102, 241, 0.08)',
+      borderColor: 'rgba(99, 102, 241, 0.25)',
+      title: 'Deploy Identity Solutions',
+      desc: 'With cookie deprecation testing active, deploy UID2 and ID5 modules in Prebid.js to protect target CPMs.',
+      actionLabel: 'Prebid Identity Guide',
+      actionQuery: 'How do I configure UID2 and ID5 in Prebid?'
+    });
+  }
+  if (hasPrebid) {
+    actions.push({
+      icon: '⚙️',
+      color: 'rgba(6, 182, 212, 0.08)',
+      borderColor: 'rgba(6, 182, 212, 0.25)',
+      title: 'Upgrade Prebid Wrapper',
+      desc: 'Upgrade your Prebid.js package to the latest version to get security fixes and faster bidder connection times.',
+      actionLabel: 'Show Prebid Command',
+      actionQuery: 'What are the main Prebid debugging commands?'
+    });
+  }
+  if (hasGam) {
+    actions.push({
+      icon: '📊',
+      color: 'rgba(245, 158, 11, 0.08)',
+      borderColor: 'rgba(245, 158, 11, 0.25)',
+      title: 'Audit CPM Price Floors',
+      desc: 'Google AdX demand shifts detected. Review and adjust floor price rules in Google Ad Manager rules tab.',
+      actionLabel: 'Floor Troubleshooting',
+      actionQuery: 'Why is my CPM dropping and how do I fix floors?'
+    });
+  }
+  if (hasLatency) {
+    actions.push({
+      icon: '⚡',
+      color: 'rgba(239, 68, 68, 0.08)',
+      borderColor: 'rgba(239, 68, 68, 0.25)',
+      title: 'Address SSP Latency Issues',
+      desc: 'Partner connection latency spikes detected. Check bidder timeouts in Prebid.js configurations.',
+      actionLabel: 'Ask Ria for Help',
+      actionQuery: 'How can I fix prebid timeout issues?'
+    });
+  }
+  
+  if (actions.length === 0) {
+    actions.push({
+      icon: '📋',
+      color: 'rgba(34, 197, 94, 0.08)',
+      borderColor: 'rgba(34, 197, 94, 0.25)',
+      title: 'Run Ads.txt Auditor',
+      desc: 'Perform a monthly scan of ads.txt records to ensure no reseller partners have been removed by exchange audits.',
+      actionLabel: 'Go to Auditor',
+      actionOnClick: "switchTab('tools'); selectTool('adstxt');"
+    });
+    actions.push({
+      icon: '🧮',
+      color: 'rgba(99, 102, 241, 0.08)',
+      borderColor: 'rgba(99, 102, 241, 0.25)',
+      title: 'Review Yield Projections',
+      desc: 'Use the Yield Calculator to estimate the revenue impact of adding additional SSP partners.',
+      actionLabel: 'Go to Calculator',
+      actionOnClick: "switchTab('tools'); selectTool('yield');"
+    });
+  }
+  
+  container.innerHTML = actions.map(act => {
+    let clickAttr = '';
+    if (act.actionOnClick) {
+      clickAttr = `onclick="${act.actionOnClick}"`;
+    } else if (act.actionQuery) {
+      clickAttr = `onclick="askRiaFromAction('${escapeHtml(act.actionQuery)}')"`;
+    }
+    
+    return `
+      <div style="display:flex;gap:10px;padding:12px;background:${act.color};border-radius:8px;border:1px solid ${act.borderColor};position:relative">
+        <span style="font-size:16px">${act.icon}</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:2px">${act.title}</div>
+          <div style="font-size:11px;line-height:1.45;margin-bottom:6px">${act.desc}</div>
+          <button class="qbtn" style="padding:4px 8px;font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s" ${clickAttr}>
+            ${act.actionLabel}
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function askRiaFromAction(query) {
+  document.getElementById('riaInput').value = query;
+  riaSend();
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  return text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+// ===== ADOPS TOOLS TAB SCRIPTS =====
+function selectTool(toolName) {
+  document.querySelectorAll('.tool-menu-item').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('data-tool') === toolName);
+  });
+  document.querySelectorAll('.tool-pane').forEach(el => {
+    el.classList.toggle('active', el.id === 'tool-' + toolName);
+  });
+}
+
+function runAdsTxtAudit() {
+  const text = document.getElementById('adstxtInput').value;
+  const resultsDiv = document.getElementById('adstxtResults');
+  const tableBody = document.getElementById('auditTableBody');
+  
+  if (!text.trim()) {
+    alert('Please paste ads.txt lines first.');
+    return;
+  }
+  
+  resultsDiv.style.display = 'block';
+  tableBody.innerHTML = '';
+  
+  const lines = text.split('\n');
+  let scanned = 0, valid = 0, warn = 0, err = 0;
+  
+  lines.forEach((line, index) => {
+    const rawLine = line.trim();
+    if (!rawLine) return; 
+    if (rawLine.startsWith('#')) return; 
+    
+    scanned++;
+    const parts = rawLine.split(',').map(p => p.trim());
+    let status = 'valid';
+    let message = 'Record is valid and follows IAB specification.';
+    
+    if (parts.length < 3) {
+      status = 'error';
+      message = 'Invalid record format. Must have at least 3 fields: Exchange Domain, Publisher ID, Relationship.';
+      err++;
+    } else {
+      const domain = parts[0];
+      const pubId = parts[1];
+      const relation = parts[2];
+      const certId = parts[3] || '';
+      
+      if (!domain.includes('.')) {
+        status = 'error';
+        message = 'Invalid Domain format in field 1 (e.g. missing dot).';
+        err++;
+      } else if (relation.toUpperCase() !== 'DIRECT' && relation.toUpperCase() !== 'RESELLER') {
+        status = 'error';
+        message = `Invalid Relationship type in field 3: "${relation}". Must be DIRECT or RESELLER.`;
+        err++;
+      } else if (relation !== 'DIRECT' && relation !== 'RESELLER') {
+        status = 'warning';
+        message = `Relationship type should be uppercase: use "${relation.toUpperCase()}" instead of "${relation}".`;
+        warn++;
+      } else if (certId && certId.includes(' ')) {
+        status = 'warning';
+        message = 'Certification Authority ID contains spaces, verify compliance.';
+        warn++;
+      } else {
+        valid++;
+      }
+    }
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td style="font-weight:600">${index + 1}</td>
+      <td style="font-family:monospace;font-size:10px">${escapeHtml(rawLine)}</td>
+      <td><span class="audit-status ${status}">${status.toUpperCase()}</span></td>
+      <td>${message}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+  
+  document.getElementById('statScanned').textContent = scanned;
+  document.getElementById('statValid').textContent = valid;
+  document.getElementById('statWarn').textContent = warn;
+  document.getElementById('statErr').textContent = err;
+}
+
+function updateYieldCalc() {
+  const pageviews = parseInt(document.getElementById('inputPageviews').value);
+  const units = parseInt(document.getElementById('inputUnits').value);
+  const cpm = parseFloat(document.getElementById('inputCPM').value);
+  const fill = parseFloat(document.getElementById('inputFill').value);
+  const uplift = parseFloat(document.getElementById('inputUplift').value);
+  
+  document.getElementById('valPageviews').textContent = pageviews.toLocaleString();
+  document.getElementById('valUnits').textContent = units;
+  document.getElementById('valCPM').textContent = '$' + cpm.toFixed(2);
+  document.getElementById('valFill').textContent = fill + '%';
+  document.getElementById('valUplift').textContent = '+' + uplift + '%';
+  
+  const totalImps = pageviews * units;
+  const currentRev = totalImps * (fill / 100) * (cpm / 1000);
+  
+  const projectedCPM = cpm * (1 + uplift / 100);
+  const fillDrop = uplift * 0.28; 
+  const projectedFill = Math.max(10, fill - fillDrop);
+  const projectedRev = totalImps * (projectedFill / 100) * (projectedCPM / 1000);
+  const netUplift = projectedRev - currentRev;
+  
+  document.getElementById('calcCurrRev').textContent = '$' + currentRev.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById('calcProjCPM').textContent = '$' + projectedCPM.toFixed(2);
+  document.getElementById('calcProjFill').textContent = projectedFill.toFixed(1) + '%';
+  document.getElementById('calcProjRev').textContent = '$' + projectedRev.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  
+  const netEl = document.getElementById('calcNetUplift');
+  netEl.textContent = (netUplift >= 0 ? '+' : '-') + '$' + Math.abs(netUplift).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  netEl.style.color = netUplift >= 0 ? '#16A34A' : '#EF4444';
+  
+  let advice = '';
+  if (netUplift > 0) {
+    advice = `💡 <strong>Yield Recommendation</strong>: By raising price floors to achieve +${uplift}% CPM, your monthly revenue is projected to grow by <strong>$${netUplift.toLocaleString(undefined, {maximumFractionDigits:0})}</strong>, despite a small fill rate drop to ${projectedFill.toFixed(1)}%. This indicates your inventory is currently underpriced. Apply new floors in Google Ad Manager.`;
+  } else {
+    advice = `⚠️ <strong>Yield Warning</strong>: Raising price floors is projected to reduce fill rate too aggressively, causing a net revenue loss of <strong>$${Math.abs(netUplift).toLocaleString(undefined, {maximumFractionDigits:0})}</strong>. Keep current price floors or add additional SSP partners instead to increase bidding density without reducing fill.`;
+  }
+  document.getElementById('calcAdvice').innerHTML = advice;
+}
+
+function updatePrebidParams() {
+  const bidder = document.getElementById('pbBidder').value;
+  const container = document.getElementById('pbParamInputs');
+  
+  let html = '';
+  if (bidder === 'appnexus') {
+    html = `
+      <div class="form-group">
+        <label>Placement ID</label>
+        <input type="number" id="param_placementId" class="form-control" value="23456789">
+      </div>
+    `;
+  } else if (bidder === 'rubicon') {
+    html = `
+      <div class="form-group">
+        <label>Account ID</label>
+        <input type="number" id="param_accountId" class="form-control" value="1001">
+      </div>
+      <div class="form-group">
+        <label>Site ID</label>
+        <input type="number" id="param_siteId" class="form-control" value="2002">
+      </div>
+      <div class="form-group">
+        <label>Zone ID</label>
+        <input type="number" id="param_zoneId" class="form-control" value="3003">
+      </div>
+    `;
+  } else if (bidder === 'pubmatic') {
+    html = `
+      <div class="form-group">
+        <label>Publisher ID</label>
+        <input type="text" id="param_publisherId" class="form-control" value="9999">
+      </div>
+      <div class="form-group">
+        <label>Ad Slot ID</label>
+        <input type="text" id="param_adSlot" class="form-control" value="div-slot-1@300x250">
+      </div>
+    `;
+  } else if (bidder === 'ix') {
+    html = `
+      <div class="form-group">
+        <label>Site ID</label>
+        <input type="number" id="param_siteId" class="form-control" value="8888">
+      </div>
+      <div class="form-group">
+        <label>Size ID (optional)</label>
+        <input type="text" id="param_sizeId" class="form-control" value="300x250">
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+}
+
+function generatePrebidConfig() {
+  const bidder = document.getElementById('pbBidder').value;
+  const slot = document.getElementById('pbAdUnit').value;
+  
+  const sizes = [];
+  document.querySelectorAll('.pbSize:checked').forEach(cb => {
+    const parts = cb.value.split('x').map(Number);
+    sizes.push(parts);
+  });
+  
+  if (sizes.length === 0) {
+    alert('Please check at least one placement size.');
+    return;
+  }
+  
+  let params = {};
+  if (bidder === 'appnexus') {
+    params.placementId = parseInt(document.getElementById('param_placementId').value);
+  } else if (bidder === 'rubicon') {
+    params.accountId = parseInt(document.getElementById('param_accountId').value);
+    params.siteId = parseInt(document.getElementById('param_siteId').value);
+    params.zoneId = parseInt(document.getElementById('param_zoneId').value);
+  } else if (bidder === 'pubmatic') {
+    params.publisherId = document.getElementById('param_publisherId').value;
+    params.adSlot = document.getElementById('param_adSlot').value;
+  } else if (bidder === 'ix') {
+    params.siteId = document.getElementById('param_siteId').value;
+    const sz = document.getElementById('param_sizeId').value;
+    if (sz) params.size = sz.split('x').map(Number);
+  }
+  
+  const config = {
+    code: slot,
+    mediaTypes: {
+      banner: {
+        sizes: sizes
+      }
+    },
+    bids: [{
+      bidder: bidder,
+      params: params
+    }]
+  };
+  
+  const code = `// Prebid.js Ad Unit Configuration
+var adUnits = [
+  ${JSON.stringify(config, null, 4)}
+];
+
+// Configure global Prebid.js options
+pbjs.setConfig({
+    bidderTimeout: 1000,
+    priceGranularity: 'dense',
+    enableSendAllBids: true,
+    userSync: {
+        filterSettings: {
+            iframe: {
+                bidders: '*',
+                filter: 'include'
+            }
+        }
+    }
+});`;
+  
+  document.getElementById('pbOutputCode').textContent = code;
+}
+
+function copyPrebidCode() {
+  const code = document.getElementById('pbOutputCode').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    alert('Prebid wrapper configuration copied to clipboard.');
+  });
+}
+
+function resolveVastError() {
+  const code = document.getElementById('vastErrorCode').value;
+  const box = document.getElementById('vastResultBox');
+  const title = document.getElementById('vastErrTitle');
+  const severity = document.getElementById('vastErrSeverity');
+  const cause = document.getElementById('vastErrCause');
+  const fix = document.getElementById('vastErrFix');
+  
+  if (!code) {
+    box.style.display = 'none';
+    return;
+  }
+  
+  box.style.display = 'block';
+  title.textContent = `VAST Code ${code}`;
+  
+  let sevText = '', sevClass = '', causeText = '', fixText = '';
+  
+  if (code === '100') {
+    sevText = 'Common'; sevClass = 'warning';
+    causeText = 'XML Parsing Error. The VAST document returned by the SSP is poorly formatted, contains unescaped HTML characters, or is incomplete.';
+    fixText = `
+      1. Inspect the VAST XML feed URL in a browser to see where the XML parser fails.<br>
+      2. Contact the demand partner and ask them to validate their VAST XML response using an XML parser.<br>
+      3. Ensure no tracking pixel URLs contain unescaped '&amp;' symbols (should be encoded as '&amp;amp;').
+    `;
+  } else if (code === '301') {
+    sevText = 'Critical'; sevClass = 'error';
+    causeText = 'VAST Redirect Timeout. The player requested a wrapper redirect (e.g. from SSP to DSP), but it failed to respond within the player timeout limit.';
+    fixText = `
+      1. Increase the wrapper redirect timeout limit in your video player settings (typically recommend 3000ms–5000ms).<br>
+      2. Audit the wrapper chain length. If an ad redirects more than 3-4 times, CPM yields drop significantly.<br>
+      3. Review bidder latency reports to check if a specific bidder causes redirect loops.
+    `;
+  } else if (code === '303') {
+    sevText = 'High Impact'; sevClass = 'error';
+    causeText = 'No Ad Returned (Empty VAST response). The SSP responded successfully but had zero bid density/creatives to fill the slot. This represents lost opportunity.';
+    fixText = `
+      1. <strong>Review Floor Prices</strong>: Your floor CPM in Google Ad Manager or SSP is too high. Lower CPM floors by 15-20% to capture programmatic filler demand.<br>
+      2. <strong>Add Demand Partners</strong>: Add 2-3 additional SSPs into your video header bidding wrapper to increase bidding competition.<br>
+      3. Check buyer creative approvals in your SSP portal to see if buyers are blocked.
+    `;
+  } else if (code === '400') {
+    sevText = 'Common'; sevClass = 'warning';
+    causeText = 'General Linear Error. The video player is unable to render the creative because of size incompatibilities or media type limitations.';
+    fixText = `
+      1. Verify player size specifications (SSPs require player aspect ratio 16:9, minimum width 400px).<br>
+      2. Ensure player supports target MIME types (e.g., video/mp4, application/javascript for VPAID).<br>
+      3. Contact the buyer to ensure the creative format matches IAB linear specifications.
+    `;
+  } else if (code === '402') {
+    sevText = 'Medium'; sevClass = 'warning';
+    causeText = 'Video Playback Error. The player failed to fetch the video file or the file took too long to load, exceeding the load timeout threshold.';
+    fixText = `
+      1. Optimize page loading speed. Implement lazy-loading for the video player so it only initiates once in viewport.<br>
+      2. Ensure player dimensions match the responsive layout size correctly to avoid rendering recalculations.<br>
+      3. Check if the ad media files are hosted on slow CDN servers.
+    `;
+  } else if (code === '901') {
+    sevText = 'Very Common'; sevClass = 'error';
+    causeText = 'General VPAID Error. The JavaScript wrapper script executing inside the player threw a runtime error, timed out, or requested features the player does not support.';
+    fixText = `
+      1. Ensure player enables VPAID compatibility mode (Set player parameters: VPAIDMode = 'ENABLED').<br>
+      2. Decrease player reliance on heavy VPAID wrappers. Shift towards lighter IAB SIMID formats.<br>
+      3. Block problematic buyers or campaigns that run heavy telemetry scripts inside their creatives.
+    `;
+  }
+  
+  severity.textContent = sevText;
+  severity.className = `audit-status ${sevClass}`;
+  cause.textContent = causeText;
+  fix.innerHTML = fixText;
 }
 
 loadNews();
