@@ -2878,6 +2878,10 @@ body.dark .modal-btn.link:hover {
 <script>
 let API = 'https://admax-adtech-agent.onrender.com/api';
 
+const OFFICIAL = ['Prebid GitHub','IAB Tech Lab','Prebid.org','Google Ads Blog','Chromium Blog','IAB'];
+const VERIFIED = ['AdExchanger','Adweek','ExchangeWire','Digiday'];
+const TRUST = {'Prebid GitHub':99,'IAB Tech Lab':98,'Prebid.org':97,'Google Ads Blog':97,'Chromium Blog':96,'IAB':94,'AdExchanger':90,'Adweek':88,'ExchangeWire':87,'Digiday':86,'MediaPost':85,'The Drum':84,'Nieman Lab':83};
+
 const DEFAULT_NEWS = [
   {
     id: "walmart-ctv-vibe-2026",
@@ -3251,9 +3255,6 @@ function updateThemeButton(isDark) {
   }
   updateThemeButton(isDark);
 })();
- else {
-  document.body.classList.add('dark');
-}
 
 // ===== API DETECTION =====
 async function detectAPI() {
@@ -3289,9 +3290,7 @@ async function init() {
 setTimeout(init, 100);
 
 // ===== DASHBOARD =====
-const OFFICIAL = ['Prebid GitHub','IAB Tech Lab','Prebid.org','Google Ads Blog','Chromium Blog','IAB'];
-const VERIFIED = ['AdExchanger','Adweek','ExchangeWire','Digiday'];
-const TRUST = {'Prebid GitHub':99,'IAB Tech Lab':98,'Prebid.org':97,'Google Ads Blog':97,'Chromium Blog':96,'IAB':94,'AdExchanger':90,'Adweek':88,'ExchangeWire':87,'Digiday':86,'MediaPost':85,'The Drum':84,'Nieman Lab':83};
+
 
 function credBadge(s) {
   if (OFFICIAL.includes(s)) return '<span class="cred-official">✓ Official</span>';
@@ -3318,7 +3317,7 @@ function switchTab(tab, el) {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-pane').forEach(t=>t.classList.remove('active'));
   if (el) el.classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
+  const targetTab = document.getElementById('tab-'+tab); if (targetTab) targetTab.classList.add('active');
   const nb = document.querySelector('.news-body');
   if (nb) nb.scrollTop = 0;
   if (tab==='saved') renderSaved();
@@ -3363,11 +3362,16 @@ async function loadNews() {
   try {
     const res = await fetch(`${API}/news`);
     const data = await res.json();
-    allNews = data.news || [];
-    updateAll(allNews);
+    if (data.news && data.news.length > 0) {
+      allNews = data.news;
+      updateAll(allNews);
+    }
   } catch(e) {
-    document.getElementById('newsList').innerHTML='<div class="empty">Backend not connected.</div>';
-    document.getElementById('opsAlertsList').innerHTML='<div class="empty">Backend not connected.</div>';
+    console.warn('Backend fetch failed, utilizing cached intelligence:', e);
+    if (!allNews || allNews.length === 0) {
+      document.getElementById('newsList').innerHTML='<div class="empty">Backend not connected.</div>';
+      document.getElementById('opsAlertsList').innerHTML='<div class="empty">Backend not connected.</div>';
+    }
   }
 }
 
