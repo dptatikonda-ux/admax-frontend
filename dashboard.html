@@ -1147,30 +1147,77 @@ body.dark .ria-input-area textarea {
   color: #fff;
 }
 
-/* CHART STUDIO WITH FORMAT FILTER PILLS */
+/* ===== FORECAST & CPM TRAJECTORY OVERHAUL ===== */
+.forecast-split {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  align-items: stretch;
+  margin-bottom: 20px;
+}
+@media (max-width: 1100px) {
+  .forecast-split {
+    grid-template-columns: 1fr;
+  }
+}
+
 .chart-studio-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.7));
+  background: #FFFFFF;
   border: 1px solid rgba(99, 102, 241, 0.12);
   border-radius: 14px;
-  padding: 16px 20px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
-  margin-bottom: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background-color 0.2s, border-color 0.2s;
 }
+body.dark .chart-studio-card {
+  background: #0F172A;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
 .chart-studio-hdr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
   gap: 10px;
 }
+.chart-title-block h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+body.dark .chart-title-block h3 {
+  color: #F8FAFC;
+}
+.chart-title-block p {
+  font-size: 11px;
+  color: #64748B;
+  margin-top: 2px;
+}
+body.dark .chart-title-block p {
+  color: #94A3B8;
+}
+
 .chart-filter-pills {
   display: flex;
   gap: 4px;
-  background: rgba(241, 245, 249, 0.85);
+  background: #F1F5F9;
   padding: 3px;
   border-radius: 8px;
-  border: 1px solid rgba(99, 102, 241, 0.08);
+  border: 1px solid #E2E8F0;
+}
+body.dark .chart-filter-pills {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 .chart-fpill {
   font-size: 11px;
@@ -1181,12 +1228,279 @@ body.dark .ria-input-area textarea {
   background: transparent;
   color: #64748B;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
 }
-.chart-fpill.active, .chart-fpill:hover {
-  background: #ffffff;
+body.dark .chart-fpill {
+  color: #94A3B8;
+}
+.chart-fpill:hover {
+  color: #0F172A;
+}
+body.dark .chart-fpill:hover {
+  color: #F8FAFC;
+}
+.chart-fpill.active {
+  background: #FFFFFF;
   color: #4F46E5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+body.dark .chart-fpill.active {
+  background: #334155;
+  color: #818CF8;
+}
+
+/* 4 FORMAT SUMMARY CARDS */
+.cpm-format-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+@media (max-width: 768px) {
+  .cpm-format-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.cpm-fcard {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+body.dark .cpm-fcard {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.cpm-fcard:hover {
+  background: #F1F5F9;
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-1px);
+}
+body.dark .cpm-fcard:hover {
+  background: #334155;
+}
+.cpm-fcard.active {
+  background: #FFFFFF;
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+}
+body.dark .cpm-fcard.active {
+  background: #1E293B;
+  border-color: #818CF8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.cpm-fcard.dimmed {
+  opacity: 0.4;
+}
+.cpm-fcard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.cpm-fcard-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+body.dark .cpm-fcard-name {
+  color: #CBD5E1;
+}
+.cpm-fcard-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.cpm-fcard-price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+}
+body.dark .cpm-fcard-price {
+  color: #F8FAFC;
+}
+.cpm-fcard-unit {
+  font-size: 10px;
+  font-weight: 500;
+  color: #94A3B8;
+  margin-left: 2px;
+}
+.cpm-fcard-sub {
+  font-size: 10px;
+  color: #64748B;
+  margin-top: 2px;
+}
+body.dark .cpm-fcard-sub {
+  color: #94A3B8;
+}
+
+/* CHART SVG WRAPPER */
+.trend-chart-container {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  padding: 10px 10px 4px 10px;
+}
+body.dark .trend-chart-container {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+#trajectorySvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* FLOATING TOOLTIP */
+.chart-floating-tooltip {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  font-size: 11px;
+  line-height: 1.4;
+  z-index: 20;
+  min-width: 230px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: opacity 0.15s ease;
+  opacity: 0;
+}
+.chart-floating-tooltip.show {
+  opacity: 1;
+}
+.chart-tip-hdr {
+  font-size: 11px;
+  font-weight: 700;
+  color: #93C5FD;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: space-between;
+}
+.chart-tip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+.chart-tip-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #E2E8F0;
+  font-size: 11px;
+}
+.chart-tip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.chart-tip-val {
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* RIA DIRECTIVES CARD */
+.forecast-insights-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+body.dark .forecast-insights-card {
+  background: #0F172A;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.directive-hdr {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4F46E5;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+body.dark .directive-hdr {
+  color: #818CF8;
+}
+.directive-item {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #334155;
+}
+body.dark .directive-item {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #CBD5E1;
+}
+.directive-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.directive-item strong {
+  color: #0F172A;
+  font-weight: 600;
+}
+body.dark .directive-item strong {
+  color: #F8FAFC;
+}
+.directive-btn {
+  background: linear-gradient(135deg, #4F46E5, #06B6D4);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+  transition: all 0.2s ease;
+}
+.directive-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
 
 /* DSP GRID OVERHAUL: 3 COLUMNS COMPACT */
@@ -2187,136 +2501,206 @@ body.dark .modal-btn.link:hover {
 
         <!-- TRAJECTORY STUDIO & RIA DIRECTIVES (SPLIT VIEW) -->
         <div class="forecast-split">
-          <!-- CHART STUDIO CARD -->
-          <div class="chart-studio-card" style="margin-bottom:0">
+          <!-- LEFT: CHART STUDIO CARD -->
+          <div class="chart-studio-card">
             <div class="chart-studio-hdr">
-              <div>
-                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;color:#0F172A">
-                  Programmatic CPM Trajectory (2026)
-                </div>
-                <div style="font-size:10.5px;color:#94A3B8;margin-top:1px">Interactive quarter progression with smooth pricing curves</div>
+              <div class="chart-title-block">
+                <h3>📈 Programmatic CPM Trajectory (2026)</h3>
+                <p>Quarterly progression & peak season pricing benchmarks</p>
               </div>
               <div class="chart-filter-pills">
-                <button class="chart-fpill active" onclick="filterChartFormat('all')">All</button>
-                <button class="chart-fpill" onclick="filterChartFormat('ctv')">CTV</button>
-                <button class="chart-fpill" onclick="filterChartFormat('video')">Video</button>
-                <button class="chart-fpill" onclick="filterChartFormat('inapp')">In-App</button>
-                <button class="chart-fpill" onclick="filterChartFormat('display')">Display</button>
+                <button class="chart-fpill active" onclick="filterChartFormat('all', this)">All</button>
+                <button class="chart-fpill" onclick="filterChartFormat('ctv', this)">CTV</button>
+                <button class="chart-fpill" onclick="filterChartFormat('video', this)">Video</button>
+                <button class="chart-fpill" onclick="filterChartFormat('inapp', this)">In-App</button>
+                <button class="chart-fpill" onclick="filterChartFormat('display', this)">Display</button>
+              </div>
+            </div>
+
+            <!-- 4 FORMAT SUMMARY CARDS -->
+            <div class="cpm-format-cards">
+              <div class="cpm-fcard active" id="fcard-ctv" onclick="filterChartFormat('ctv')">
+                <div class="cpm-fcard-top">
+                  <span class="cpm-fcard-name">📺 CTV / OTT</span>
+                  <span class="cpm-fcard-badge" style="background:#F3E8FF;color:#7C3AED">+24% YoY</span>
+                </div>
+                <div class="cpm-fcard-price">$45.20 <span class="cpm-fcard-unit">Q4 Peak</span></div>
+                <div class="cpm-fcard-sub">Q1: $38.20 → Q4: $45.20</div>
+              </div>
+
+              <div class="cpm-fcard active" id="fcard-video" onclick="filterChartFormat('video')">
+                <div class="cpm-fcard-top">
+                  <span class="cpm-fcard-name">🎬 Video</span>
+                  <span class="cpm-fcard-badge" style="background:#E0F2FE;color:#0284C7">+18% YoY</span>
+                </div>
+                <div class="cpm-fcard-price">$17.50 <span class="cpm-fcard-unit">Q4 Peak</span></div>
+                <div class="cpm-fcard-sub">Q1: $14.20 → Q4: $17.50</div>
+              </div>
+
+              <div class="cpm-fcard active" id="fcard-inapp" onclick="filterChartFormat('inapp')">
+                <div class="cpm-fcard-top">
+                  <span class="cpm-fcard-name">📱 In-App</span>
+                  <span class="cpm-fcard-badge" style="background:#D1FAE5;color:#059669">+12% YoY</span>
+                </div>
+                <div class="cpm-fcard-price">$12.80 <span class="cpm-fcard-unit">Q4 Peak</span></div>
+                <div class="cpm-fcard-sub">Q1: $10.50 → Q4: $12.80</div>
+              </div>
+
+              <div class="cpm-fcard active" id="fcard-display" onclick="filterChartFormat('display')">
+                <div class="cpm-fcard-top">
+                  <span class="cpm-fcard-name">🖥️ Display</span>
+                  <span class="cpm-fcard-badge" style="background:#F1F5F9;color:#475569">+8% YoY</span>
+                </div>
+                <div class="cpm-fcard-price">$5.20 <span class="cpm-fcard-unit">Q4 Peak</span></div>
+                <div class="cpm-fcard-sub">Q1: $4.10 → Q4: $5.20</div>
               </div>
             </div>
 
             <!-- SVG LINE GRAPH WITH SMOOTH BEZIER PATHS -->
-            <div class="trend-chart-container" style="height:190px;padding:4px;border:none;background:transparent;box-shadow:none">
-              <svg viewBox="0 0 500 170" width="100%" height="100%" id="trajectorySvg">
-                <!-- Grid Lines -->
-                <line x1="45" y1="15" x2="480" y2="15" stroke="rgba(99, 102, 241, 0.06)" stroke-width="1" />
-                <line x1="45" y1="50" x2="480" y2="50" stroke="rgba(99, 102, 241, 0.06)" stroke-width="1" />
-                <line x1="45" y1="85" x2="480" y2="85" stroke="rgba(99, 102, 241, 0.06)" stroke-width="1" />
-                <line x1="45" y1="120" x2="480" y2="120" stroke="rgba(99, 102, 241, 0.06)" stroke-width="1" />
-                
-                <!-- Y-Axis Labels -->
-                <text x="35" y="19" fill="#94A3B8" font-size="8.5" text-anchor="end" font-weight="500">$50</text>
-                <text x="35" y="54" fill="#94A3B8" font-size="8.5" text-anchor="end" font-weight="500">$35</text>
-                <text x="35" y="89" fill="#94A3B8" font-size="8.5" text-anchor="end" font-weight="500">$20</text>
-                <text x="35" y="124" fill="#94A3B8" font-size="8.5" text-anchor="end" font-weight="500">$10</text>
-                <text x="35" y="152" fill="#94A3B8" font-size="8.5" text-anchor="end" font-weight="500">$0</text>
-                
-                <!-- Dynamic X-Axis Labels -->
-                <text x="75" y="162" fill="#64748B" font-size="9" font-weight="600" text-anchor="middle" id="axisQ1">Q1 (Act)</text>
-                <text x="200" y="162" fill="#64748B" font-size="9" font-weight="600" text-anchor="middle" id="axisQ2">Q2 (Act)</text>
-                <text x="325" y="162" fill="#64748B" font-size="9" font-weight="600" text-anchor="middle" id="axisQ3">Q3 (Act)</text>
-                <text x="450" y="162" fill="#4F46E5" font-size="9" font-weight="700" text-anchor="middle" id="axisQ4">Q4 (Peak) 🔮</text>
-                
-                <!-- Gradients -->
+            <div class="trend-chart-container" id="chartContainer">
+              <svg viewBox="0 0 680 240" id="trajectorySvg" preserveAspectRatio="none">
                 <defs>
-                  <linearGradient id="ctvGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#7C3AED" />
-                    <stop offset="100%" stop-color="#4F46E5" />
+                  <!-- Gradients for Area Fills -->
+                  <linearGradient id="areaCTV" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.22" />
+                    <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.01" />
                   </linearGradient>
-                  <linearGradient id="videoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="areaVideo" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0284C7" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#0284C7" stop-opacity="0.01" />
+                  </linearGradient>
+                  <linearGradient id="areaInApp" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.16" />
+                    <stop offset="100%" stop-color="#10B981" stop-opacity="0.01" />
+                  </linearGradient>
+                  
+                  <!-- Line Gradients -->
+                  <linearGradient id="lineCTV" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#8B5CF6" />
+                    <stop offset="100%" stop-color="#6366F1" />
+                  </linearGradient>
+                  <linearGradient id="lineVideo" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#06B6D4" />
-                    <stop offset="100%" stop-color="#3B82F6" />
-                  </linearGradient>
-                  <linearGradient id="inappGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#10B981" />
-                    <stop offset="100%" stop-color="#059669" />
+                    <stop offset="100%" stop-color="#2563EB" />
                   </linearGradient>
                 </defs>
 
-                <!-- CTV Smooth Curve (Purple) -->
-                <path id="pathCTV" d="M 75 30 C 137 28, 160 25, 200 25 C 262 25, 280 18, 325 18 C 387 18, 410 10, 450 10" fill="none" stroke="url(#ctvGrad)" stroke-width="2.5" stroke-linecap="round" />
-                <!-- Outstream Video Curve (Cyan) -->
-                <path id="pathVideo" d="M 75 108 C 137 108, 160 105, 200 105 C 262 105, 280 98, 325 98 C 387 98, 410 85, 450 85" fill="none" stroke="url(#videoGrad)" stroke-width="2.5" stroke-linecap="round" />
-                <!-- Mobile In-App Curve (Green) -->
-                <path id="pathInApp" d="M 75 130 C 137 129, 160 126, 200 126 C 262 126, 280 120, 325 120 C 387 120, 410 112, 450 112" fill="none" stroke="url(#inappGrad)" stroke-width="2" stroke-linecap="round" />
-                <!-- Display Curve (Gray dashed) -->
-                <path id="pathDisplay" d="M 75 142 C 137 141, 160 140, 200 140 C 262 140, 280 138, 325 138 C 387 138, 410 134, 450 134" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="3 3" stroke-linecap="round" />
-
-                <!-- CTV Nodes & Tooltips -->
-                <g class="chart-node group-ctv">
-                  <circle cx="75" cy="30" r="3.5" fill="#7C3AED" stroke="#fff" stroke-width="1.5" />
-                  <g class="chart-tip"><rect x="35" y="5" width="80" height="18" rx="4" fill="#0F172A" /><text x="75" y="17" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">CTV Q1: $38.20</text></g>
-                </g>
-                <g class="chart-node group-ctv">
-                  <circle cx="200" cy="25" r="3.5" fill="#7C3AED" stroke="#fff" stroke-width="1.5" />
-                  <g class="chart-tip"><rect x="160" y="0" width="80" height="18" rx="4" fill="#0F172A" /><text x="200" y="12" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">CTV Q2: $39.50</text></g>
-                </g>
-                <g class="chart-node group-ctv">
-                  <circle cx="325" cy="18" r="3.5" fill="#4F46E5" stroke="#fff" stroke-width="1.5" />
-                  <g class="chart-tip"><rect x="285" y="-7" width="80" height="18" rx="4" fill="#0F172A" /><text x="325" y="5" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">CTV Q3: $41.80</text></g>
-                </g>
-                <g class="chart-node group-ctv">
-                  <circle cx="450" cy="10" r="4.5" fill="#4F46E5" stroke="#fff" stroke-width="2" />
-                  <g class="chart-tip"><rect x="410" y="-15" width="80" height="18" rx="4" fill="#0F172A" /><text x="450" y="-3" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">CTV Q4: $45.20</text></g>
+                <!-- Horizontal Grid Lines -->
+                <g stroke="rgba(99, 102, 241, 0.08)" stroke-width="1" stroke-dasharray="2 3">
+                  <line x1="55" y1="25" x2="640" y2="25" />
+                  <line x1="55" y1="59" x2="640" y2="59" />
+                  <line x1="55" y1="93" x2="640" y2="93" />
+                  <line x1="55" y1="127" x2="640" y2="127" />
+                  <line x1="55" y1="161" x2="640" y2="161" />
+                  <line x1="55" y1="195" x2="640" y2="195" stroke-dasharray="none" stroke="rgba(99, 102, 241, 0.2)" />
                 </g>
 
-                <!-- Video Nodes -->
-                <g class="chart-node group-video">
-                  <circle cx="325" cy="98" r="3.5" fill="#3B82F6" stroke="#fff" stroke-width="1.5" />
-                  <g class="chart-tip"><rect x="285" y="73" width="80" height="18" rx="4" fill="#0F172A" /><text x="325" y="85" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">Vid Q3: $14.90</text></g>
-                </g>
-                <g class="chart-node group-video">
-                  <circle cx="450" cy="85" r="4" fill="#3B82F6" stroke="#fff" stroke-width="1.5" />
-                  <g class="chart-tip"><rect x="410" y="60" width="80" height="18" rx="4" fill="#0F172A" /><text x="450" y="72" fill="#fff" font-size="8.5" font-weight="600" text-anchor="middle">Vid Q4: $17.50</text></g>
+                <!-- Y-Axis Price Labels -->
+                <g fill="#94A3B8" font-size="9.5" text-anchor="end" font-weight="600" font-family="'Inter', sans-serif">
+                  <text x="45" y="28">$50</text>
+                  <text x="45" y="62">$40</text>
+                  <text x="45" y="96">$30</text>
+                  <text x="45" y="130">$20</text>
+                  <text x="45" y="164">$10</text>
+                  <text x="45" y="198">$0</text>
                 </g>
 
-                <!-- Legend -->
-                <g transform="translate(50, 4)">
-                  <circle cx="0" cy="0" r="3" fill="#7C3AED" /><text x="7" y="3" fill="#64748B" font-size="8.5" font-weight="600">CTV</text>
-                  <circle cx="45" cy="0" r="3" fill="#06B6D4" /><text x="52" y="3" fill="#64748B" font-size="8.5" font-weight="600">Video</text>
-                  <circle cx="95" cy="0" r="3" fill="#10B981" /><text x="102" y="3" fill="#64748B" font-size="8.5" font-weight="600">In-App</text>
-                  <line x1="145" y1="0" x2="155" y2="0" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="2 2" /><text x="160" y="3" fill="#64748B" font-size="8.5" font-weight="600">Display</text>
+                <!-- Dynamic Vertical Timeline Columns -->
+                <g stroke="rgba(99, 102, 241, 0.05)" stroke-width="1">
+                  <line x1="85" y1="25" x2="85" y2="195" />
+                  <line x1="260" y1="25" x2="260" y2="195" />
+                  <line x1="435" y1="25" x2="435" y2="195" />
+                  <line x1="610" y1="25" x2="610" y2="195" stroke="rgba(99, 102, 241, 0.15)" stroke-width="2" />
                 </g>
+
+                <!-- X-Axis Labels -->
+                <g font-size="10" font-family="'Plus Jakarta Sans', sans-serif">
+                  <text x="85" y="215" fill="#64748B" font-weight="600" text-anchor="middle" id="axisQ1">Q1 (Act)</text>
+                  <text x="260" y="215" fill="#64748B" font-weight="600" text-anchor="middle" id="axisQ2">Q2 (Act)</text>
+                  <text x="435" y="215" fill="#64748B" font-weight="600" text-anchor="middle" id="axisQ3">Q3 (Act)</text>
+                  <text x="610" y="215" fill="#4F46E5" font-weight="700" text-anchor="middle" id="axisQ4">Q4 (Peak Forecast 🔮)</text>
+                </g>
+
+                <!-- AREA FILLS -->
+                <path id="areaPathCTV" d="M 85 65.1 C 170 65, 175 60.7, 260 60.7 C 345 60.7, 350 52.9, 435 52.9 C 520 52.9, 525 41.3, 610 41.3 L 610 195 L 85 195 Z" fill="url(#areaCTV)" />
+                <path id="areaPathVideo" d="M 85 146.7 C 170 146.7, 175 144.7, 260 144.7 C 345 144.7, 350 142.3, 435 142.3 C 520 142.3, 525 135.5, 610 135.5 L 610 195 L 85 195 Z" fill="url(#areaVideo)" />
+                <path id="areaPathInApp" d="M 85 159.3 C 170 159.3, 175 157.6, 260 157.6 C 345 157.6, 350 155.6, 435 155.6 C 520 155.6, 525 151.5, 610 151.5 L 610 195 L 85 195 Z" fill="url(#areaInApp)" />
+
+                <!-- CURVE LINES -->
+                <!-- CTV -->
+                <path id="pathCTV" d="M 85 65.1 C 170 65, 175 60.7, 260 60.7 C 345 60.7, 350 52.9, 435 52.9 C 520 52.9, 525 41.3, 610 41.3" fill="none" stroke="url(#lineCTV)" stroke-width="3" stroke-linecap="round" />
+                <!-- Video -->
+                <path id="pathVideo" d="M 85 146.7 C 170 146.7, 175 144.7, 260 144.7 C 345 144.7, 350 142.3, 435 142.3 C 520 142.3, 525 135.5, 610 135.5" fill="none" stroke="url(#lineVideo)" stroke-width="2.6" stroke-linecap="round" />
+                <!-- In-App -->
+                <path id="pathInApp" d="M 85 159.3 C 170 159.3, 175 157.6, 260 157.6 C 345 157.6, 350 155.6, 435 155.6 C 520 155.6, 525 151.5, 610 151.5" fill="none" stroke="#10B981" stroke-width="2.4" stroke-linecap="round" />
+                <!-- Display -->
+                <path id="pathDisplay" d="M 85 181.1 C 170 181.1, 175 180.4, 260 180.4 C 345 180.4, 350 179.4, 435 179.4 C 520 179.4, 525 177.3, 610 177.3" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="3 3" stroke-linecap="round" />
+
+                <!-- INTERACTIVE SCRUBBER VERTICAL CROSSHAIR -->
+                <line id="scrubberLine" x1="610" y1="25" x2="610" y2="195" stroke="#4F46E5" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.8" />
+
+                <!-- ACTIVE NODES (SNAP TO SCRUBBER) -->
+                <circle id="dotCTV" cx="610" cy="41.3" r="5" fill="#7C3AED" stroke="#FFFFFF" stroke-width="2" />
+                <circle id="dotVideo" cx="610" cy="135.5" r="4.5" fill="#0284C7" stroke="#FFFFFF" stroke-width="2" />
+                <circle id="dotInApp" cx="610" cy="151.5" r="4.5" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
+                <circle id="dotDisplay" cx="610" cy="177.3" r="4" fill="#94A3B8" stroke="#FFFFFF" stroke-width="1.5" />
+
+                <!-- MOUSE CAPTURE OVERLAY -->
+                <rect id="chartOverlay" x="55" y="20" width="590" height="185" fill="transparent" style="cursor:crosshair" />
               </svg>
+
+              <!-- DYNAMIC FLOATING TOOLTIP -->
+              <div class="chart-floating-tooltip show" id="floatingTip">
+                <div class="chart-tip-hdr">
+                  <span id="tipQuarter">Q4 2026 · Peak Demand Forecast 🔮</span>
+                  <span style="color:#A7F3D0">+21% Blended</span>
+                </div>
+                <div class="chart-tip-row">
+                  <span class="chart-tip-label"><span class="chart-tip-dot" style="background:#7C3AED"></span>CTV / OTT:</span>
+                  <span class="chart-tip-val" id="tipValCTV">$45.20</span>
+                </div>
+                <div class="chart-tip-row">
+                  <span class="chart-tip-label"><span class="chart-tip-dot" style="background:#0284C7"></span>Online Video:</span>
+                  <span class="chart-tip-val" id="tipValVideo">$17.50</span>
+                </div>
+                <div class="chart-tip-row">
+                  <span class="chart-tip-label"><span class="chart-tip-dot" style="background:#10B981"></span>Mobile In-App:</span>
+                  <span class="chart-tip-val" id="tipValInApp">$12.80</span>
+                </div>
+                <div class="chart-tip-row">
+                  <span class="chart-tip-label"><span class="chart-tip-dot" style="background:#94A3B8"></span>Display Banner:</span>
+                  <span class="chart-tip-val" id="tipValDisplay">$5.20</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- RIA STRATEGIC DIRECTIVES -->
-          <div class="forecast-insights-card" style="margin-bottom:0;display:flex;flex-direction:column;justify-content:space-between">
+          <!-- RIGHT: RIA'S STRATEGIC DIRECTIVES -->
+          <div class="forecast-insights-card">
             <div>
-              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;color:#4F46E5;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-                <span>🔮</span> Ria's Strategic Directives
+              <div class="directive-hdr">
+                <span>🔮</span> Ria's Operational Intelligence
               </div>
-              <div class="forecast-insight-item">
-                <span>📺</span>
+              <div class="directive-item">
+                <span class="directive-icon">📺</span>
                 <div>
-                  <strong>CTV Yield Climax</strong>: CTV CPMs pacing towards an all-time high of $45.20. Buyers are aggressively prioritizing direct PMP deals over open auction.
+                  <strong>CTV Yield Climax</strong>: CTV CPMs pacing towards <strong>$45.20</strong> (+24% YoY). Programmatic buyers prioritize direct PMP deals over open auction.
                 </div>
               </div>
-              <div class="forecast-insight-item">
-                <span>🛍️</span>
+              <div class="directive-item">
+                <span class="directive-icon">🛍️</span>
                 <div>
-                  <strong>Retail & Cyber Surge</strong>: Commerce Media bid density is up +25%. Retailers are competing heavily for high-viewability in-app & video units.
+                  <strong>Retail & Cyber Surge</strong>: Retail Media bid density up <strong>+25%</strong>. Brands compete aggressively for high-viewability in-app & outstream video.
                 </div>
               </div>
-              <div class="forecast-insight-item">
-                <span>🔑</span>
+              <div class="directive-item">
+                <span class="directive-icon">🔑</span>
                 <div>
-                  <strong>Floor Price Action</strong>: Keep video & CTV price floors elevated by +15% through mid-November, then shift optimization towards retail networks.
+                  <strong>Floor Price Action</strong>: Keep video & CTV price floors elevated by <strong>+15%</strong> through mid-November to capture peak election & holiday budgets.
                 </div>
               </div>
             </div>
-            <button class="trend-hero-btn" style="width:100%;justify-content:center;margin-top:12px;padding:7px 12px;font-size:11.5px" onclick="askRiaAbout('Give me the top 3 tactical yield recommendations for my programmatic setup right now')">
+            <button class="directive-btn" onclick="askRiaAbout('Give me the top 3 tactical yield recommendations for my programmatic setup right now')">
               💬 Consult Ria on Active Directives
             </button>
           </div>
@@ -3896,6 +4280,8 @@ const TrendsEngine = {
       if (axisQ4) axisQ4.textContent = `${info.forecastQuarter} (${info.isPeak ? 'Peak' : 'Est'}) 🔮`;
       
       setTrendQuarter('reported');
+      initChartScrubber();
+      updateQuarterView('q4');
     } catch (err) {
       console.warn('TrendsEngine init notice:', err);
     }
@@ -3932,51 +4318,150 @@ function setTrendQuarter(q) {
   }
 }
 
-function filterChartFormat(fmt) {
-  const pills = document.querySelectorAll('.chart-fpill');
-  pills.forEach(pill => {
-    const text = pill.textContent.trim().toLowerCase().replace('-', '');
-    const target = fmt.toLowerCase().replace('-', '');
-    if (text === target || (target === 'all' && text === 'all')) {
-      pill.classList.add('active');
+const QUARTER_DATA = {
+  q1: {
+    x: 85,
+    title: "Q1 2026 · Confirmed Actuals",
+    blended: "+11% YoY",
+    ctv: { y: 65.1, val: "$38.20" },
+    video: { y: 146.7, val: "$14.20" },
+    inapp: { y: 159.3, val: "$10.50" },
+    display: { y: 181.1, val: "$4.10" }
+  },
+  q2: {
+    x: 260,
+    title: "Q2 2026 · Confirmed Actuals",
+    blended: "+13% YoY",
+    ctv: { y: 60.7, val: "$39.50" },
+    video: { y: 144.7, val: "$14.80" },
+    inapp: { y: 157.6, val: "$11.00" },
+    display: { y: 180.4, val: "$4.30" }
+  },
+  q3: {
+    x: 435,
+    title: "Q3 2026 · Reported Actuals",
+    blended: "+15% YoY",
+    ctv: { y: 52.9, val: "$41.80" },
+    video: { y: 142.3, val: "$15.50" },
+    inapp: { y: 155.6, val: "$11.60" },
+    display: { y: 179.4, val: "$4.60" }
+  },
+  q4: {
+    x: 610,
+    title: "Q4 2026 · Peak Demand Forecast 🔮",
+    blended: "+21% YoY",
+    ctv: { y: 41.3, val: "$45.20" },
+    video: { y: 135.5, val: "$17.50" },
+    inapp: { y: 151.5, val: "$12.80" },
+    display: { y: 177.3, val: "$5.20" }
+  }
+};
+
+function updateQuarterView(qKey) {
+  const d = QUARTER_DATA[qKey];
+  if (!d) return;
+
+  const scrubber = document.getElementById('scrubberLine');
+  const dotCTV = document.getElementById('dotCTV');
+  const dotVideo = document.getElementById('dotVideo');
+  const dotInApp = document.getElementById('dotInApp');
+  const dotDisplay = document.getElementById('dotDisplay');
+
+  if (scrubber && typeof scrubber.setAttribute === 'function') {
+    scrubber.setAttribute('x1', d.x);
+    scrubber.setAttribute('x2', d.x);
+  }
+  if (dotCTV && typeof dotCTV.setAttribute === 'function') { dotCTV.setAttribute('cx', d.x); dotCTV.setAttribute('cy', d.ctv.y); }
+  if (dotVideo && typeof dotVideo.setAttribute === 'function') { dotVideo.setAttribute('cx', d.x); dotVideo.setAttribute('cy', d.video.y); }
+  if (dotInApp && typeof dotInApp.setAttribute === 'function') { dotInApp.setAttribute('cx', d.x); dotInApp.setAttribute('cy', d.inapp.y); }
+  if (dotDisplay && typeof dotDisplay.setAttribute === 'function') { dotDisplay.setAttribute('cx', d.x); dotDisplay.setAttribute('cy', d.display.y); }
+
+  const tipQ = document.getElementById('tipQuarter');
+  const tipCTV = document.getElementById('tipValCTV');
+  const tipVid = document.getElementById('tipValVideo');
+  const tipInApp = document.getElementById('tipValInApp');
+  const tipDisp = document.getElementById('tipValDisplay');
+
+  if (tipQ) tipQ.textContent = d.title;
+  if (tipCTV) tipCTV.textContent = d.ctv.val;
+  if (tipVid) tipVid.textContent = d.video.val;
+  if (tipInApp) tipInApp.textContent = d.inapp.val;
+  if (tipDisp) tipDisp.textContent = d.display.val;
+}
+
+function initChartScrubber() {
+  const overlay = document.getElementById('chartOverlay');
+  const tip = document.getElementById('floatingTip');
+  if (!overlay) return;
+
+  overlay.addEventListener('mousemove', (e) => {
+    const rect = overlay.getBoundingClientRect();
+    const relX = (e.clientX - rect.left) / rect.width * 590 + 55;
+    
+    let closest = 'q4';
+    if (relX < 172.5) closest = 'q1';
+    else if (relX < 347.5) closest = 'q2';
+    else if (relX < 522.5) closest = 'q3';
+    else closest = 'q4';
+
+    updateQuarterView(closest);
+    if (tip) tip.classList.add('show');
+  });
+
+  overlay.addEventListener('mouseleave', () => {
+    updateQuarterView('q4');
+  });
+}
+
+function filterChartFormat(fmt, btn) {
+  document.querySelectorAll('.chart-fpill').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    const matchingBtn = Array.from(document.querySelectorAll('.chart-fpill')).find(b => b.textContent.toLowerCase().includes(fmt));
+    if (matchingBtn) matchingBtn.classList.add('active');
+  }
+
+  // Update format cards active/dimmed states
+  document.querySelectorAll('.cpm-fcard').forEach(c => {
+    if (fmt === 'all') {
+      c.classList.remove('dimmed');
+      c.classList.add('active');
     } else {
-      pill.classList.remove('active');
+      if (c.id === 'fcard-' + fmt) {
+        c.classList.remove('dimmed');
+        c.classList.add('active');
+      } else {
+        c.classList.add('dimmed');
+        c.classList.remove('active');
+      }
     }
   });
 
+  // Filter SVG paths
   const paths = {
-    ctv: document.getElementById('pathCTV'),
-    video: document.getElementById('pathVideo'),
-    inapp: document.getElementById('pathInApp'),
-    display: document.getElementById('pathDisplay')
+    ctv: { line: document.getElementById('pathCTV'), area: document.getElementById('areaPathCTV'), dot: document.getElementById('dotCTV') },
+    video: { line: document.getElementById('pathVideo'), area: document.getElementById('areaPathVideo'), dot: document.getElementById('dotVideo') },
+    inapp: { line: document.getElementById('pathInApp'), area: document.getElementById('areaPathInApp'), dot: document.getElementById('dotInApp') },
+    display: { line: document.getElementById('pathDisplay'), area: null, dot: document.getElementById('dotDisplay') }
   };
 
-  const ctvNodes = document.querySelectorAll('.group-ctv');
-  const vidNodes = document.querySelectorAll('.group-video');
-
-  if (fmt === 'all') {
-    Object.values(paths).forEach(p => {
-      if (p) {
-        p.style.opacity = '1';
-        p.style.strokeWidth = p.id === 'pathDisplay' ? '1.8' : (p.id === 'pathInApp' ? '2' : '2.5');
+  Object.entries(paths).forEach(([key, els]) => {
+    if (fmt === 'all' || key === fmt) {
+      if (els.line) {
+        els.line.style.opacity = '1';
+        els.line.style.strokeWidth = (key === 'ctv' ? '3' : (key === 'video' ? '2.6' : '2.4'));
       }
-    });
-    ctvNodes.forEach(n => n.style.display = '');
-    vidNodes.forEach(n => n.style.display = '');
-  } else {
-    Object.entries(paths).forEach(([key, p]) => {
-      if (p) {
-        if (key === fmt) {
-          p.style.opacity = '1';
-          p.style.strokeWidth = '3.5';
-        } else {
-          p.style.opacity = '0.12';
-        }
+      if (els.area) els.area.style.opacity = '1';
+      if (els.dot) els.dot.style.display = 'block';
+    } else {
+      if (els.line) {
+        els.line.style.opacity = '0.12';
+        els.line.style.strokeWidth = '1.5';
       }
-    });
-    ctvNodes.forEach(n => n.style.display = (fmt === 'ctv' ? '' : 'none'));
-    vidNodes.forEach(n => n.style.display = (fmt === 'video' ? '' : 'none'));
-  }
+      if (els.area) els.area.style.opacity = '0';
+      if (els.dot) els.dot.style.display = 'none';
+    }
+  });
 }
 
 function askRiaAbout(query) {
