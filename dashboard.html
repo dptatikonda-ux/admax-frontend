@@ -1887,6 +1887,94 @@ body.dark .modal-btn.link:hover {
 }
 
 
+
+
+/* Image Preview & Wake Banner Fixes */
+.img-preview {
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin: 0 12px 6px;
+  display: none !important;
+  align-items: center;
+  gap: 10px;
+}
+.img-preview.show {
+  display: flex !important;
+}
+.img-preview img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+.img-preview-info {
+  flex: 1;
+  font-size: 11.5px;
+  color: #4F46E5;
+  font-weight: 500;
+}
+.img-preview-remove {
+  background: none;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+.ria-wake {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 11.5px;
+  color: #D97706;
+  margin: 0 12px 6px;
+  display: none !important;
+  font-weight: 500;
+}
+.ria-wake.show {
+  display: block !important;
+}
+
+/* Nav & Header Overflow Fixes */
+.tab {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+.brand {
+  flex-shrink: 0 !important;
+}
+.nav {
+  flex-shrink: 0 !important;
+}
+.header-right {
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+.ria-new-chat-btn {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 4px 9px !important;
+  font-size: 11px !important;
+}
+.refresh-btn {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+.theme-toggle-btn {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+.live-pill {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
 </style>
 </head>
 <body>
@@ -2789,7 +2877,88 @@ body.dark .modal-btn.link:hover {
 
 <script>
 let API = 'https://admax-adtech-agent.onrender.com/api';
-let allNews = [];
+
+const DEFAULT_NEWS = [
+  {
+    id: "walmart-ctv-vibe-2026",
+    title: "Walmart Opens Shopper Audiences to Advertisers on Its CTV Platform, Vibe",
+    summary: "Walmart has expanded third-party CTV audience targeting through Vibe, enabling programmatic advertisers to bid with retail purchase intent data. High bid density is expected across streaming inventory.",
+    source: "ExchangeWire",
+    category: "CTV / OTT",
+    importance: "critical",
+    confidence: 94,
+    created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+    url: "https://www.exchangewire.com"
+  },
+  {
+    id: "realgm-opti-digital-yield",
+    title: "RealGM Increases Programmatic Revenue by 27% with Opti Digital",
+    summary: "Sports media platform RealGM deployed dynamic floor pricing and automated bidder timeout management, driving a +27% RPM lift across display and outstream video units.",
+    source: "ExchangeWire",
+    category: "Yield & Optimization",
+    importance: "high",
+    confidence: 92,
+    created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+    url: "https://www.exchangewire.com"
+  },
+  {
+    id: "prebid-core-v8-release",
+    title: "Prebid.js Releases Core Engine Update with Enhanced Identity & Adapter Speed",
+    summary: "Prebid Core v8.x update optimizes auction execution speed, fixes Rubicon and PubMatic adapter memory leaks, and delivers native support for UID2 and ID5 identity modules.",
+    source: "Prebid.org",
+    category: "Header Bidding",
+    importance: "critical",
+    confidence: 98,
+    created_at: new Date(Date.now() - 3600000 * 7).toISOString(),
+    url: "https://prebid.org"
+  },
+  {
+    id: "adnami-express-supply-agents",
+    title: "Adnami Makes Attention-Optimised Supply Accessible with Express Supply Agents",
+    summary: "High-impact format specialist Adnami has deployed automated supply agents that dynamically adjust floor prices based on real-time viewability and user attention metrics.",
+    source: "AdExchanger",
+    category: "Attention & Formats",
+    importance: "high",
+    confidence: 88,
+    created_at: new Date(Date.now() - 3600000 * 10).toISOString(),
+    url: "https://www.adexchanger.com"
+  },
+  {
+    id: "gam-latency-timeout-rules",
+    title: "Google Ad Manager Implements Stricter Latency Thresholds for Open Bidding Partners",
+    summary: "Google Ad Manager has begun enforcing a 1000ms hard timeout on third-party SSP server connections. Publishers are advised to audit partner connection latency to avoid unfilled impressions.",
+    source: "Google Ads Blog",
+    category: "Latency & Infrastructure",
+    importance: "critical",
+    confidence: 96,
+    created_at: new Date(Date.now() - 3600000 * 14).toISOString(),
+    url: "https://blog.google/products/ads-commerce/"
+  },
+  {
+    id: "stagwell-freestar-acquisition",
+    title: "Stagwell Acquires Publisher Monetization Network Freestar",
+    summary: "Holding company Stagwell expands sell-side capabilities with Freestar acquisition, creating streamlined Supply Path Optimization (SPO) conduits for agency brand budgets.",
+    source: "Adweek",
+    category: "Industry & SPO",
+    importance: "medium",
+    confidence: 89,
+    created_at: new Date(Date.now() - 3600000 * 18).toISOString(),
+    url: "https://www.adweek.com"
+  },
+  {
+    id: "iab-tech-lab-adstxt-ai",
+    title: "IAB Tech Lab Updates Ads.txt & Sellers.json Specification for AI Crawlers",
+    summary: "New IAB guidance introduces directives to govern scraper bot access and mandate verified direct seat declarations for programmatic audio and connected television.",
+    source: "IAB Tech Lab",
+    category: "Compliance & Standards",
+    importance: "high",
+    confidence: 97,
+    created_at: new Date(Date.now() - 3600000 * 22).toISOString(),
+    url: "https://iabtechlab.com"
+  }
+];
+
+let allNews = [...DEFAULT_NEWS];
 let bookmarks = JSON.parse(localStorage.getItem('admax_bookmarks') || '[]');
 let riaHistory = [];
 const urlParams = new URLSearchParams(window.location.search);
@@ -3055,16 +3224,34 @@ function startNewChat() {
   }
 }
 
-// ===== THEME TOGGLE =====
+
+// ===== THEME TOGGLE & SYNC =====
 function toggleTheme() {
   document.body.classList.toggle('dark');
   const isDark = document.body.classList.contains('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  updateThemeButton(isDark);
 }
 
-if (localStorage.getItem('theme') === 'light') {
-  document.body.classList.remove('dark');
-} else {
+function updateThemeButton(isDark) {
+  const btn = document.getElementById('themeToggleBtn');
+  if (btn) {
+    btn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
+  }
+}
+
+// Initial theme check
+(function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const isDark = saved !== 'light';
+  if (isDark) {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
+  updateThemeButton(isDark);
+})();
+ else {
   document.body.classList.add('dark');
 }
 
@@ -3084,14 +3271,20 @@ async function detectAPI() {
 }
 
 async function init() {
+  // 1. Immediately render default AdTech intelligence (0 latency!)
+  updateAll(allNews);
+
+  // 2. Detect local vs hosted API
   await detectAPI();
   restoreRiaSession();
+
+  // 3. Background fetch live news from backend
   loadNews();
   setInterval(loadNews, 300000);
   
   // Set up initial tools tab views
-  updatePrebidParams();
-  updateYieldCalc();
+  if (typeof updatePrebidParams === 'function') updatePrebidParams();
+  if (typeof updateYieldCalc === 'function') updateYieldCalc();
 }
 setTimeout(init, 100);
 
